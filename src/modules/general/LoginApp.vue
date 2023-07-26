@@ -1,7 +1,13 @@
 <template>
     <v-app>
         <HeaderNav></HeaderNav>
-        
+
+        <div class="mt-16" align="center">
+            <v-card color="#da9f68" dark width="50%">
+                <v-card-text></v-card-text>
+            </v-card>
+        </div>
+
     </v-app>
 </template>
   
@@ -22,6 +28,4 @@ export default {
 };
 </script>
   
-<style scoped>
-
-</style>
+<style scoped></style>
