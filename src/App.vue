@@ -20,6 +20,10 @@ export default {
 </script>
 
 <style>
+* {
+    font-family: 'Lucida Sans', Geneva, sans-serif;
+}
+
 #app {
     background-image: url(./assets/fondo.jpeg);
     background-position: center;

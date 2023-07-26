@@ -17,6 +17,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')
     },
     {
+        path: '/registro-comprador',
+        name: 'RegistroComprador',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/RegistroComprador.vue')
+    },
+    {
         path: '**',
         name: '',
         component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')

@@ -29,7 +29,7 @@
                         Registrarse
                     </button>
                     <div class="dropdown-content">
-                        <a>Como usuario</a>
+                        <a href="/registro-comprador">Como usuario</a>
                         <a>Como vendedor</a>
                     </div>
                 </div>
@@ -55,6 +55,7 @@ export default {
     data: () => ({
     }),
     methods: {
+        
     }
 };
 </script>
