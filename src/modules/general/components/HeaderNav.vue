@@ -1,7 +1,7 @@
 <template>
     <div>
         <header>
-            <img src="./assets/logoCoffee.png" alt="logo" class="logo">
+            <img src="../assets/logoCoffee.png" alt="logo" class="logo">
         </header>
 
         <nav>
