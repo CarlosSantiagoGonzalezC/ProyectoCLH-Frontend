@@ -8,8 +8,23 @@ const routes = [
 
     {
         path: '/',
-        name: 'LoginApp',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')
+        name: 'InicioApp',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/general/InicioApp.vue')
+    },
+    {
+        path: '/inicio',
+        name: 'InicioApp',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/general/InicioApp.vue')
+    },
+    {
+        path: '/inicio-vendedor',
+        name: 'InicioVendedor',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/InicioVendedor.vue')
+    },
+    {
+        path: '/inicio-comprador',
+        name: 'InicioComprador',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/InicioComprador.vue')
     },
     {
         path: '/login',

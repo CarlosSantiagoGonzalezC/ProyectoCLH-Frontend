@@ -6,7 +6,7 @@
 
         <nav>
             <div class="navegacion">
-                <a class="select">
+                <a class="select" href="/inicio">
                     <v-icon>mdi-home</v-icon> Inicio
                 </a>
                 <a>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <a>
+                <a href="/login">
                     <button>
                         Ingresar
                     </button>
