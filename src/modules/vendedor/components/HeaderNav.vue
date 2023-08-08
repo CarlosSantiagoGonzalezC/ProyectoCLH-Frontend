@@ -6,57 +6,94 @@
 
         <nav>
             <div class="navegacion">
-                <a class="select">
+                <a class="select" href="/inicio-vendedor">
                     <v-icon>mdi-home</v-icon> Inicio
                 </a>
-                <a>
+                <a href="/agregar-producto">
                     <v-icon>mdi-plus-circle</v-icon> Agregar
                 </a>
-                <a>
+                <a href="/modificar-producto">
                     <v-icon>mdi-pencil-circle</v-icon> Modificar
                 </a>
-                <a>
+                <a href="/desactivar-producto">
                     <v-icon>mdi-minus-circle-multiple</v-icon> Desactivar
                 </a>
                 <a>
                     <v-icon>mdi-help-circle</v-icon> Ayuda
                 </a>
             </div>
-        <div class="opcVendedor">
+            <div class="opcVendedor">
+                <!-- <div class="dropdown">
 
-            <div class="dropdown">
-                <button class="drop-btn">
-                    <v-icon>mdi-account-circle</v-icon>
-                </button>
-                <div class="dropdown-content">
-                    <div class="user-foto">
-                        <img src="" alt="">
-                    </div>
-                    <div class="options">
-                        <button>
-                            <v-icon>mdi-cogs</v-icon>
-                            Ajustes
-                        </button>
-                        <a href="/inicio">
+                    <v-speed-dial v-model="fab" transition="scale" direction="bottom">
+                        <template v-slot:activator>
+                            <v-btn v-model="fab" color="#80562f" fab class="drop-btn">
+                                <v-icon>
+                                    mdi-account-circle
+                                </v-icon>
+                            </v-btn>
+                        </template>
+                        <v-card class="dropdown-content">
+                            <div class="user-foto">
+                                <img src="" alt="">
+                            </div>
+                            <div class="options">
+                                <button>
+                                    <v-icon>mdi-cogs</v-icon>
+                                    Ajustes
+                                </button>
+                                <a href="/inicio">
+                                    <button>
+                                        <v-icon aria-hidden="true">mdi-logout</v-icon>
+                                        Salir
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="divisas">
+                                <img src="" alt="divisas">
+                                <button>
+                                    <v-icon aria-hidden="true">mdi-history</v-icon>
+                                    Historial
+                                </button>
+                            </div>
+                        </v-card>
+                    </v-speed-dial>
+                </div> -->
+
+                <div class="dropdown">
+                    
+                    <button class="drop-btn">
+                        <v-icon>mdi-account-circle</v-icon>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="user-foto">
+                            <img src="" alt="">
+                        </div>
+                        <div class="options">
                             <button>
-                                <v-icon aria-hidden="true">mdi-logout</v-icon>
-                                Salir
+                                <v-icon>mdi-cogs</v-icon>
+                                Ajustes
                             </button>
-                        </a>
-                    </div>
-                    <div class="divisas">
-                        <img src="" alt="divisas">
-                        <button>
-                            <v-icon aria-hidden="true">mdi-history</v-icon>
-                            Historial
-                        </button>
+                            <a href="/inicio">
+                                <button>
+                                    <v-icon aria-hidden="true">mdi-logout</v-icon>
+                                    Salir
+                                </button>
+                            </a>
+                        </div>
+                        <div class="divisas">
+                            <img src="" alt="divisas">
+                            <button>
+                                <v-icon aria-hidden="true">mdi-history</v-icon>
+                                Historial
+                            </button>
+                        </div>
                     </div>
                 </div>
+
+                <a href="" id="btnFinca"><v-icon>mdi-home-silo</v-icon></a>
+
             </div>
-
-            <a href="" id="btnFinca"><v-icon>mdi-home-silo</v-icon></a>
-
-        </div>
         </nav>
     </div>
 </template>
@@ -174,5 +211,13 @@ button:hover,
 
 .dropdown:hover .drop-btn {
     background-color: #9b7c5f;
+}
+
+#create .v-speed-dial {
+    position: absolute;
+}
+
+#create .v-btn--floating {
+    position: relative;
 }
 </style>

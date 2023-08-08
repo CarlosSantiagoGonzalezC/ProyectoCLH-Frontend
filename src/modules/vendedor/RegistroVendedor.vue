@@ -5,9 +5,9 @@
         <div class="mt-16 content-full" align="center">
             <v-card color="#da9f68" dark width="50%" elevation="24" class="pl-16 pr-16">
                 <v-card-text>
-                    <h1>REGISTRO USUARIO</h1>
+                    <h1>REGISTRO VENDEDOR</h1>
                     <div id="logoForm">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-user-circle"></i>
                     </div>
                     <form class="mt-7">
                         <v-row>
@@ -22,6 +22,22 @@
                             <v-col class="col-6">
                                 <v-text-field filled label="Correo eletronico" type="email" :rules="[rules.required]"
                                 prepend-inner-icon="mdi-at"></v-text-field>
+                            </v-col>
+                            <v-col class="col-6">
+                                <v-text-field filled label="Dirección" :rules="[rules.required]"
+                                prepend-inner-icon="mdi-map-marker"></v-text-field>
+                            </v-col>
+                            <v-col class="col-6">
+                                <v-text-field filled label="Nombre de finca/empresa" :rules="[rules.required]"
+                                prepend-inner-icon="mdi-home-silo"></v-text-field>
+                            </v-col>
+                            <v-col class="col-6">
+                                <v-file-input filled label="Permiso de vendedor" :rules="[rules.required]"
+                                prepend-inner-icon="mdi-file-document" prepend-icon=""></v-file-input>
+                            </v-col>
+                            <v-col class="col-6">
+                                <v-text-field filled label="Numero de contacto" type="number" :rules="[rules.required]"
+                                prepend-inner-icon="mdi-cellphone"></v-text-field>
                             </v-col>
                             <v-col class="col-6">
                                 <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -63,7 +79,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import VueRecaptcha from 'vue-recaptcha';
 
 export default {
-    name: 'RegistroComprador',
+    name: 'RegistroVendedor',
 
     components: {
         HeaderNav,

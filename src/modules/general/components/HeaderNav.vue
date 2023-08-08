@@ -30,7 +30,7 @@
                     </button>
                     <div class="dropdown-content">
                         <a href="/registro-comprador">Como usuario</a>
-                        <a>Como vendedor</a>
+                        <a href="/registro-vendedor">Como vendedor</a>
                     </div>
                 </div>
 

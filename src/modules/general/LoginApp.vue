@@ -17,7 +17,7 @@
                             :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
                             label="Contraseña" hint="Minimo 5 caracteres" class="input-group--focused ml-16 mr-16"
                             @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"></v-text-field>
-                            <vue-recaptcha sitekey="6LdexlcnAAAAAAbOQ2nCABf0s3Tf8UCq7GGI2Afx"></vue-recaptcha>
+                        <VueRecaptcha sitekey="6LdexlcnAAAAAAbOQ2nCABf0s3Tf8UCq7GGI2Afx" class="mb-3"></VueRecaptcha>
                         <v-btn class="mr-4 rounded-pill" color="#331b05">
                             Iniciar sesión
                         </v-btn>
@@ -37,7 +37,8 @@
 <script>
 import HeaderNav from './components/HeaderNav.vue';
 import FooterApp from './components/FooterApp.vue';
-import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/css/all.css';
+import VueRecaptcha from 'vue-recaptcha';
 
 export default {
     name: 'LoginApp',
@@ -45,6 +46,7 @@ export default {
     components: {
         HeaderNav,
         FooterApp,
+        VueRecaptcha
     },
 
     data: () => ({
@@ -59,7 +61,13 @@ export default {
         },
     }),
     methods: {
+    },
+    head: {
+        script: [
+            { src: 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit', async: true, body: true },
+        ],
     }
+
 };
 </script>
   
@@ -73,7 +81,7 @@ export default {
     color: #331b05;
 }
 
-.content-full{
+.content-full {
     min-height: 60vh;
 }
 </style>
