@@ -88,7 +88,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-
+        
         <FooterApp></FooterApp>
 
     </v-app>

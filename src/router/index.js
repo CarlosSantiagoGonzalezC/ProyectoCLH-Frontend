@@ -57,6 +57,16 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/DesactivarProducto.vue')
     },
     {
+        path: '/finca-empresa',
+        name: 'EmpresaVendedor',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/EmpresaVendedor.vue')
+    },
+    {
+        path: '/info-empresa',
+        name: 'InfoEmpresa',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/InfoEmpresa.vue')
+    },
+    {
         path: '*',
         name: '',
         component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')

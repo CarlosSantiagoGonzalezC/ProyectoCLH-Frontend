@@ -91,7 +91,7 @@
                     </div>
                 </div>
 
-                <a href="" id="btnFinca"><v-icon>mdi-home-silo</v-icon></a>
+                <a href="/finca-empresa" id="btnFinca"><v-icon>mdi-home-silo</v-icon></a>
 
             </div>
         </nav>

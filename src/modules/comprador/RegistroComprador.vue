@@ -13,34 +13,33 @@
                         <v-row>
                             <v-col class="col-6">
                                 <v-text-field filled label="Nombres" :rules="[rules.required]"
-                                prepend-inner-icon="mdi-card-account-details"></v-text-field>
+                                    prepend-inner-icon="mdi-card-account-details" v-model="txtNombre"></v-text-field>
                             </v-col>
                             <v-col class="col-6">
                                 <v-text-field filled label="Apellidos" :rules="[rules.required]"
-                                prepend-inner-icon="mdi-card-account-details-outline"></v-text-field>
+                                    prepend-inner-icon="mdi-card-account-details-outline"
+                                    v-model="txtApellido"></v-text-field>
                             </v-col>
                             <v-col class="col-6">
                                 <v-text-field filled label="Correo eletronico" type="email" :rules="[rules.required]"
-                                prepend-inner-icon="mdi-at"></v-text-field>
+                                    prepend-inner-icon="mdi-at" v-model="txtCorreo"></v-text-field>
                             </v-col>
                             <v-col class="col-6">
                                 <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                                :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                                label="Contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
-                                @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"></v-text-field>
+                                    :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'"
+                                    name="input-10-2" label="Contraseña" hint="Minimo 5 caracteres"
+                                    class="input-group--focused" @click:append="show3 = !show3"
+                                    prepend-inner-icon="mdi-lock" v-model="txtPassword"></v-text-field>
                             </v-col>
                             <v-col class="col-6">
                                 <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                                :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                                label="Confirmar contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
-                                @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"></v-text-field>
-                            </v-col>
-                            <v-col class="col-6">
-                                <VueRecaptcha sitekey="6LdexlcnAAAAAAbOQ2nCABf0s3Tf8UCq7GGI2Afx" class="mb-3 ">
-                                </VueRecaptcha>
+                                    :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'"
+                                    name="input-10-2" label="Confirmar contraseña" hint="Minimo 5 caracteres"
+                                    class="input-group--focused" @click:append="show3 = !show3"
+                                    prepend-inner-icon="mdi-lock" v-model="txtConfirPassword"></v-text-field>
                             </v-col>
                         </v-row>
-                        <v-btn class="mr-4 rounded-pill" color="#331b05">
+                        <v-btn class="mr-4 rounded-pill" color="#331b05" @click="registrarComprador()">
                             Registrarse
                         </v-btn>
                         <v-btn color="#331b05" class="rounded-pill">
@@ -60,7 +59,8 @@
 import HeaderNav from '../general/components/HeaderNav.vue';
 import FooterApp from '../general/components/FooterApp.vue';
 import '@fortawesome/fontawesome-free/css/all.css'
-import VueRecaptcha from 'vue-recaptcha';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
     name: 'RegistroComprador',
@@ -68,7 +68,6 @@ export default {
     components: {
         HeaderNav,
         FooterApp,
-        VueRecaptcha
     },
 
     data: () => ({
@@ -81,14 +80,50 @@ export default {
             required: value => !!value || 'Campo requerido.',
             min: v => v.length >= 5 || 'Minimo 5 caracteres',
         },
+        url: "http://127.0.0.1:8000/api",
+        txtNombre: "",
+        txtApellido: "",
+        txtCorreo: "",
+        txtPassword: "",
+        txtConfirPassword: "",
     }),
     methods: {
+        async registrarComprador() {
+            if (this.txtPassword == this.txtConfirPassword) {
+
+                axios
+                    .post(this.url + "/user/create", {
+                        useNombres: this.txtNombre,
+                        useApellidos: this.txtApellido,
+                        useCorreo: this.txtCorreo,
+                        usePassword: this.txtPassword,
+                        useRol: "Comprador"
+                    })
+                    .then(function (response) {
+                        console.log(response);
+                        Swal.fire(
+                            '¡Usuario registrado!',
+                            'Se ha registrado el usuario correctamente',
+                            'success'
+                        )
+                        setTimeout(function () {
+                            location.href = "/login";
+                        }, 3000);
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            } else {
+                Swal.fire(
+                    '¡Las contraseñas no coinciden!',
+                    'La confirmacion de contraseña no es correcta',
+                    'error'
+                )
+            }
+
+        },
     },
-    head: {
-        script: [
-            { src: 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit', async: true, body: true },
-        ],
-    }
 };
 </script>
   
