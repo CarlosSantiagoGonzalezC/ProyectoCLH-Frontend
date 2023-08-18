@@ -9,7 +9,7 @@
                 <a class="select">
                     <v-icon>mdi-home</v-icon> Inicio
                 </a>
-                <a>
+                <a href="/productos">
                     <v-icon>mdi-coffee</v-icon> Productos
                 </a>
                 <a>
