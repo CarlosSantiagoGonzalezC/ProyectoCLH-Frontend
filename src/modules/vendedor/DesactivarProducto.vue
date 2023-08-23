@@ -18,17 +18,18 @@
                             <template v-slot:item="row">
                                 <tr>
                                     <td>{{ row.item.id }}</td>
-                                    <td>{{ row.item.codigo }}</td>
-                                    <td>{{ row.item.nombre }}</td>
-                                    <td>{{ row.item.descripcion }}</td>
-                                    <td>{{ row.item.cantDisponible }}</td>
-                                    <td>{{ row.item.precio }}</td>
+                                    <td>{{ row.item.proCodigo }}</td>
+                                    <td>{{ row.item.proNombre }}</td>
+                                    <td>{{ row.item.proDescripcion }}</td>
+                                    <td>{{ row.item.proCantDisponible }}</td>
+                                    <td>COP {{ row.item.proPrecio }}</td>
                                     <td>
                                         <v-img lazy-src="https://picsum.photos/id/11/10/6" max-height="100" max-width="100"
-                                            :src="row.item.imagen" class="ma-2 rounded-pill"></v-img>
+                                            :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
                                     </td>
                                     <td>
-                                        <v-btn class="mx-2" fab dark small color="#925419" @click="dialog = true"><v-icon
+                                        <v-btn class="mx-2" fab dark small color="#925419"
+                                            @click="dialog = true; obtenerId(row.item.id)"><v-icon
                                                 dark>mdi-minus-box</v-icon></v-btn>
                                     </td>
                                 </tr>
@@ -52,7 +53,7 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn class="rounded-pill text-white" color="#925419">
+                    <v-btn class="rounded-pill text-white" color="#925419" @click="desactivarProducto()">
                         Desactivar
                     </v-btn>
                     <v-btn color="#925419" class="rounded-pill" @click="dialog = false">
@@ -71,7 +72,11 @@
 <script>
 import HeaderNav from './components/HeaderNav.vue';
 import FooterApp from '../general/components/FooterApp.vue';
-import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/css/all.css';
+//import store from '../store/store';
+import tiendaService from '@/services/tiendaService';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
     name: 'DesactivarProducto',
@@ -102,29 +107,59 @@ export default {
             { text: 'Imagen', value: 'imagen' },
             { text: 'Modificar', value: 'modificar' },
         ],
-        desserts: [
-            {
-                id: 1,
-                codigo: 2365,
-                nombre: "Café de mi tia",
-                descripcion: "El mejor cafe",
-                cantDisponible: 5,
-                precio: 65000,
-                imagen: "https://picsum.photos/id/11/500/300",
-            },
-            {
-                id: 2,
-                codigo: 569,
-                nombre: "Café de mi mamá",
-                descripcion: "El mejor cafe por encima del de mi tia",
-                cantDisponible: 8,
-                precio: 75000,
-                imagen: "https://picsum.photos/id/11/500/300",
-            },
-        ],
+        desserts: [],
         dialog: false,
+        productos: null,
+        idProducto: "",
+        url: "http://127.0.0.1:8000/api",
     }),
     methods: {
+        async obtenerProductos() {
+            let products = await tiendaService.getProductsSeller(localStorage.idUsuario);
+            this.productos = products.data;
+            this.productos.forEach(element => {
+                this.desserts.push(element);
+            });
+            console.log(this.desserts);
+
+        },
+
+        async desactivarProducto() {
+            axios
+                .delete(this.url + "/product/delete", {
+                    data: {id: this.idProducto}
+                })
+                .then(function (response) {
+                    console.log(response);
+                    if (response.data.result.error_id == 400) {
+                        Swal.fire(
+                            '¡Error al desactivar!',
+                            'Ha ocurrido un error al desactivar el producto',
+                            'error'
+                        )
+
+                    } else {
+                        Swal.fire(
+                            '¡Producto desactivado!',
+                            'Se ha desactivado el producto correctamente',
+                            'success'
+                        )
+                        setTimeout(function () {
+                            location.href = "/modificar-producto";
+                        }, 3000);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+
+        obtenerId(id) {
+            this.idProducto = id;
+        }
+    },
+    mounted() {
+        this.obtenerProductos()
     },
 };
 </script>

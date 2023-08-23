@@ -82,6 +82,8 @@ export default {
                             'error'
                         )
                     } else {
+                        let idUsuario = response.data.result.id;
+                        localStorage.idUsuario = idUsuario;
                         if (response.data.result.rol == "Vendedor") {
                             location.href = "/inicio-vendedor"
                         } else {
