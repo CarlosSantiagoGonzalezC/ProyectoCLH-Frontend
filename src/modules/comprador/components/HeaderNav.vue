@@ -1,7 +1,7 @@
 <template>
     <div>
         <header>
-            <img src="./assets/logoCoffee.png" alt="logo" class="logo">
+            <img src="../assets/logoCoffee.png" alt="logo" class="logo">
         </header>
 
         <nav>
@@ -9,8 +9,14 @@
                 <a class="select">
                     <v-icon>mdi-home</v-icon> Inicio
                 </a>
-                <a>
+                <a href="/productos">
                     <v-icon>mdi-coffee</v-icon> Productos
+                </a>
+                <a>
+                    <v-icon>mdi-list-box</v-icon> Categorias
+                </a>
+                <a>
+                    <v-icon>mdi-tag</v-icon> Ofertas
                 </a>
                 <a>
                     <v-icon>mdi-star-circle</v-icon> Destacados
@@ -21,25 +27,34 @@
                 <a>
                     <v-icon>mdi-help-circle</v-icon> Ayuda
                 </a>
-            </div>
-            <div class="login">
-
-                <div class="dropdown">
-                    <button class="drop-btn">
-                        Registrarse
-                    </button>
-                    <div class="dropdown-content">
-                        <a>Como usuario</a>
-                        <a>Como vendedor</a>
+		</div>
+            <div class="opcUser">
+            <a href="">
+                <button>
+                    <v-icon>mdi-cart</v-icon>
+                </button>
+            </a>
+            <div class="dropdown">
+                <button class="drop-btn">
+                    <v-icon>mdi-account-circle</v-icon>
+                </button>
+                <div class="dropdown-content">
+                    <div>
+                        <img src="" class="user-foto">
+                    </div>
+                    <div class="options">
+                        <button>
+                            <v-icon>mdi-cogs</v-icon>
+                            Ajustes
+                        </button>
+                        <button>
+                            <v-icon>mdi-logout</v-icon>
+                            Salir
+                        </button>
                     </div>
                 </div>
-
-                <a>
-                    <button>
-                        Ingresar
-                    </button>
-                </a>
             </div>
+        </div>
         </nav>
     </div>
 </template>
@@ -112,12 +127,12 @@ nav {
 /** botones */
 
 button,
-#btnIngresar {
+#btnFinca {
     text-decoration: none;
     margin-right: 10px;
     background-color: #80562f;
     color: white;
-    padding: 5px 40px;
+    padding: 8px 40px;
     border: none;
     border-radius: 18px;
     cursor: pointer;
@@ -125,7 +140,7 @@ button,
 }
 
 button:hover,
-#btnIngresar:hover {
+#btnFinca:hover {
     background-color: #9b7c5f;
 }
 
@@ -137,6 +152,7 @@ button:hover,
 
 .dropdown-content {
     display: flex;
+    padding: 5px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -144,24 +160,10 @@ button:hover,
     visibility: hidden;
     transform: translate(-80px, 0px);
     background-color: #f1f1f1;
-    min-width: 300px;
-    height: 100px;
+    min-width: 280px;
+    min-height: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    width: 100%;
-    text-align: center;
-    padding: 16px 0px;
-    text-decoration: none;
-    display: block;
-    font-size: 17px;
-}
-
-.dropdown-content a:hover {
-    background-color: #ddd;
 }
 
 .dropdown:hover .dropdown-content {

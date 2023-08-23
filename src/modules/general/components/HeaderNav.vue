@@ -1,12 +1,12 @@
 <template>
     <div>
         <header>
-            <img src="./assets/logoCoffee.png" alt="logo" class="logo">
+            <img src="../assets/logoCoffee.png" alt="logo" class="logo">
         </header>
 
         <nav>
             <div class="navegacion">
-                <a class="select">
+                <a class="select" href="/inicio">
                     <v-icon>mdi-home</v-icon> Inicio
                 </a>
                 <a>
@@ -29,12 +29,12 @@
                         Registrarse
                     </button>
                     <div class="dropdown-content">
-                        <a>Como usuario</a>
-                        <a>Como vendedor</a>
+                        <a href="/registro-comprador">Como usuario</a>
+                        <a href="/registro-vendedor">Como vendedor</a>
                     </div>
                 </div>
 
-                <a>
+                <a href="/login">
                     <button>
                         Ingresar
                     </button>
@@ -55,6 +55,7 @@ export default {
     data: () => ({
     }),
     methods: {
+        
     }
 };
 </script>
