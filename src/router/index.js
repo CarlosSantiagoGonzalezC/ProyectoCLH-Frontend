@@ -72,6 +72,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/ProductosApp.vue')
     },
     {
+        path: '/producto',
+        name: 'verProducto',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/VerProducto.vue')
+    },
+    {
         path: '*',
         name: '',
         component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')
