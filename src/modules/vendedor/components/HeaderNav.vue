@@ -125,7 +125,7 @@ export default {
 /** encabezado */
 header {
     text-align: center;
-    background: #e7e7e7;
+    background: #ece8e5;
 }
 
 .logo {

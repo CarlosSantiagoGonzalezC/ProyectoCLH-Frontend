@@ -10,11 +10,11 @@
                         <i class="fa fa-edit"></i>
                     </div>
                     <v-card class="mt-7 mb-5">
-                        <v-card-title>
+                        <v-card-title class="tabla">
                             <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line
                                 hide-details></v-text-field>
                         </v-card-title>
-                        <v-data-table :headers="headers" :items="desserts" :search="search">
+                        <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla">
                             <template v-slot:item="row">
                                 <tr>
                                     <td>{{ row.item.id }}</td>
@@ -241,5 +241,9 @@ export default {
 
 .content-full {
     min-height: 60vh;
+}
+
+.tabla {
+    background: #7b5028;
 }
 </style>
