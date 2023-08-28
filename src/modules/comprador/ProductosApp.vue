@@ -7,14 +7,14 @@
                 <v-card-text>
                     <h1>PRODUCTOS</h1>
                     <v-row>
-                        <v-card :loading="loading" class="producto mx-auto my-12" max-width="374">
+                        <v-card :loading="loading" class="producto mx-auto my-12" max-width="374"
+                            v-for="producto in productos" :key="producto.id">
                             <template slot="progress">
                                 <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                             </template>
 
                             <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-                            <v-card-title>Cafe Badilico</v-card-title>
+                            <v-card-title>{{ producto.proNombre }}</v-card-title>
 
                             <v-card-text>
                                 <v-row align="center" class="mx-0">
@@ -22,372 +22,33 @@
                                         size="14"></v-rating>
 
                                     <div class="grey--text ms-4">
-                                        4.5 (413)
+                                        4.5
                                     </div>
                                 </v-row>
 
-                                <div class="my-4 text-subtitle-1">
-                                    $ • 5000 COP
+                                <div class="my-4 text-subtitle-1 text-left">
+                                    $ • {{ producto.proPrecio }} COP
                                 </div>
 
-                                <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio
-                                    seating.
+                                <div>{{ producto.proDescripcion }}
                                 </div>
                             </v-card-text>
 
                             <v-divider class="mx-4"></v-divider>
 
                             <v-card-title>Cantidad disponible</v-card-title>
-
-                            <v-card-text>
-                                <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-                                    <v-chip>250 Gr</v-chip>
-
-                                    <v-chip>500 Gr</v-chip>
-
-                                    <v-chip>1000 Gr</v-chip>
-                                </v-chip-group>
+                            <v-card-text class="text-left">
+                                <v-chip>{{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ?
+                                    'disponibles' : 'disponible' }}</v-chip>
                             </v-card-text>
 
                             <v-card-actions>
-                                <v-btn color="deep-purple lighten-2" text @click="reserve">
-                                    Reserve
+                                <v-btn color="#331b05" class="rounded-pill">
+                                    <v-icon>mdi-cart-plus</v-icon>
                                 </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                        <v-card :loading="loading" class="producto mx-auto my-12" max-width="374">
-                            <template slot="progress">
-                                <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
-                            </template>
-
-                            <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-                            <v-card-title>Cafe Badilico</v-card-title>
-
-                            <v-card-text>
-                                <v-row align="center" class="mx-0">
-                                    <v-rating :value="4.5" color="amber" dense half-increments readonly
-                                        size="14"></v-rating>
-
-                                    <div class="grey--text ms-4">
-                                        4.5 (413)
-                                    </div>
-                                </v-row>
-
-                                <div class="my-4 text-subtitle-1">
-                                    $ • Italian, Cafe
-                                </div>
-
-                                <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio
-                                    seating.
-                                </div>
-                            </v-card-text>
-
-                            <v-divider class="mx-4"></v-divider>
-
-                            <v-card-title>Cantidad disponible</v-card-title>
-
-                            <v-card-text>
-                                <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-                                    <v-chip>250 Gr</v-chip>
-
-                                    <v-chip>500 Gr</v-chip>
-
-                                    <v-chip>1000 Gr</v-chip>
-                                </v-chip-group>
-                            </v-card-text>
-
-                            <v-card-actions>
-                                <v-btn color="deep-purple lighten-2" text @click="reserve">
-                                    Reserve
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                        <v-card :loading="loading" class="producto mx-auto my-12" max-width="374">
-                            <template slot="progress">
-                                <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
-                            </template>
-
-                            <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-                            <v-card-title>Cafe Badilico</v-card-title>
-
-                            <v-card-text>
-                                <v-row align="center" class="mx-0">
-                                    <v-rating :value="4.5" color="amber" dense half-increments readonly
-                                        size="14"></v-rating>
-
-                                    <div class="grey--text ms-4">
-                                        4.5 (413)
-                                    </div>
-                                </v-row>
-
-                                <div class="my-4 text-subtitle-1">
-                                    $ • Italian, Cafe
-                                </div>
-
-                                <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio
-                                    seating.
-                                </div>
-                            </v-card-text>
-
-                            <v-divider class="mx-4"></v-divider>
-
-                            <v-card-title>Cantidad disponible</v-card-title>
-
-                            <v-card-text>
-                                <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-                                    <v-chip>250 Gr</v-chip>
-
-                                    <v-chip>500 Gr</v-chip>
-
-                                    <v-chip>1000 Gr</v-chip>
-                                </v-chip-group>
-                            </v-card-text>
-
-                            <v-card-actions>
-                                <v-btn color="deep-purple lighten-2" text @click="reserve">
-                                    Reserve
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                        <v-card :loading="loading" class="producto mx-auto my-12" max-width="374">
-                            <template slot="progress">
-                                <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
-                            </template>
-
-                            <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-                            <v-card-title>Cafe Badilico</v-card-title>
-
-                            <v-card-text>
-                                <v-row align="center" class="mx-0">
-                                    <v-rating :value="4.5" color="amber" dense half-increments readonly
-                                        size="14"></v-rating>
-
-                                    <div class="grey--text ms-4">
-                                        4.5 (413)
-                                    </div>
-                                </v-row>
-
-                                <div class="my-4 text-subtitle-1">
-                                    $ • Italian, Cafe
-                                </div>
-
-                                <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio
-                                    seating.
-                                </div>
-                            </v-card-text>
-
-                            <v-divider class="mx-4"></v-divider>
-
-                            <v-card-title>Cantidad disponible</v-card-title>
-
-                            <v-card-text>
-                                <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-                                    <v-chip>250 Gr</v-chip>
-
-                                    <v-chip>500 Gr</v-chip>
-
-                                    <v-chip>1000 Gr</v-chip>
-                                </v-chip-group>
-                            </v-card-text>
-
-                            <v-card-actions>
-                                <v-btn color="deep-purple lighten-2" text @click="reserve">
-                                    Reserve
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                        <v-card :loading="loading" class="producto mx-auto my-12" max-width="374">
-                            <template slot="progress">
-                                <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
-                            </template>
-
-                            <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-                            <v-card-title>Cafe Badilico</v-card-title>
-
-                            <v-card-text>
-                                <v-row align="center" class="mx-0">
-                                    <v-rating :value="4.5" color="amber" dense half-increments readonly
-                                        size="14"></v-rating>
-
-                                    <div class="grey--text ms-4">
-                                        4.5 (413)
-                                    </div>
-                                </v-row>
-
-                                <div class="my-4 text-subtitle-1">
-                                    $ • Italian, Cafe
-                                </div>
-
-                                <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio
-                                    seating.
-                                </div>
-                            </v-card-text>
-
-                            <v-divider class="mx-4"></v-divider>
-
-                            <v-card-title>Cantidad disponible</v-card-title>
-
-                            <v-card-text>
-                                <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-                                    <v-chip>250 Gr</v-chip>
-
-                                    <v-chip>500 Gr</v-chip>
-
-                                    <v-chip>1000 Gr</v-chip>
-                                </v-chip-group>
-                            </v-card-text>
-
-                            <v-card-actions>
-                                <v-btn color="deep-purple lighten-2" text @click="reserve">
-                                    Reserve
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                        <v-card :loading="loading" class="producto mx-auto my-12" max-width="374">
-                            <template slot="progress">
-                                <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
-                            </template>
-
-                            <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-                            <v-card-title>Cafe Badilico</v-card-title>
-
-                            <v-card-text>
-                                <v-row align="center" class="mx-0">
-                                    <v-rating :value="4.5" color="amber" dense half-increments readonly
-                                        size="14"></v-rating>
-
-                                    <div class="grey--text ms-4">
-                                        4.5 (413)
-                                    </div>
-                                </v-row>
-
-                                <div class="my-4 text-subtitle-1">
-                                    $ • Italian, Cafe
-                                </div>
-
-                                <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio
-                                    seating.
-                                </div>
-                            </v-card-text>
-
-                            <v-divider class="mx-4"></v-divider>
-
-                            <v-card-title>Cantidad disponible</v-card-title>
-
-                            <v-card-text>
-                                <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-                                    <v-chip>250 Gr</v-chip>
-
-                                    <v-chip>500 Gr</v-chip>
-
-                                    <v-chip>1000 Gr</v-chip>
-                                </v-chip-group>
-                            </v-card-text>
-
-                            <v-card-actions>
-                                <v-btn color="deep-purple lighten-2" text @click="reserve">
-                                    Reserve
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                        <v-card :loading="loading" class="producto mx-auto my-12" max-width="374">
-                            <template slot="progress">
-                                <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
-                            </template>
-
-                            <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-                            <v-card-title>Cafe Badilico</v-card-title>
-
-                            <v-card-text>
-                                <v-row align="center" class="mx-0">
-                                    <v-rating :value="4.5" color="amber" dense half-increments readonly
-                                        size="14"></v-rating>
-
-                                    <div class="grey--text ms-4">
-                                        4.5 (413)
-                                    </div>
-                                </v-row>
-
-                                <div class="my-4 text-subtitle-1">
-                                    $ • Italian, Cafe
-                                </div>
-
-                                <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio
-                                    seating.
-                                </div>
-                            </v-card-text>
-
-                            <v-divider class="mx-4"></v-divider>
-
-                            <v-card-title>Cantidad disponible</v-card-title>
-
-                            <v-card-text>
-                                <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-                                    <v-chip>250 Gr</v-chip>
-
-                                    <v-chip>500 Gr</v-chip>
-
-                                    <v-chip>1000 Gr</v-chip>
-                                </v-chip-group>
-                            </v-card-text>
-
-                            <v-card-actions>
-                                <v-btn color="deep-purple lighten-2" text @click="reserve">
-                                    Reserve
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                        <v-card :loading="loading" class="producto mx-auto my-12" max-width="374">
-                            <template slot="progress">
-                                <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
-                            </template>
-
-                            <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-
-                            <v-card-title>Cafe Badilico</v-card-title>
-
-                            <v-card-text>
-                                <v-row align="center" class="mx-0">
-                                    <v-rating :value="4.5" color="amber" dense half-increments readonly
-                                        size="14"></v-rating>
-
-                                    <div class="grey--text ms-4">
-                                        4.5 (413)
-                                    </div>
-                                </v-row>
-
-                                <div class="my-4 text-subtitle-1">
-                                    $ • Italian, Cafe
-                                </div>
-
-                                <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio
-                                    seating.
-                                </div>
-                            </v-card-text>
-
-                            <v-divider class="mx-4"></v-divider>
-
-                            <v-card-title>Cantidad disponible</v-card-title>
-
-                            <v-card-text>
-                                <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-                                    <v-chip>250 Gr</v-chip>
-
-                                    <v-chip>500 Gr</v-chip>
-
-                                    <v-chip>1000 Gr</v-chip>
-                                </v-chip-group>
-                            </v-card-text>
-
-                            <v-card-actions>
-                                <v-btn color="deep-purple lighten-2" text @click="reserve">
-                                    Reserve
+                                <v-btn color="#331b05" class="rounded-pill"
+                                    @click="obtnerIds(producto.id, producto.user_id)">
+                                    <v-icon>mdi-eye</v-icon>
                                 </v-btn>
                             </v-card-actions>
                         </v-card>
@@ -404,6 +65,10 @@
 <script>
 import HeaderNav from './components/HeaderNav.vue';
 import FooterApp from '../general/components/FooterApp.vue';
+//import store from '../store/store';
+import tiendaService from '@/services/tiendaService';
+// import axios from 'axios';
+// import Swal from 'sweetalert2';
 
 export default {
     name: 'ProductosApp',
@@ -414,10 +79,23 @@ export default {
     },
 
     data: () => ({
-
+        productos: null,
     }),
     methods: {
-    }
+        async obtenerProductos() {
+            let products = await tiendaService.getProducts();
+            this.productos = products.data;
+            console.log(this.productos);
+        },
+        obtnerIds(idProducto, idUsuario) {
+            localStorage.idProducto = idProducto;
+            localStorage.idUser = idUsuario;
+            this.$router.push("detalle-producto");
+        }
+    },
+    mounted() {
+        this.obtenerProductos()
+    },
 };
 </script>
   
@@ -428,5 +106,11 @@ export default {
 
 .producto {
     background: #7b5028;
+    margin: 10px;
+    transition: all 0.5s;
+}
+
+.producto:hover {
+    transform: scale(105%);
 }
 </style>

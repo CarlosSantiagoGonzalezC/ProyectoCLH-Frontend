@@ -17,15 +17,20 @@
                     </div>
                     <div class="info-producto">
                         <div class="categoria-ventas">
-                            <p>Nuevo</p>
-                            <p>10 vendidos</p>
+                            <p>Cantidad:</p>
+                            <p>{{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ? 'disponibles' :
+                                'disponible'
+                            }}</p>
                         </div>
                         <div class="title">
-                            <h2>Q.coffe Gran Reserva Luxury</h2>
+                            <h2>{{ producto.proNombre }}</h2>
                             <h2>250 Gr</h2>
                         </div>
-                        <div class="my-10">
-                            <h2>$80.000</h2>
+                        <div class="my-5">
+                            <h2>${{ producto.proPrecio }} COP</h2>
+                        </div>
+                        <div>
+                            <p class="my-5">{{ producto.proDescripcion }}</p>
                         </div>
                         <div class="envio">
                             <v-icon class="mr-5">mdi-truck</v-icon>
@@ -50,20 +55,21 @@
                 </div>
                 <div class="finca">
                     <div class="info-finca">
-                        <h1>AlmaCafé</h1>
-                        <p>AlmaCafé tuvo su origen en 1989 en Pitalito - Huila, donde por medio de un humilde productor
-                            llamado Hernesto Perez, surgio esta gran empresa productora de café especial y que desde
-                            entonces ha sido protagonista con sus ventas y productos de calidad. Con una gran finca
-                            cafetera, se hace todo el proceso de produccion para que este gran producto pueda llegar a las
-                            manos de las personas amantes del café.</p>
+                        <h1>{{ empresa.comNombre }}</h1>
+                        <p>{{ empresa.comHistoria }}</p>
+                        <p>Municipio: {{ empresa.comMunicipio }}</p>
+                        <p>Dirección: {{ empresa.comDireccion }}</p>
+
+                        <p>E-mail: {{ empresa.comCorreo }}</p>
                     </div>
                     <img src="@/assets/finca.jpg" alt="">
                 </div>
                 <div class="input-comentario">
-                    <textarea name="comentario" id="comentario" placeholder="Escribir comentario..."></textarea>
+                    <textarea name="comentario" id="comentario" placeholder="Escribir comentario..."
+                        v-model="comentario"></textarea>
                     <div class="butons-comentario">
-                        <button>Cancelar</button>
-                        <button>Comentar</button>
+                        <button @click="comentario = ''">Cancelar</button>
+                        <button @click="comentar" :disabled="!comentario">Comentar</button>
                     </div>
                 </div>
                 <div class="container-comentarios">
@@ -115,15 +121,81 @@
 <script>
 import HeaderNav from '../comprador/components/HeaderNav.vue';
 import FooterApp from '../general/components/FooterApp.vue';
-import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/css/all.css';
+//import store from '../store/store';
+import tiendaService from '@/services/tiendaService';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
-    name: "VerProducto",
+    name: "DetalleProducto",
 
     components: {
         HeaderNav,
         FooterApp,
     },
+    data: () => ({
+        producto: null,
+        idVendedor: "",
+        empresa: null,
+        comentario: "",
+        url: "http://127.0.0.1:8000/api",
+    }),
+
+    methods: {
+        async obtenerProductoId() {
+            let id = localStorage.idProducto;
+            let product = await tiendaService.getProductId(id);
+            this.producto = product.data;
+            console.log(this.producto);
+        },
+        async obtenerVendedor() {
+            let id = localStorage.idUser;
+            let vendedor = await tiendaService.getSellerUser(id);
+            this.idVendedor = vendedor.data[0].id;
+            this.obtenerEmpresa(this.idVendedor);
+        },
+        async obtenerEmpresa(id) {
+            let empresa = await tiendaService.getCompanySeller(id);
+            this.empresa = empresa.data[0];
+            console.log(this.empresa);
+        },
+        async comentar() {
+            axios
+                .post(this.url + "/comment/create", {
+                    comTexto: this.comentario,
+                    product_id: localStorage.idProducto,
+                    user_id: localStorage.idUsuario
+                })
+                .then(function (response) {
+                    console.log(response);
+                    if (response.data.result.error_id == 400) {
+                        Swal.fire(
+                            '¡Datos incorrectos!',
+                            'Datos incompletos o con formato incorrecto',
+                            'error'
+                        )
+                    } else {
+                        Swal.fire(
+                            '¡Comentario agregado!',
+                            'Se ha agregado el comentario correctamente',
+                            'success'
+                        )
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 3000);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+    },
+    mounted() {
+        this.obtenerProductoId(),
+            this.obtenerVendedor()
+    },
+
 }
 </script>
 
@@ -365,5 +437,11 @@ export default {
     width: 70px;
     height: 70px;
     border-radius: 50%;
+}
+
+button:disabled,
+button:disabled:hover {
+    background: #6186bf;
+    color: #202020;
 }
 </style>

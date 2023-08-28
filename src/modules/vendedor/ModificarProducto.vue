@@ -10,25 +10,26 @@
                         <i class="fa fa-edit"></i>
                     </div>
                     <v-card class="mt-7 mb-5">
-                        <v-card-title>
+                        <v-card-title class="tabla">
                             <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line
                                 hide-details></v-text-field>
                         </v-card-title>
-                        <v-data-table :headers="headers" :items="desserts" :search="search">
+                        <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla">
                             <template v-slot:item="row">
                                 <tr>
                                     <td>{{ row.item.id }}</td>
-                                    <td>{{ row.item.codigo }}</td>
-                                    <td>{{ row.item.nombre }}</td>
-                                    <td>{{ row.item.descripcion }}</td>
-                                    <td>{{ row.item.cantDisponible }}</td>
-                                    <td>{{ row.item.precio }}</td>
+                                    <td>{{ row.item.proCodigo }}</td>
+                                    <td>{{ row.item.proNombre }}</td>
+                                    <td>{{ row.item.proDescripcion }}</td>
+                                    <td>{{ row.item.proCantDisponible }}</td>
+                                    <td>COP {{ row.item.proPrecio }}</td>
                                     <td>
                                         <v-img lazy-src="https://picsum.photos/id/11/10/6" max-height="100" max-width="100"
-                                            :src="row.item.imagen" class="ma-2 rounded-pill"></v-img>
+                                            :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
                                     </td>
                                     <td>
-                                        <v-btn class="mx-2" fab dark small color="#925419" @click="dialog = true"><v-icon
+                                        <v-btn class="mx-2" fab dark small color="#925419"
+                                            @click="dialog = true; obtenerProductoId(row.item.id)"><v-icon
                                                 dark>mdi-pencil</v-icon></v-btn>
                                     </td>
                                 </tr>
@@ -49,36 +50,41 @@
                     <v-container class="mt-5">
                         <v-row>
                             <v-col class="col-6">
-                                <v-text-field filled label="Nombre" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-card-account-details" value="Café de mi tia"></v-text-field>
+                                <v-text-field filled label="Nombre" :rules="[rules.required]" v-model="txtNombre"
+                                    prepend-inner-icon="mdi-card-account-details"></v-text-field>
                             </v-col>
                             <v-col class="col-6">
                                 <v-text-field filled label="Código" type="number" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-barcode" value="2365"></v-text-field>
+                                    prepend-inner-icon="mdi-barcode" v-model="txtCodigo"></v-text-field>
                             </v-col>
                             <v-col class="col-6">
                                 <v-text-field filled label="Cantidad disponible" type="number" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-sort-numeric-descending" value="5"></v-text-field>
+                                    prepend-inner-icon="mdi-sort-numeric-descending"
+                                    v-model="txtCantDisponible"></v-text-field>
                             </v-col>
                             <v-col class="col-6">
                                 <v-text-field filled label="Precio" type="number" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-cash" value="65000"></v-text-field>
+                                    prepend-inner-icon="mdi-cash" v-model="txtPrecio"></v-text-field>
                             </v-col>
                             <v-col class="col-6">
                                 <v-textarea filled label="Descripción" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-text" rows="1" row-height="20" auto-grow
-                                    value="El mejor cafe"></v-textarea>
+                                    v-model="txtDescripcion"></v-textarea>
                             </v-col>
                             <v-col class="col-6">
                                 <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
-                                    prepend-icon="" multiple chips counter></v-file-input>
+                                    prepend-icon="" multiple chips counter v-model="fileImagen"></v-file-input>
+                            </v-col>
+                            <v-col class="col-6">
+                                <v-select prepend-inner-icon="mdi-list-box" :items="items" filled label="Categoria"
+                                    v-model="txtCategoria" item-text="catNombre" item-value="id"></v-select>
                             </v-col>
                         </v-row>
                     </v-container>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn class="rounded-pill text-white" color="#925419">
+                    <v-btn class="rounded-pill text-white" color="#925419" @click="modificarProducto()">
                         Modificar
                     </v-btn>
                     <v-btn color="#925419" class="rounded-pill" @click="dialog = false">
@@ -88,7 +94,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        
+
         <FooterApp></FooterApp>
 
     </v-app>
@@ -97,7 +103,11 @@
 <script>
 import HeaderNav from './components/HeaderNav.vue';
 import FooterApp from '../general/components/FooterApp.vue';
-import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/css/all.css';
+//import store from '../store/store';
+import tiendaService from '@/services/tiendaService';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
     name: 'ModificarProducto',
@@ -128,29 +138,93 @@ export default {
             { text: 'Imagen', value: 'imagen' },
             { text: 'Modificar', value: 'modificar' },
         ],
-        desserts: [
-            {
-                id: 1,
-                codigo: 2365,
-                nombre: "Café de mi tia",
-                descripcion: "El mejor cafe",
-                cantDisponible: 5,
-                precio: 65000,
-                imagen: "https://picsum.photos/id/11/500/300",
-            },
-            {
-                id: 2,
-                codigo: 569,
-                nombre: "Café de mi mamá",
-                descripcion: "El mejor cafe por encima del de mi tia",
-                cantDisponible: 8,
-                precio: 75000,
-                imagen: "https://picsum.photos/id/11/500/300",
-            },
-        ],
+        desserts: [],
         dialog: false,
+        productos: null,
+        product: [],
+        idProducto: "",
+        items: [],
+        categorias: null,
+        url: "http://127.0.0.1:8000/api",
+        txtNombre: "",
+        txtCodigo: "",
+        txtCantDisponible: "",
+        txtPrecio: "",
+        txtDescripcion: "",
+        fileImagen: "",
+        txtCategoria: "",
     }),
     methods: {
+        async obtenerProductos() {
+            let products = await tiendaService.getProductsSeller(localStorage.idUsuario);
+            this.productos = products.data;
+            this.productos.forEach(element => {
+                this.desserts.push(element);
+            });
+            console.log(this.desserts);
+        },
+
+        async obtenerProductoId(id) {
+            this.idProducto = id;
+            let producto = await tiendaService.getProductId(this.idProducto);
+            this.product = producto.data;
+            this.txtNombre = this.product.proNombre;
+            this.txtCodigo = this.product.proCodigo;
+            this.txtCantDisponible = this.product.proCantDisponible;
+            this.txtPrecio = this.product.proPrecio;
+            this.txtDescripcion = this.product.proDescripcion;
+            this.fileImagen = this.product.proImagen;
+            this.txtCategoria = this.product.category_id;
+        },
+
+        async obtenerCategorias() {
+            let categories = await tiendaService.getCategories();
+            this.categorias = categories.data;
+            this.categorias.forEach(element => {
+                this.items.push(element);
+            });
+        },
+
+        async modificarProducto() {
+            axios
+                .patch(this.url + "/product/update", {
+                    id: this.idProducto,
+                    proNombre: this.txtNombre,
+                    proCodigo: this.txtCodigo,
+                    proCantDisponible: this.txtCantDisponible,
+                    proPrecio: this.txtPrecio,
+                    proDescripcion: this.txtDescripcion,
+                    proImagen: this.fileImagen,
+                    category_id: this.txtCategoria,
+                    user_id: localStorage.idUsuario
+                })
+                .then(function (response) {
+                    console.log(response);
+                    if (response.data.result.error_id == 400) {
+                        Swal.fire(
+                            '¡Datos incorrectos!',
+                            'Datos incompletos o con formato incorrecto',
+                            'error'
+                        )
+                    } else {
+                        Swal.fire(
+                            '¡Producto modificado!',
+                            'Se ha modificado el producto correctamente',
+                            'success'
+                        )
+                        setTimeout(function () {
+                            location.href = "/modificar-producto";
+                        }, 3000);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+    },
+    mounted() {
+        this.obtenerProductos(),
+            this.obtenerCategorias()
     },
 };
 </script>
@@ -167,5 +241,9 @@ export default {
 
 .content-full {
     min-height: 60vh;
+}
+
+.tabla {
+    background: #7b5028;
 }
 </style>
