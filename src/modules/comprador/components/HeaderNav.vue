@@ -6,22 +6,22 @@
 
         <nav>
             <div class="navegacion">
-                <a class="select">
+                <a class="select" href="/inicio-comprador">
                     <v-icon>mdi-home</v-icon> Inicio
                 </a>
                 <a href="/productos">
                     <v-icon>mdi-coffee</v-icon> Productos
                 </a>
-                <a>
+                <a href="/categorias">
                     <v-icon>mdi-list-box</v-icon> Categorias
                 </a>
-                <a>
+                <!-- <a>
                     <v-icon>mdi-tag</v-icon> Ofertas
                 </a>
                 <a>
                     <v-icon>mdi-star-circle</v-icon> Destacados
-                </a>
-                <a>
+                </a> -->
+                <a href="/otros-productos">
                     <v-icon>mdi-plus-circle-multiple</v-icon> Otros
                 </a>
                 <a>
@@ -47,7 +47,7 @@
                             <v-icon>mdi-cogs</v-icon>
                             Ajustes
                         </button>
-                        <button>
+                        <button @click="salir()">
                             <v-icon>mdi-logout</v-icon>
                             Salir
                         </button>
@@ -70,6 +70,9 @@ export default {
     data: () => ({
     }),
     methods: {
+        salir() {
+            this.$router.replace("inicio");
+        },
     }
 };
 </script>

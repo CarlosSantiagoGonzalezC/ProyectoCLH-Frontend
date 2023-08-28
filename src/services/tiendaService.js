@@ -4,7 +4,8 @@ const relative_path_product = '/product';
 const relative_path_category = '/category';
 const relative_path_company = '/company';
 const relative_path_seller = '/seller';
-// const relative_path_user = '/user';
+const relative_path_comment = '/comment';
+const relative_path_user = '/user';
 
 export default {
     
@@ -24,12 +25,28 @@ export default {
         return apiTienda.get(relative_path_category + "/read");
     },
 
+    getProductsCategory(id){
+        return apiTienda.get(relative_path_category + "?id=" + id);
+    },
+
+    getOthersProducts(){
+        return apiTienda.get(relative_path_category + "?id=6");
+    },
+
     getSellerUser(id){
         return apiTienda.get(relative_path_seller + "?id=" + id);
     },
 
     getCompanySeller(id){
         return apiTienda.get(relative_path_company + "?id=" + id);
+    },
+
+    getCommentsProduct(id){
+        return apiTienda.get(relative_path_comment + "?id=" + id);
+    },
+
+    getUser(id){
+        return apiTienda.get(relative_path_user + "?id=" + id);
     },
 
 }

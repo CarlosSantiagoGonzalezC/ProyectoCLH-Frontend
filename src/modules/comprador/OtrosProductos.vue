@@ -5,7 +5,7 @@
         <div class="mt-16 content-full" align="center">
             <v-card color="#da9f68" dark width="90%" elevation="24" class="pl-16 pr-16">
                 <v-card-text>
-                    <h1>PRODUCTOS</h1>
+                    <h1>OTROS PRODUCTOS</h1>
                     <v-row>
                         <v-card :loading="loading" class="producto mx-auto my-12" max-width="374"
                             v-for="producto in productos" :key="producto.id" elevation="7">
@@ -73,7 +73,7 @@ import tiendaService from '@/services/tiendaService';
 // import Swal from 'sweetalert2';
 
 export default {
-    name: 'ProductosApp',
+    name: 'OtrosProductos',
 
     components: {
         HeaderNav,
@@ -85,7 +85,7 @@ export default {
     }),
     methods: {
         async obtenerProductos() {
-            let products = await tiendaService.getProducts();
+            let products = await tiendaService.getOthersProducts();
             this.productos = products.data;
             console.log(this.productos);
         },
@@ -113,6 +113,6 @@ export default {
 }
 
 .producto:hover {
-    transform: scale(102%);
+    transform: scale(105%);
 }
 </style>

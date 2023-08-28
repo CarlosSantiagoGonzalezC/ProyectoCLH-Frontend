@@ -24,7 +24,6 @@
                         </div>
                         <div class="title">
                             <h2>{{ producto.proNombre }}</h2>
-                            <h2>250 Gr</h2>
                         </div>
                         <div class="my-5">
                             <h2>${{ producto.proPrecio }} COP</h2>
@@ -73,41 +72,13 @@
                     </div>
                 </div>
                 <div class="container-comentarios">
-                    <div class="comentario">
+                    <div class="comentario" v-for="comentario in comentarios" :key="comentario.id">
                         <div class="user-coment">
-                            <img src="@/assets/user.jpeg" class="user-foto">
-                            <p>Santiago Cuellar</p>
+                            <img src="@/assets/usuario.png" class="user-foto">
+                            <p>{{ comentario.usuario }}</p>
                         </div>
                         <div class="coment">
-                            <p>El café especial que venden en esta empresa es de muy buena calidad, ademas de que entregan
-                                sus productos a tiempo.</p>
-                        </div>
-                    </div>
-                    <div class="comentario">
-                        <div class="user-coment">
-                            <img src="@/assets/user.jpeg" class="user-foto">
-                            <p>Santiago Cuellar</p>
-                        </div>
-                        <div class="coment">
-                            <p>Me gustan las empanadas.</p>
-                        </div>
-                    </div>
-                    <div class="comentario">
-                        <div class="user-coment">
-                            <img src="@/assets/user.jpeg" class="user-foto">
-                            <p>Santiago Cuellar</p>
-                        </div>
-                        <div class="coment">
-                            <p>Muy buen servicio.</p>
-                        </div>
-                    </div>
-                    <div class="comentario">
-                        <div class="user-coment">
-                            <img src="@/assets/user.jpeg" class="user-foto">
-                            <p>Santiago Cuellar</p>
-                        </div>
-                        <div class="coment">
-                            <p>Comentario super importante !NO BORRAR</p>
+                            <p>{{ comentario.texto }}</p>
                         </div>
                     </div>
                 </div>
@@ -136,6 +107,7 @@ export default {
     },
     data: () => ({
         producto: null,
+        comentarios: [],
         idVendedor: "",
         empresa: null,
         comentario: "",
@@ -189,11 +161,31 @@ export default {
                 .catch(function (error) {
                     console.log(error);
                 });
+
+            this.obtenerComentarios();
+        },
+        async obtenerComentarios() {
+            let id = localStorage.idProducto;
+            let comments = await tiendaService.getCommentsProduct(id);
+            // this.comentarios = comments.data;
+            comments.data.forEach(async element => {
+                let idUsuario = element.user_id;
+                let usuario = await tiendaService.getUser(idUsuario);
+                let nombre = `${usuario.data.useNombres} ${usuario.data.useApellidos}`;
+                let comentario = {
+                    texto: element.comTexto,
+                    usuario: nombre
+                };
+                this.comentarios.push(comentario);
+            });
+
+            console.log(this.comentarios);
         },
     },
     mounted() {
-        this.obtenerProductoId(),
-            this.obtenerVendedor()
+        this.obtenerProductoId();
+        this.obtenerVendedor();
+        this.obtenerComentarios();
     },
 
 }
@@ -434,8 +426,8 @@ export default {
 }
 
 .user-foto {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
 
