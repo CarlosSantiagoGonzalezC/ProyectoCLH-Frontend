@@ -104,4 +104,9 @@ export default {
     justify-content: space-around;
     width: 100%;
 }
+
+ul{
+    list-style: none;
+    padding: 0;
+}
 </style>
