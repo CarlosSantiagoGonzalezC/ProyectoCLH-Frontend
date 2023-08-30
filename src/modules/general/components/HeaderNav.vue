@@ -55,7 +55,17 @@ export default {
     data: () => ({
     }),
     methods: {
-        
+
+    },
+    mounted() {
+        let url = window.location.href
+        let nav = document.querySelector("div.navegacion")
+        let links = nav.querySelectorAll(`a`)
+        links.forEach(link => {
+            if (link.href == url) {
+                link.className += "select"
+            }
+        });
     }
 };
 </script>

@@ -6,7 +6,7 @@
 
         <nav>
             <div class="navegacion">
-                <a class="select" href="/inicio-vendedor">
+                <a href="/inicio-vendedor">
                     <v-icon>mdi-home</v-icon> Inicio
                 </a>
                 <a href="/agregar-producto">
@@ -61,7 +61,7 @@
                 </div> -->
 
                 <div class="dropdown">
-                    
+
                     <button class="drop-btn">
                         <v-icon>mdi-account-circle</v-icon>
                     </button>
@@ -109,6 +109,16 @@ export default {
     data: () => ({
     }),
     methods: {
+    },
+    mounted() {
+        let url = window.location.href
+        let nav = document.querySelector("div.navegacion")
+        let links = nav.querySelectorAll(`a`)
+        links.forEach(link => {
+            if (link.href == url) {
+                link.className += "select"
+            }
+        });
     }
 };
 </script>

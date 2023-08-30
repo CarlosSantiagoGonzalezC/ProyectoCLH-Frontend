@@ -87,6 +87,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/OtrosProductos.vue')
     },
     {
+        path: '/actualizar-datos',
+        name: 'ActualizarDatos',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/ActualizarDatos.vue')
+    },
+    {
         path: '*',
         name: '',
         component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')
