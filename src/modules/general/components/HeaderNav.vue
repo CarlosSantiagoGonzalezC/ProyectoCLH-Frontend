@@ -6,7 +6,7 @@
 
         <nav>
             <div class="navegacion">
-                <a class="select" href="/inicio">
+                <a href="/inicio">
                     <v-icon>mdi-home</v-icon> Inicio
                 </a>
                 <a>

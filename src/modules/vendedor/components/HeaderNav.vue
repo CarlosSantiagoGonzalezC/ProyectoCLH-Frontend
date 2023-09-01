@@ -23,75 +23,35 @@
                 </a>
             </div>
             <div class="opcVendedor">
-                <!-- <div class="dropdown">
-
-                    <v-speed-dial v-model="fab" transition="scale" direction="bottom">
-                        <template v-slot:activator>
-                            <v-btn v-model="fab" color="#80562f" fab class="drop-btn">
-                                <v-icon>
-                                    mdi-account-circle
-                                </v-icon>
-                            </v-btn>
-                        </template>
-                        <v-card class="dropdown-content">
-                            <div class="user-foto">
-                                <img src="" alt="">
-                            </div>
-                            <div class="options">
-                                <button>
-                                    <v-icon>mdi-cogs</v-icon>
-                                    Ajustes
-                                </button>
-                                <a href="/inicio">
-                                    <button>
-                                        <v-icon aria-hidden="true">mdi-logout</v-icon>
-                                        Salir
-                                    </button>
-                                </a>
-                            </div>
-                            <div class="divisas">
-                                <img src="" alt="divisas">
-                                <button>
-                                    <v-icon aria-hidden="true">mdi-history</v-icon>
-                                    Historial
-                                </button>
-                            </div>
-                        </v-card>
-                    </v-speed-dial>
-                </div> -->
 
                 <div class="dropdown">
 
-                    <button class="drop-btn">
+                    <button class="btn-options" @click="show = !show">
                         <v-icon>mdi-account-circle</v-icon>
                     </button>
-                    <div class="dropdown-content">
-                        <div class="user-foto">
-                            <img src="" alt="">
+                    <div class="dropdown-content" :class="show ? 'show' : 'hidden'">
+                        <img src="@/assets/usuario.png" class="user-foto">
+                        <div>
+                            <img src="@/assets/divisas.png" alt="divisas" class="divisas">
                         </div>
                         <div class="options">
-                            <button>
+                            <button class="btn-options">
                                 <v-icon>mdi-cogs</v-icon>
                                 Ajustes
                             </button>
-                            <a href="/inicio">
-                                <button>
-                                    <v-icon aria-hidden="true">mdi-logout</v-icon>
-                                    Salir
-                                </button>
-                            </a>
-                        </div>
-                        <div class="divisas">
-                            <img src="" alt="divisas">
-                            <button>
+                            <button class="btn-options">
                                 <v-icon aria-hidden="true">mdi-history</v-icon>
                                 Historial
                             </button>
+                            <a href="/inicio" class="btn-options">
+                                <v-icon aria-hidden="true">mdi-logout</v-icon>
+                                Salir
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <a href="/finca-empresa" id="btnFinca"><v-icon>mdi-home-silo</v-icon></a>
+                <a href="/finca-empresa" id="btnFinca" class="ml-2"><v-icon>mdi-home-silo</v-icon></a>
 
             </div>
         </nav>
@@ -107,6 +67,7 @@ export default {
     },
 
     data: () => ({
+        show: false
     }),
     methods: {
     },
@@ -173,12 +134,27 @@ nav {
     color: #f0e6dc;
 }
 
+.opcVendedor {
+    display: flex;
+    margin-right: 20px;
+}
+
+.user-foto {
+    height: 100px;
+    width: 100px;
+}
+
 /** botones */
 
-button,
+.btn-options,
 #btnFinca {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 100%;
+    margin: 5px;
     text-decoration: none;
-    margin-right: 10px;
     background-color: #80562f;
     color: white;
     padding: 8px 40px;
@@ -188,7 +164,15 @@ button,
     font-size: 17px;
 }
 
-button:hover,
+.options {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-options:hover,
 #btnFinca:hover {
     background-color: #9b7c5f;
 }
@@ -229,5 +213,20 @@ button:hover,
 
 #create .v-btn--floating {
     position: relative;
+}
+
+.show {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.divisas{
+    margin: 10px 0px;
+    height: 100px;
+    width: 200px;
+    border-radius: 5px;
 }
 </style>
