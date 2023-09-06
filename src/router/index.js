@@ -92,6 +92,26 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/ActualizarDatos.vue')
     },
     {
+        path: '/productos-inicio',
+        name: 'ProductosApp',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/general/ProductosApp.vue')
+    },
+    {
+        path: '/categorias-inicio',
+        name: 'CategoriasProductos',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/general/CategoriasProductos.vue')
+    },
+    {
+        path: '/otros-productos-inicio',
+        name: 'OtrosProductos',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/general/OtrosProductos.vue')
+    },
+    {
+        path: '/actualizar-datos-vendedor',
+        name: 'ActualizarDatos',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/ActualizarDatos.vue')
+    },
+    {
         path: '*',
         name: '',
         component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')

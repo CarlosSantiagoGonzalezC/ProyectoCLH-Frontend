@@ -9,16 +9,16 @@
                 <a href="/inicio">
                     <v-icon>mdi-home</v-icon> Inicio
                 </a>
-                <a>
+                <a href="/productos-inicio">
                     <v-icon>mdi-coffee</v-icon> Productos
                 </a>
-                <a>
-                    <v-icon>mdi-star-circle</v-icon> Destacados
+                <a href="/categorias-inicio">
+                    <v-icon>mdi-list-box</v-icon> Categorias
                 </a>
-                <a>
+                <a href="/otros-productos-inicio">
                     <v-icon>mdi-plus-circle-multiple</v-icon> Otros
                 </a>
-                <a>
+                <a @click="descargarPDF">
                     <v-icon>mdi-help-circle</v-icon> Ayuda
                 </a>
             </div>
@@ -55,7 +55,19 @@ export default {
     data: () => ({
     }),
     methods: {
+        descargarPDF() {
+            // Ruta relativa al archivo PDF en la carpeta 'public'
+            const pdfUrl = '/pdf/ManualSoftwareWEB.pdf';
 
+            // Crea un elemento 'a' para simular un clic en el enlace de descarga
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = 'ManualSoftwareWEB.pdf'; // Nombre del archivo descargado
+            link.target = '_blank'; // Abre el enlace en una nueva ventana/tab
+
+            // Dispara el evento 'click' en el enlace
+            link.click();
+        },
     },
     mounted() {
         let url = window.location.href

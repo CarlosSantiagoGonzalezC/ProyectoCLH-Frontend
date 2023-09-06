@@ -35,7 +35,7 @@
                             </v-col>
                             <v-col class="col-6">
                                 <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
-                                    prepend-icon="" v-model="fileImagen" multiple chips counter></v-file-input>
+                                    prepend-icon="" v-model="fileImagen" accept="image/*" chips counter></v-file-input>
                             </v-col>
                             <v-col class="col-6">
                                 <v-select prepend-inner-icon="mdi-list-box" :items="items" filled label="Categoria"
@@ -86,13 +86,31 @@ export default {
         txtCantDisponible: "",
         txtPrecio: "",
         txtDescripcion: "",
-        fileImagen: "",
+        fileImagen: null,
         txtCategoria: "",
+        base64Imagen: null,
         items: [],
         categorias: null,
     }),
+    watch: {
+        file: function (newFile) {
+            if (newFile) {
+                this.convertToBase64(newFile);
+            }
+        },
+    },
     methods: {
+        convertToBase64(file) {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                this.base64Imagen = reader.result.split(',')[1];
+            };
+
+            reader.readAsDataURL(file);
+        },
         async agregarProducto() {
+            console.log(this.fileImagen);
             axios
                 .post(this.url + "/product/create", {
                     proNombre: this.txtNombre,
@@ -100,7 +118,7 @@ export default {
                     proCantDisponible: this.txtCantDisponible,
                     proPrecio: this.txtPrecio,
                     proDescripcion: this.txtDescripcion,
-                    proImagen: this.fileImagen,
+                    proImagen: this.base64Imagen,
                     category_id: this.txtCategoria,
                     user_id: localStorage.idUsuario
                 })

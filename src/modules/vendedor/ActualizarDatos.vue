@@ -5,9 +5,9 @@
         <div class="mt-16 content-full" align="center">
             <v-card color="#da9f68" dark width="50%" elevation="24" class="pl-16 pr-16">
                 <v-card-text>
-                    <h1>REGISTRO VENDEDOR</h1>
+                    <h1>ACTUALIZAR DATOS</h1>
                     <div id="logoForm">
-                        <i class="fa fa-user-circle"></i>
+                        <i class="fa fa-edit"></i>
                     </div>
                     <form class="mt-7">
                         <v-row>
@@ -29,11 +29,6 @@
                                     prepend-inner-icon="mdi-map-marker" v-model="txtDireccion"></v-text-field>
                             </v-col>
                             <v-col class="col-6">
-                                <v-file-input filled label="Permiso de vendedor" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-file-document" prepend-icon=""
-                                    v-model="txtPermiso"></v-file-input>
-                            </v-col>
-                            <v-col class="col-6">
                                 <v-text-field filled label="Numero de contacto" type="number" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-cellphone" v-model="txtNumContacto"></v-text-field>
                             </v-col>
@@ -52,8 +47,8 @@
                                     prepend-inner-icon="mdi-lock" v-model="txtConfirPassword"></v-text-field>
                             </v-col>
                         </v-row>
-                        <v-btn class="mr-4 rounded-pill" color="#331b05" @click="registrarVendedor()">
-                            Registrarse
+                        <v-btn class="mr-4 rounded-pill" color="#331b05" @click="actualizarDatos()">
+                            Actualizar
                         </v-btn>
                         <v-btn color="#331b05" class="rounded-pill">
                             Cancelar
@@ -61,22 +56,24 @@
                     </form>
                 </v-card-text>
             </v-card>
+
         </div>
 
         <FooterApp></FooterApp>
-
     </v-app>
 </template>
   
 <script>
-import HeaderNav from '../general/components/HeaderNav.vue';
+import HeaderNav from './components/HeaderNav.vue';
 import FooterApp from '../general/components/FooterApp.vue';
 import '@fortawesome/fontawesome-free/css/all.css';
+//import store from '../store/store';
+import tiendaService from '@/services/tiendaService';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 export default {
-    name: 'RegistroVendedor',
+    name: 'ActualizarDatos',
 
     components: {
         HeaderNav,
@@ -98,46 +95,50 @@ export default {
         txtApellido: "",
         txtCorreo: "",
         txtDireccion: "",
-        txtNomEmpresa: "",
-        txtPermiso: "",
         txtNumContacto: "",
         txtPassword: "",
         txtConfirPassword: "",
+        usuario: null,
+        vendedor: null,
     }),
     methods: {
-        registrarVendedor() {
+        async obtenerUsuario() {
+            let idUsuario = localStorage.idUsuario;
+            let user = await tiendaService.getUser(idUsuario);
+            let seller = await tiendaService.getSellerUser(idUsuario);
+            this.usuario = user.data;
+            this.vendedor = seller.data;
+            this.txtNombre = this.usuario.useNombres;
+            this.txtApellido = this.usuario.useApellidos;
+            this.txtCorreo = this.usuario.useCorreo;
+            this.txtDireccion = this.vendedor[0].selDireccion,
+            this.txtNumContacto = this.vendedor[0].selNumContacto,
+            console.log(this.vendedor);
+        },
+
+        async actualizarDatos() {
             if (this.txtPassword == this.txtConfirPassword) {
 
                 axios
-                    .post(this.url + "/user/create", {
+                    .patch(this.url + "/user/update", {
+                        id: localStorage.idUsuario,
                         useNombres: this.txtNombre,
                         useApellidos: this.txtApellido,
                         useCorreo: this.txtCorreo,
                         usePassword: this.txtPassword,
-                        useRol: "Vendedor"
+                        useRol: "Comprador"
                     })
-                    .then(async (response) => {
+                    .then(function (response) {
                         console.log(response);
-                        // this.registrarInfoAdicional(response.data.result.id);
-                        return axios
-                            .post(this.url + "/seller/create", {
-                                selDireccion: this.txtDireccion,
-                                selNumContacto: this.txtNumContacto,
-                                selPermiso: this.txtPermiso,
-                                user_id: response.data.result.id
-                            })
-                            .then(function (respuesta) {
-                                console.log(respuesta);
-                                Swal.fire(
-                                    '¡Usuario registrado!',
-                                    'Se ha registrado el usuario correctamente',
-                                    'success'
-                                )
+                        Swal.fire(
+                            '¡Datos actualizados!',
+                            'Se han actualizado los datos correctamente',
+                            'success'
+                        )
+                        setTimeout(function () {
+                            window.location.reload()
+                        }, 3000);
 
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -149,30 +150,11 @@ export default {
                     'error'
                 )
             }
-
         },
 
-        // async registrarInfoAdicional(id) {
-        //     axios
-        //         .post(this.url + "/seller/create", {
-        //             selDireccion: this.txtDireccion,
-        //             selNumContacto: this.txtNumContacto,
-        //             selPermiso: this.txtPermiso,
-        //             user_id: id
-        //         })
-        //         .then(function (respuesta) {
-        //             console.log(respuesta);
-        //             Swal.fire(
-        //                 '¡Usuario registrado!',
-        //                 'Se ha registrado el usuario correctamente',
-        //                 'success'
-        //             )
-
-        //         })
-        //         .catch(function (error) {
-        //             console.log(error);
-        //         });
-        // },
+    },
+    mounted() {
+        this.obtenerUsuario();
     },
 };
 </script>
