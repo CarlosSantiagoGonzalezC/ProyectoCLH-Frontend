@@ -8,68 +8,8 @@
     ],
     "rewrites": [
       {
-        "source": "/inicio",
-        "destination": "./src/modules/general/InicioApp.vue"
-      },
-      {
-        "source": "/login",
-        "destination": "./src/modules/general/LoginApp.vue"
-      },
-      {
-        "source": "/inicio-vendedor",
-        "destination": "./src/modules/vendedor/InicioVendedor.vue"
-      },
-      {
-        "source": "/inicio-comprador",
-        "destination": "./src/modules/comprador/InicioComprador.vue"
-      },
-      {
-        "source": "/registro-vendedor",
-        "destination": "./src/modules/vendedor/RegistroVendedor.vue"
-      },
-      {
-        "source": "/registro-comprador",
-        "destination": "./src/modules/comprador/RegistroComprador.vue"
-      },
-      {
-        "source": "/agregar-producto",
-        "destination": "./src/modules/vendedor/AgregarProducto.vue"
-      },
-      {
-        "source": "/modificar-producto",
-        "destination": "./src/modules/vendedor/ModificarProducto.vue"
-      },
-      {
-        "source": "/desactivar-producto",
-        "destination": "./src/modules/vendedor/DesactivarProducto.vue"
-      },
-      {
-        "source": "/finca-empresa",
-        "destination": "./src/modules/vendedor/EmpresaVendedor.vue"
-      },
-      {
-        "source": "/info-empresa",
-        "destination": "./src/modules/vendedor/InfoEmpresa.vue"
-      },
-      {
-        "source": "/productos",
-        "destination": "./src/modules/comprador/ProductosApp.vue"
-      },
-      {
-        "source": "/detalle-producto",
-        "destination": "./src/modules/comprador/DetalleProducto.vue"
-      },
-      {
-        "source": "/categorias",
-        "destination": "./src/modules/comprador/CategoriasProductos.vue"
-      },
-      {
-        "source": "/otros-productos",
-        "destination": "./src/modules/comprador/OtrosProductos.vue"
-      },
-      {
-        "source": "/actualizar-datos",
-        "destination": "./src/modules/comprador/ActualizarDatos.vue"
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
   }
