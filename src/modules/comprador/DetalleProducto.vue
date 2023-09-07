@@ -111,7 +111,7 @@ export default {
         idVendedor: "",
         empresa: null,
         comentario: "",
-        url: "http://127.0.0.1:8000/api",
+        url: process.env.VUE_APP_URL_BASE_TIENDA,
     }),
 
     methods: {

@@ -49,4 +49,16 @@ export default {
         return apiTienda.get(relative_path_user + "?id=" + id);
     },
 
+    getCompanyId(id){
+        return apiTienda.get(relative_path_company + "/read?id=" + id);
+    },
+
+    getSellerId(id){
+        return apiTienda.get(relative_path_seller + "/read?id=" + id);
+    },
+
+    getUserId(id){
+        return apiTienda.get(relative_path_user + "/read?id=" + id);
+    },
+
 }

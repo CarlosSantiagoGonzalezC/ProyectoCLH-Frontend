@@ -42,7 +42,7 @@
                         <v-btn class="mr-4 rounded-pill" color="#331b05" @click="registrarComprador()">
                             Registrarse
                         </v-btn>
-                        <v-btn color="#331b05" class="rounded-pill">
+                        <v-btn color="#331b05" class="rounded-pill" to="inicio">
                             Cancelar
                         </v-btn>
                     </form>
@@ -80,7 +80,7 @@ export default {
             required: value => !!value || 'Campo requerido.',
             min: v => v.length >= 5 || 'Minimo 5 caracteres',
         },
-        url: "http://127.0.0.1:8000/api",
+        url: process.env.VUE_APP_URL_BASE_TIENDA,
         txtNombre: "",
         txtApellido: "",
         txtCorreo: "",
