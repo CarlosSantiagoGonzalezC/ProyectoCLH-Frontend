@@ -24,7 +24,7 @@
                                     <td>{{ row.item.proCantDisponible }}</td>
                                     <td>COP {{ row.item.proPrecio }}</td>
                                     <td>
-                                        <v-img lazy-src="https://picsum.photos/id/11/10/6" max-height="100" max-width="100"
+                                        <v-img lazy-src="https://picsum.photos/id/11/10/6" height="50" width="50"
                                             :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
                                     </td>
                                     <td>
@@ -73,7 +73,7 @@
                             </v-col>
                             <v-col class="col-6">
                                 <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
-                                    prepend-icon="" multiple chips counter v-model="fileImagen"></v-file-input>
+                                    prepend-icon="" chips counter v-model="fileImagen"></v-file-input>
                             </v-col>
                             <v-col class="col-6">
                                 <v-select prepend-inner-icon="mdi-list-box" :items="items" filled label="Categoria"
@@ -145,16 +145,34 @@ export default {
         idProducto: "",
         items: [],
         categorias: null,
-        url: "http://127.0.0.1:8000/api",
+        url: process.env.VUE_APP_URL_BASE_TIENDA,
         txtNombre: "",
         txtCodigo: "",
         txtCantDisponible: "",
         txtPrecio: "",
         txtDescripcion: "",
-        fileImagen: "",
+        fileImagen: null,
+        base64Image: null,
         txtCategoria: "",
     }),
+    watch: {
+        fileImagen: {
+            handler: "convertToBase64",
+            immediate: true,
+        },
+    },
     methods: {
+        convertToBase64() {
+            if (this.fileImagen) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    this.base64Image = e.target.result;
+                };
+
+                reader.readAsDataURL(this.fileImagen);
+            }
+        },
         async obtenerProductos() {
             let products = await tiendaService.getProductsSeller(localStorage.idUsuario);
             this.productos = products.data;
@@ -173,7 +191,6 @@ export default {
             this.txtCantDisponible = this.product.proCantDisponible;
             this.txtPrecio = this.product.proPrecio;
             this.txtDescripcion = this.product.proDescripcion;
-            this.fileImagen = this.product.proImagen;
             this.txtCategoria = this.product.category_id;
         },
 
@@ -186,6 +203,10 @@ export default {
         },
 
         async modificarProducto() {
+            if (this.base64Image == null) {
+                this.base64Image = this.product.proImagen;
+            }
+
             axios
                 .patch(this.url + "/product/update", {
                     id: this.idProducto,
@@ -194,7 +215,7 @@ export default {
                     proCantDisponible: this.txtCantDisponible,
                     proPrecio: this.txtPrecio,
                     proDescripcion: this.txtDescripcion,
-                    proImagen: this.fileImagen,
+                    proImagen: this.base64Image,
                     category_id: this.txtCategoria,
                     user_id: localStorage.idUsuario
                 })
@@ -223,8 +244,8 @@ export default {
         },
     },
     mounted() {
-        this.obtenerProductos(),
-            this.obtenerCategorias()
+        this.obtenerProductos();
+        this.obtenerCategorias()
     },
 };
 </script>
