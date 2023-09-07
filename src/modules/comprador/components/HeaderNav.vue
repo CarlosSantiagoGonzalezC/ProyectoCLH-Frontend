@@ -24,7 +24,7 @@
                 <a href="/otros-productos">
                     <v-icon>mdi-plus-circle-multiple</v-icon> Otros
                 </a>
-                <a>
+                <a @click="descargarPDF">
                     <v-icon>mdi-help-circle</v-icon> Ayuda
                 </a>
             </div>
@@ -38,10 +38,10 @@
                     <button class="drop-btn" @click="show = !show">
                         <v-icon>mdi-account-circle</v-icon>
                     </button>
-                    <div class="dropdown-content" :class="show? 'show': 'hidden'">
+                    <div class="dropdown-content" :class="show ? 'show' : 'hidden'">
                         <img src="@/assets/usuario.png" class="user-foto">
                         <div class="options">
-                            <button>
+                            <button @click="irAjustes()">
                                 <v-icon>mdi-cogs</v-icon>
                                 Ajustes
                             </button>
@@ -58,6 +58,7 @@
 </template>
   
 <script>
+import Swal from 'sweetalert2';
 
 export default {
     name: 'HeaderNav',
@@ -69,9 +70,36 @@ export default {
         show: false
     }),
     methods: {
-        salir() {
-            this.$router.replace("inicio");
+        irAjustes() {
+            this.$router.push("actualizar-datos");
         },
+        descargarPDF() {
+            // Ruta relativa al archivo PDF en la carpeta 'public'
+            const pdfUrl = '/pdf/ManualSoftwareWEB.pdf';
+
+            // Crea un elemento 'a' para simular un clic en el enlace de descarga
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = 'ManualSoftwareWEB.pdf'; // Nombre del archivo descargado
+            link.target = '_blank'; // Abre el enlace en una nueva ventana/tab
+
+            // Dispara el evento 'click' en el enlace
+            link.click();
+        },
+        salir() {
+            Swal.fire({
+                title: '¿Estas seguro de cerrar sesión?',
+                showCancelButton: true,
+                confirmButtonText: 'Si, salir',
+                cancelButtonText: 'Cancelar',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    this.$router.replace({ path: "inicio" });
+                    Swal.fire('¡Se ha cerrado la sesión!', '', 'success');
+                }
+            });
+        }
     },
     mounted() {
         let url = window.location.href
@@ -192,6 +220,26 @@ button:hover {
     height: 30px;
     width: 100%;
     margin: 5px;
+}
+
+.user-foto {
+    height: 100px;
+    width: 100px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.show {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
 }
 
 .user-foto {

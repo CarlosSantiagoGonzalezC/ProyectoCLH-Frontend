@@ -18,47 +18,11 @@
                 <a href="/desactivar-producto">
                     <v-icon>mdi-minus-circle-multiple</v-icon> Desactivar
                 </a>
-                <a>
+                <a @click="descargarPDF">
                     <v-icon>mdi-help-circle</v-icon> Ayuda
                 </a>
             </div>
             <div class="opcVendedor">
-                <!-- <div class="dropdown">
-
-                    <v-speed-dial v-model="fab" transition="scale" direction="bottom">
-                        <template v-slot:activator>
-                            <v-btn v-model="fab" color="#80562f" fab class="drop-btn">
-                                <v-icon>
-                                    mdi-account-circle
-                                </v-icon>
-                            </v-btn>
-                        </template>
-                        <v-card class="dropdown-content">
-                            <div class="user-foto">
-                                <img src="" alt="">
-                            </div>
-                            <div class="options">
-                                <button>
-                                    <v-icon>mdi-cogs</v-icon>
-                                    Ajustes
-                                </button>
-                                <a href="/inicio">
-                                    <button>
-                                        <v-icon aria-hidden="true">mdi-logout</v-icon>
-                                        Salir
-                                    </button>
-                                </a>
-                            </div>
-                            <div class="divisas">
-                                <img src="" alt="divisas">
-                                <button>
-                                    <v-icon aria-hidden="true">mdi-history</v-icon>
-                                    Historial
-                                </button>
-                            </div>
-                        </v-card>
-                    </v-speed-dial>
-                </div> -->
 
                 <div class="dropdown">
 
@@ -71,7 +35,7 @@
                             <img src="@/assets/divisas.png" alt="divisas" class="divisas">
                         </div>
                         <div class="options">
-                            <button class="btn-options">
+                            <button @click="irAjustes()" class="btn-options">
                                 <v-icon>mdi-cogs</v-icon>
                                 Ajustes
                             </button>
@@ -79,7 +43,7 @@
                                 <v-icon aria-hidden="true">mdi-history</v-icon>
                                 Historial
                             </button>
-                            <a href="/inicio" class="btn-options">
+                            <a @click="salir" class="btn-options">
                                 <v-icon aria-hidden="true">mdi-logout</v-icon>
                                 Salir
                             </a>
@@ -95,6 +59,7 @@
 </template>
   
 <script>
+import Swal from 'sweetalert2';
 
 export default {
     name: 'HeaderNav',
@@ -106,6 +71,36 @@ export default {
         show: false
     }),
     methods: {
+        irAjustes() {
+            this.$router.push("actualizar-datos-vendedor");
+        },
+        descargarPDF() {
+            // Ruta relativa al archivo PDF en la carpeta 'public'
+            const pdfUrl = '/pdf/ManualSoftwareWEB.pdf';
+
+            // Crea un elemento 'a' para simular un clic en el enlace de descarga
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = 'ManualSoftwareWEB.pdf'; // Nombre del archivo descargado
+            link.target = '_blank'; // Abre el enlace en una nueva ventana/tab
+
+            // Dispara el evento 'click' en el enlace
+            link.click();
+        },
+        salir() {
+            Swal.fire({
+                title: '¿Estas seguro de cerrar sesión?',
+                showCancelButton: true,
+                confirmButtonText: 'Si, salir',
+                cancelButtonText: 'Cancelar',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    this.$router.replace({ path: "inicio" });
+                    Swal.fire('¡Se ha cerrado la sesión!', '', 'success');
+                }
+            });
+        }
     },
     mounted() {
         let url = window.location.href
@@ -259,7 +254,7 @@ nav {
     visibility: hidden;
 }
 
-.divisas{
+.divisas {
     margin: 10px 0px;
     height: 100px;
     width: 200px;
