@@ -39,7 +39,7 @@
                                 <v-icon>mdi-cogs</v-icon>
                                 Ajustes
                             </button>
-                            <button class="btn-options">
+                            <button class="btn-options" @click="irHistorial()">
                                 <v-icon aria-hidden="true">mdi-history</v-icon>
                                 Historial
                             </button>
@@ -73,6 +73,9 @@ export default {
     methods: {
         irAjustes() {
             this.$router.push("actualizar-datos-vendedor");
+        },
+        irHistorial() {
+            this.$router.push("historial");
         },
         descargarPDF() {
             // Ruta relativa al archivo PDF en la carpeta 'public'

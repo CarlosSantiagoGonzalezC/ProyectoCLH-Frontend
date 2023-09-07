@@ -35,7 +35,7 @@
                             </v-col>
                             <v-col class="col-6">
                                 <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
-                                    prepend-icon="" v-model="fileImagen" accept="image/*" chips counter></v-file-input>
+                                    prepend-icon="" v-model="fileImagen" chips counter></v-file-input>
                             </v-col>
                             <v-col class="col-6">
                                 <v-select prepend-inner-icon="mdi-list-box" :items="items" filled label="Categoria"
@@ -45,7 +45,7 @@
                         <v-btn class="mr-4 rounded-pill" color="#331b05" @click="agregarProducto()">
                             Agregar
                         </v-btn>
-                        <v-btn color="#331b05" class="rounded-pill">
+                        <v-btn color="#331b05" class="rounded-pill" to="inicio-vendedor">
                             Cancelar
                         </v-btn>
                     </form>
@@ -80,7 +80,7 @@ export default {
             required: value => !!value || 'Campo requerido.',
             min: v => v.length >= 5 || 'Minimo 5 caracteres',
         },
-        url: "http://127.0.0.1:8000/api",
+        url: process.env.VUE_APP_URL_BASE_TIENDA,
         txtNombre: "",
         txtCodigo: "",
         txtCantDisponible: "",
@@ -88,29 +88,29 @@ export default {
         txtDescripcion: "",
         fileImagen: null,
         txtCategoria: "",
-        base64Imagen: null,
+        base64Image: null,
         items: [],
         categorias: null,
     }),
     watch: {
-        file: function (newFile) {
-            if (newFile) {
-                this.convertToBase64(newFile);
-            }
+        fileImagen: {
+            handler: "convertToBase64",
+            immediate: true,
         },
     },
     methods: {
-        convertToBase64(file) {
-            const reader = new FileReader();
+        convertToBase64() {
+            if (this.fileImagen) {
+                const reader = new FileReader();
 
-            reader.onload = () => {
-                this.base64Imagen = reader.result.split(',')[1];
-            };
+                reader.onload = (e) => {
+                    this.base64Image = e.target.result;
+                };
 
-            reader.readAsDataURL(file);
+                reader.readAsDataURL(this.fileImagen);
+            }
         },
         async agregarProducto() {
-            console.log(this.fileImagen);
             axios
                 .post(this.url + "/product/create", {
                     proNombre: this.txtNombre,
@@ -118,7 +118,7 @@ export default {
                     proCantDisponible: this.txtCantDisponible,
                     proPrecio: this.txtPrecio,
                     proDescripcion: this.txtDescripcion,
-                    proImagen: this.base64Imagen,
+                    proImagen: this.base64Image,
                     category_id: this.txtCategoria,
                     user_id: localStorage.idUsuario
                 })
