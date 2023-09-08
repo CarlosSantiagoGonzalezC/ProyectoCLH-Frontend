@@ -24,7 +24,7 @@
                                     <td>{{ row.item.proCantDisponible }}</td>
                                     <td>COP {{ row.item.proPrecio }}</td>
                                     <td>
-                                        <v-img lazy-src="https://picsum.photos/id/11/10/6" max-height="100" max-width="100"
+                                        <v-img lazy-src="https://picsum.photos/id/11/10/6" height="50" width="50"
                                             :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
                                     </td>
                                     <td>
@@ -111,7 +111,7 @@ export default {
         dialog: false,
         productos: null,
         idProducto: "",
-        url: "http://127.0.0.1:8000/api",
+        url: process.env.VUE_APP_URL_BASE_TIENDA,
     }),
     methods: {
         async obtenerProductos() {

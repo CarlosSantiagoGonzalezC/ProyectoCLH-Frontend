@@ -97,6 +97,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/ActualizarDatos.vue')
     },
     {
+        path: '/historial',
+        name: 'HistorialGraficas',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/HistorialGraficas.vue')
+    },
+    {
         path: '*',
         name: '',
         component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')
