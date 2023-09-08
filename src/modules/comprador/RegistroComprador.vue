@@ -101,14 +101,14 @@ export default {
                     })
                     .then(function (response) {
                         console.log(response);
+                        setTimeout(function () {
+                            location.href = "/login";
+                        }, 3000);
                         Swal.fire(
                             '¡Usuario registrado!',
                             'Se ha registrado el usuario correctamente',
                             'success'
                         )
-                        setTimeout(function () {
-                            location.href = "/login";
-                        }, 3000);
 
                     })
                     .catch(function (error) {

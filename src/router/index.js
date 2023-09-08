@@ -6,6 +6,23 @@ Vue.use(VueRouter)
 
 const routes = [
 
+    // {
+    //     path: '/',
+    //     name: 'InicioApp',
+    //     component: {
+    //         beforeRouteEnter() {
+    //             if(!localStorage.token){
+    //                 import('../modules/general/InicioApp.vue');
+    //             }else{
+    //                 if(localStorage.rol == 'Comprador'){
+    //                     import('../modules/comprador/InicioComprador.vue');
+    //                 }else{
+    //                     import('../modules/vendedor/InicioVendedor.vue');
+    //                 }
+    //             }
+    //         }
+    //     }
+    // },
     {
         path: '/',
         name: 'InicioApp',

@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <a href="/finca-empresa" id="btnFinca" class="ml-2"><v-icon>mdi-home-silo</v-icon></a>
+                <a @click="irFincaEmpresa" id="btnFinca" class="ml-2"><v-icon>mdi-home-silo</v-icon></a>
 
             </div>
         </nav>
@@ -60,6 +60,8 @@
   
 <script>
 import Swal from 'sweetalert2';
+import tiendaService from '@/services/tiendaService';
+// import axios from 'axios';
 
 export default {
     name: 'HeaderNav',
@@ -68,9 +70,25 @@ export default {
     },
 
     data: () => ({
-        show: false
+        show: false,
+        finca: null,
+        existeFinca: true,
     }),
     methods: {
+        async validarRutaFinca(){
+            let empresa = await tiendaService.getCompanyId(localStorage.idFinca);
+            this.finca = empresa.data;
+            if (!this.finca.comNombre) {
+                this.existeFinca = false
+            }
+        },
+        irFincaEmpresa(){
+            if (this.existeFinca) {
+                this.$router.push("info-empresa");
+            } else {
+                this.$router.push("finca-empresa");
+            }
+        },
         irAjustes() {
             this.$router.push("actualizar-datos-vendedor");
         },
@@ -114,6 +132,7 @@ export default {
                 link.className += "select"
             }
         });
+        this.validarRutaFinca();
     }
 };
 </script>

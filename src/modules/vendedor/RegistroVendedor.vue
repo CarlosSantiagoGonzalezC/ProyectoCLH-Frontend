@@ -31,7 +31,7 @@
                             <v-col class="col-6">
                                 <v-file-input filled label="Permiso de vendedor" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-file-document" prepend-icon=""
-                                    v-model="txtPermiso"></v-file-input>
+                                    v-model="filePermiso"></v-file-input>
                             </v-col>
                             <v-col class="col-6">
                                 <v-text-field filled label="Numero de contacto" type="number" :rules="[rules.required]"
@@ -99,56 +99,66 @@ export default {
         txtCorreo: "",
         txtDireccion: "",
         txtNomEmpresa: "",
-        txtPermiso: "",
+        filePermiso: null,
+        base64Archivo: null,
         txtNumContacto: "",
         txtPassword: "",
         txtConfirPassword: "",
     }),
+    watch: {
+        filePermiso: {
+            handler: "convertToBase64",
+            immediate: true,
+        },
+    },
     methods: {
-        registrarVendedor() {
-            if (this.txtPassword == this.txtConfirPassword) {
+        convertToBase64() {
+            if (this.filePermiso) {
+                const reader = new FileReader();
 
-                axios
-                    .post(this.url + "/user/create", {
-                        useNombres: this.txtNombre,
-                        useApellidos: this.txtApellido,
-                        useCorreo: this.txtCorreo,
-                        usePassword: this.txtPassword,
-                        useRol: "Vendedor"
-                    })
-                    .then(async (response) => {
-                        console.log(response);
-                        // this.registrarInfoAdicional(response.data.result.id);
-                        return axios
-                            .post(this.url + "/seller/create", {
-                                selDireccion: this.txtDireccion,
-                                selNumContacto: this.txtNumContacto,
-                                selPermiso: this.txtPermiso,
-                                user_id: response.data.result.id
-                            })
-                            .then(function (respuesta) {
-                                console.log(respuesta);
-                                Swal.fire(
-                                    '¡Usuario registrado!',
-                                    'Se ha registrado el usuario correctamente',
-                                    'success'
-                                )
+                reader.onload = (e) => {
+                    this.base64Archivo = e.target.result;
+                };
 
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            } else {
-                Swal.fire(
-                    '¡Las contraseñas no coinciden!',
-                    'La confirmacion de contraseña no es correcta',
-                    'error'
-                )
+                reader.readAsDataURL(this.filePermiso);
             }
+        },
+        registrarVendedor() {
+            axios
+                .post(this.url + "/user/create", {
+                    useNombres: this.txtNombre,
+                    useApellidos: this.txtApellido,
+                    useCorreo: this.txtCorreo,
+                    usePassword: this.txtPassword,
+                    useRol: "Vendedor"
+                })
+                .then(async (response) => {
+                    console.log(response);
+                    return axios
+                        .post(this.url + "/seller/create", {
+                            selDireccion: this.txtDireccion,
+                            selNumContacto: this.txtNumContacto,
+                            selPermiso: this.base64Archivo,
+                            user_id: response.data.result.id
+                        })
+                        .then(function (respuesta) {
+                            console.log(respuesta);
+                            setTimeout(function () {
+                                location.href = "/login";
+                            }, 3000);
+                            Swal.fire(
+                                '¡Usuario registrado!',
+                                'Se ha registrado el usuario correctamente',
+                                'success'
+                            )
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
 
         },
 

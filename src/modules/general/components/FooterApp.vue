@@ -24,11 +24,11 @@
                     <h3>Navegador:</h3>
                     <p>
                     <ul>
-                        <li><a id="enlaces"><v-icon>mdi-home</v-icon> Inicio</a></li>
-                        <li><a id="enlaces"><v-icon>mdi-coffee</v-icon> Productos</a></li>
-                        <li><a id="enlaces"><v-icon>mdi-star-circle</v-icon> Destacados</a></li>
-                        <li><a id="enlaces"><v-icon>mdi-plus-circle-multiple</v-icon> Otros</a></li>
-                        <li><a id="enlaces"><v-icon>mdi-help-circle</v-icon> Ayuda</a></li>
+                        <li><a><v-icon>mdi-home</v-icon> Inicio</a></li>
+                        <li><a><v-icon>mdi-coffee</v-icon> Productos</a></li>
+                        <li><a><v-icon>mdi-star-circle</v-icon> Destacados</a></li>
+                        <li><a><v-icon>mdi-plus-circle-multiple</v-icon> Otros</a></li>
+                        <li><a><v-icon>mdi-help-circle</v-icon> Ayuda</a></li>
                     </ul>
                     </p>
                 </div>
@@ -36,11 +36,11 @@
                     <h3>Redes sociales:</h3>
                     <p>
                     <ul>
-                        <li><a id="enlaces"><v-icon>mdi-facebook</v-icon> CoffeeLineHuila</a></li>
-                        <li><a id="enlaces"><v-icon>mdi-twitter</v-icon> @CoffeeLineHuila</a></li>
-                        <li><a id="enlaces"><v-icon>mdi-github</v-icon> CoffeeLineHuila</a></li>
-                        <li><a id="enlaces"><v-icon>mdi-instagram</v-icon> @CoffeeLineHuila.oficial</a></li>
-                        <li><a id="enlaces"><v-icon>mdi-whatsapp</v-icon> +57 3125584562</a></li>
+                        <li><a href="https://www.facebook.com"><v-icon>mdi-facebook</v-icon> CoffeeLineHuila</a></li>
+                        <li><a href="https://www.twitter.com"><v-icon>mdi-twitter</v-icon> @CoffeeLineHuila</a></li>
+                        <li><a href="https://github.com/CarlosSantiagoGonzalezC"><v-icon>mdi-github</v-icon> CoffeeLineHuila</a></li>
+                        <li><a href="https://www.instagram.com"><v-icon>mdi-instagram</v-icon> @CoffeeLineHuila.oficial</a></li>  
+                        <li><a href="https://wa.me/+573136998962?text=Quiero%20el%20cafe"><v-icon>mdi-whatsapp</v-icon> +57 3125584562</a></li>
                     </ul>
                     </p>
                 </div>
@@ -48,11 +48,11 @@
                     <h3>Politica de privacidad:</h3>
                     <p>
                     <ul>
-                        <li><a id="enlaces">Licencias</a></li>
-                        <li><a id="enlaces">Politicas</a></li>
-                        <li><a id="enlaces">Permisos</a></li>
-                        <li><a id="enlaces">Ayudas</a></li>
-                        <li><a id="enlaces">Utilidades</a></li>
+                        <li><a>Licencias</a></li>
+                        <li><a>Politicas</a></li>
+                        <li><a>Permisos</a></li>
+                        <li><a>Ayudas</a></li>
+                        <li><a>Utilidades</a></li>
                     </ul>
                     </p>
                 </div>
@@ -94,7 +94,7 @@ export default {
     justify-content: space-around;
 }
 
-#enlaces {
+a {
     text-decoration: none;
     color: #f0e6dc;
 }

@@ -82,12 +82,13 @@ export default {
                             'error'
                         )
                     } else {
-                        let idUsuario = response.data.result.id;
-                        localStorage.idUsuario = idUsuario;
+                        localStorage.idUsuario = response.data.result.id;
+                        localStorage.token = response.data.result.token;
+                        localStorage.rol = response.data.result.rol;
                         if (response.data.result.rol == "Vendedor") {
-                            location.href = "/inicio-vendedor"
+                            location.href = "/inicio-vendedor";
                         } else {
-                            location.href = "/inicio-comprador"
+                            location.href = "/inicio-comprador";
                         }
                     }
 
