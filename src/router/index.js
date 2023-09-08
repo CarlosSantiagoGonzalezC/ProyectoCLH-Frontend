@@ -12,9 +12,39 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../modules/general/InicioApp.vue')
     },
     {
+        path: '/inicio',
+        name: 'InicioApp',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/general/InicioApp.vue')
+    },
+    {
+        path: '/inicio-vendedor',
+        name: 'InicioVendedor',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/InicioVendedor.vue')
+    },
+    {
+        path: '/inicio-comprador',
+        name: 'InicioComprador',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/InicioComprador.vue')
+    },
+    {
         path: '/login',
         name: 'LoginApp',
         component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')
+    },
+    {
+        path: '/comprador/',
+        name: 'Comprador',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/CompradorApp.vue'),
+        children: [
+            {
+                path: '',
+                component: () => import('../modules/comprador/InicioComprador.vue')
+            },
+            {
+                path: 'registro',
+                component: () => import('../modules/comprador/RegistroComprador.vue')
+            }
+        ]
     },
     {
         path: '/registro-comprador',
