@@ -32,6 +32,21 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')
     },
     {
+        path: '/comprador/',
+        name: 'Comprador',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/CompradorApp.vue'),
+        children: [
+            {
+                path: '',
+                component: () => import('../modules/comprador/InicioComprador.vue')
+            },
+            {
+                path: 'registro',
+                component: () => import('../modules/comprador/RegistroComprador.vue')
+            }
+        ]
+    },
+    {
         path: '/registro-comprador',
         name: 'RegistroComprador',
         component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/RegistroComprador.vue')

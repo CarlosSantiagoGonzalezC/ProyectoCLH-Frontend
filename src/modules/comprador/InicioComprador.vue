@@ -1,7 +1,5 @@
 <template>
     <v-app>
-        <HeaderNav></HeaderNav>
-
         <v-carousel v-model="model" class="slider" hide-delimiter-background show-arrows-on-hover>
             <v-carousel-item v-for="(slider) in content" :key="slider">
                 <v-sheet height="100%" tile>
@@ -15,21 +13,13 @@
             </v-carousel-item>
         </v-carousel>
 
-	<FooterApp></FooterApp>
     </v-app>
 </template>
   
 <script>
-import HeaderNav from './components/HeaderNav.vue';
-import FooterApp from '../general/components/FooterApp.vue';
 
 export default {
     name: 'InicioComprador',
-
-    components: {
-        HeaderNav,
-        FooterApp,
-    },
 
     data: () => ({
         model: 0,
