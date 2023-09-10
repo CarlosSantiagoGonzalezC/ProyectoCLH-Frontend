@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-footer dark padless color="#331b05" class="around mt-16">
+        <v-footer dark padless color="#331b05" class="around mt-10">
             <div id="texto1" class="ma-3">
                 <h3>Todos los derechos reservados
                     <i class="fa far fa-copyright"></i>
@@ -14,7 +14,7 @@
                     <ul>
                         <li>Cra 5 #14-22</li>
                         <li>sc805036@gmail.com</li>
-                        <li>+57 3136998962</li>
+                        <li>57 3136998962</li>
                         <li>SENA Industrial</li>
                         <li>Neiva - Huila</li>
                     </ul>
@@ -24,11 +24,11 @@
                     <h3>Navegador:</h3>
                     <p>
                     <ul>
-                        <li><a ><v-icon>mdi-home</v-icon> Inicio</a></li>
-                        <li><a ><v-icon>mdi-coffee</v-icon> Productos</a></li>
-                        <li><a ><v-icon>mdi-star-circle</v-icon> Destacados</a></li>
-                        <li><a ><v-icon>mdi-plus-circle-multiple</v-icon> Otros</a></li>
-                        <li><a ><v-icon>mdi-help-circle</v-icon> Ayuda</a></li>
+                        <li><a><v-icon>mdi-home</v-icon> Inicio</a></li>
+                        <li><a><v-icon>mdi-coffee</v-icon> Productos</a></li>
+                        <li><a><v-icon>mdi-star-circle</v-icon> Destacados</a></li>
+                        <li><a><v-icon>mdi-plus-circle-multiple</v-icon> Otros</a></li>
+                        <li><a><v-icon>mdi-help-circle</v-icon> Ayuda</a></li>
                     </ul>
                     </p>
                 </div>
@@ -40,7 +40,7 @@
                         <li><a href="https://www.twitter.com"><v-icon>mdi-twitter</v-icon> @CoffeeLineHuila</a></li>
                         <li><a href="https://github.com/CarlosSantiagoGonzalezC"><v-icon>mdi-github</v-icon> CoffeeLineHuila</a></li>
                         <li><a href="https://www.instagram.com"><v-icon>mdi-instagram</v-icon> @CoffeeLineHuila.oficial</a></li>  
-                        <li><a href="https://wa.me/+573136998962?text=Quiero%20el%20cafe"><v-icon>mdi-whatsapp</v-icon> +57 3125584562</a></li>
+                        <li><a href="https://wa.me/+573136998962?text=Quiero%20el%20cafe"><v-icon>mdi-whatsapp</v-icon> +57 3136998962</a></li>
                     </ul>
                     </p>
                 </div>
@@ -48,11 +48,11 @@
                     <h3>Politica de privacidad:</h3>
                     <p>
                     <ul>
-                        <li><a >Licencias</a></li>
-                        <li><a >Politicas</a></li>
-                        <li><a >Permisos</a></li>
-                        <li><a >Ayudas</a></li>
-                        <li><a >Utilidades</a></li>
+                        <li><a>Licencias</a></li>
+                        <li><a>Politicas</a></li>
+                        <li><a>Permisos</a></li>
+                        <li><a>Ayudas</a></li>
+                        <li><a>Utilidades</a></li>
                     </ul>
                     </p>
                 </div>

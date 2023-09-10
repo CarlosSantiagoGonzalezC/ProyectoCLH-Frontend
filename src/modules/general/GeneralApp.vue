@@ -9,29 +9,26 @@
 </template>
 
 <script>
-
 import HeaderNav from './components/HeaderNav.vue';
-import FooterApp from '../general/components/FooterApp.vue';
+import FooterApp from './components/FooterApp.vue';
 
 export default {
-    name: 'CompradorApp',
+    name: 'GeneralApp',
 
     components: {
         HeaderNav,
         FooterApp,
     },
-    data() {
-        return {
-        }
-    },
-}
+    }
 </script>
 
 <style scoped>
 
 .content{
     display: flex;
+    align-items: center;
     justify-content: center;
+    min-height: 60vh;
 }
 
 .v-card {

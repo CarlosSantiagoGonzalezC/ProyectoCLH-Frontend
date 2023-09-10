@@ -1,7 +1,4 @@
 <template>
-    <v-app>
-        <HeaderNav></HeaderNav>
-
         <v-carousel v-model="model" class="slider" hide-delimiter-background show-arrows-on-hover>
             <v-carousel-item v-for="(slider) in content" :key="slider">
                 <v-sheet height="100%" tile>
@@ -14,21 +11,14 @@
                 </v-sheet>
             </v-carousel-item>
         </v-carousel>
-        <FooterApp></FooterApp>
-    </v-app>
 </template>
   
 <script>
-
-import HeaderNav from './components/HeaderNav.vue';
-import FooterApp from './components/FooterApp.vue';
 
 export default {
     name: 'InicioApp',
 
     components: {
-        HeaderNav,
-        FooterApp,
     },
 
     data: () => ({
@@ -57,6 +47,7 @@ export default {
     align-self: center;
     width: 80%;
     border-radius: 5px;
+    background: #da9f68;
 }
 
 .text {

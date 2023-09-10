@@ -1,19 +1,16 @@
 <template>
-    <v-app>
-        <v-carousel v-model="model" class="slider" hide-delimiter-background show-arrows-on-hover>
-            <v-carousel-item v-for="(slider) in content" :key="slider">
-                <v-sheet height="100%" tile>
-                    <v-row class="fill-height" align="center" justify="center">
-                        <div class="text">
-                            {{ slider.text }}
-                        </div>
-                        <img :src="slider.img" height="300" class="ml-8 rounded-xxl">
-                    </v-row>
-                </v-sheet>
-            </v-carousel-item>
-        </v-carousel>
-
-    </v-app>
+    <v-carousel v-model="model" class="slider" hide-delimiter-background show-arrows-on-hover>
+        <v-carousel-item v-for="(slider) in content" :key="slider">
+            <v-sheet height="100%" tile>
+                <v-row class="fill-height" align="center" justify="center">
+                    <div class="text">
+                        {{ slider.text }}
+                    </div>
+                    <img :src="slider.img" height="300" class="ml-8 rounded-xxl">
+                </v-row>
+            </v-sheet>
+        </v-carousel-item>
+    </v-carousel>
 </template>
   
 <script>
@@ -47,6 +44,7 @@ export default {
     align-self: center;
     width: 80%;
     border-radius: 5px;
+    background: #da9f68;
 }
 
 .text {
