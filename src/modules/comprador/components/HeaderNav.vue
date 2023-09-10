@@ -29,11 +29,11 @@
                 </a>
             </div>
             <div class="opcUser">
-                <a href="" class="mr-2">
+                <router-link :to="{name: 'carrito'}" class="mr-2">
                     <button>
                         <v-icon>mdi-cart</v-icon>
                     </button>
-                </a>
+                </router-link>
                 <div class="dropdown">
                     <button class="drop-btn" @click="show = !show">
                         <v-icon>mdi-account-circle</v-icon>

@@ -1,35 +1,22 @@
 <template>
-    <div>
-        <HeaderNav></HeaderNav>
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="py-16">
+        <v-card-text>
+            <h1>
+                Carrito de compras
+            </h1>
+            <v-data-table :headers="headers">
 
-        <div class="content">
-            <v-card color="#da9f68" dark width="90%" elevation="24" class="py-16">
-                <v-card-text>
-                    <h1>
-                        Carrito de compras
-                    </h1>
-                    <v-data-table :headers="headers">
-
-                    </v-data-table>
-                </v-card-text>
-            </v-card>
-        </div>
-
-        <FooterApp></FooterApp>
-    </div>
+            </v-data-table>
+        </v-card-text>
+    </v-card>
 </template>
 
 <script>
-
-import HeaderNav from './components/HeaderNav.vue';
-import FooterApp from '../general/components/FooterApp.vue';
 
 export default {
     name: 'CarritoApp',
 
     components: {
-        HeaderNav,
-        FooterApp,
     },
 
     data() {
@@ -50,11 +37,12 @@ export default {
 </script>
 
 <style scoped>
-.content {
+.v-card {
     min-height: 60vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+    margin: 15px 0px;
 }
 </style>

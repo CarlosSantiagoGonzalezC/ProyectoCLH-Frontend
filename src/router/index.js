@@ -54,6 +54,13 @@ const routes = [
             {
                 path: '/',
                 component: () => import('@/modules/general/SimpleApp.vue'),
+                beforeEnter: (to, from, next) => {
+                    if (!localStorage.token) {
+                        next({name: 'login'})
+                    }else{
+                        next()
+                    }
+                },
                 children: [
                     {
                         path: 'actualizar',
@@ -64,6 +71,11 @@ const routes = [
                         path: 'producto',
                         name: 'producto',
                         component: () => import('@/modules/comprador/DetalleProducto.vue')
+                    },
+                    {
+                        path: 'carrito',
+                        name: 'carrito',
+                        component: () => import('@/modules/comprador/CarritoApp.vue')
                     },
                 ]
             },
@@ -221,6 +233,8 @@ function rol() {
     } else {
         if (localStorage.rol == "Comprador") {
             return 'comprador'
+        } else {
+            router.push({ name: 'Inicio' })
         }
     }
 }
