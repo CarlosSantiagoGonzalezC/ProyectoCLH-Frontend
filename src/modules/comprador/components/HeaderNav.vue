@@ -1,29 +1,29 @@
 <template>
-    <div>
+    <div class="mb-10">
         <header>
             <img src="../assets/logoCoffee.png" alt="logo" class="logo">
         </header>
 
         <nav>
             <div class="navegacion">
-                <a href="/inicio-comprador">
+                <router-link :to="{name: 'Inicio'}">
                     <v-icon>mdi-home</v-icon> Inicio
-                </a>
-                <a href="/productos">
+                </router-link>
+                <router-link :to="{name: 'Productos'}">
                     <v-icon>mdi-coffee</v-icon> Productos
-                </a>
-                <a href="/categorias">
+                </router-link>
+                <router-link :to="{name: 'Categorias'}">
                     <v-icon>mdi-list-box</v-icon> Categorias
-                </a>
+                </router-link>
                 <!-- <a>
                     <v-icon>mdi-tag</v-icon> Ofertas
                 </a>
                 <a>
                     <v-icon>mdi-star-circle</v-icon> Destacados
                 </a> -->
-                <a href="/otros-productos">
+                <router-link :to="{name: 'Otros'}">
                     <v-icon>mdi-plus-circle-multiple</v-icon> Otros
-                </a>
+                </router-link>
                 <a @click="descargarPDF">
                     <v-icon>mdi-help-circle</v-icon> Ayuda
                 </a>
@@ -71,7 +71,7 @@ export default {
     }),
     methods: {
         irAjustes() {
-            this.$router.push("actualizar-datos");
+            this.$router.push({name: 'actualizarUser'});
         },
         descargarPDF() {
             // Ruta relativa al archivo PDF en la carpeta 'public'
@@ -95,21 +95,16 @@ export default {
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    this.$router.replace({ path: "inicio" });
-                    Swal.fire('¡Se ha cerrado la sesión!', '', 'success');
+                    this.$router.push({ name: "Inicio" }).catch(()=>{})
+                    localStorage.clear()
+                    Swal.fire('¡Se ha cerrado la sesión!', '', 'success').then(() => {
+                        location.reload()
+                    })
                 }
             });
         }
     },
     mounted() {
-        let url = window.location.href
-        let nav = document.querySelector("div.navegacion")
-        let links = nav.querySelectorAll(`a`)
-        links.forEach(link => {
-            if (link.href == url) {
-                link.className += "select"
-            }
-        });
     }
 };
 </script>
@@ -143,7 +138,6 @@ nav {
     height: 50px;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
     z-index: 2;
 }
 
@@ -159,7 +153,7 @@ nav {
     color: #f0e6dc;
 }
 
-.select {
+.navegacion .router-link-exact-active {
     background-color: #80562f;
     color: #f0e6dc;
 }

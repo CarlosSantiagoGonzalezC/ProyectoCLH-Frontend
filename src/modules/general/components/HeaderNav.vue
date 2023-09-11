@@ -1,23 +1,23 @@
 <template>
-    <div>
+    <div class="mb-10">
         <header>
             <img src="../assets/logoCoffee.png" alt="logo" class="logo">
         </header>
 
         <nav>
             <div class="navegacion">
-                <a href="/inicio">
+                <router-link :to="{name: 'Inicio'}">
                     <v-icon>mdi-home</v-icon> Inicio
-                </a>
-                <a href="/productos-inicio">
+                </router-link>
+                <router-link :to="{name: 'Productos'}">
                     <v-icon>mdi-coffee</v-icon> Productos
-                </a>
-                <a href="/categorias-inicio">
+                </router-link>
+                <router-link :to="{name: 'Categorias'}">
                     <v-icon>mdi-list-box</v-icon> Categorias
-                </a>
-                <a href="/otros-productos-inicio">
+                </router-link>
+                <router-link :to="{name: 'Otros'}">
                     <v-icon>mdi-plus-circle-multiple</v-icon> Otros
-                </a>
+                </router-link>
                 <a @click="descargarPDF">
                     <v-icon>mdi-help-circle</v-icon> Ayuda
                 </a>
@@ -29,16 +29,16 @@
                         Registrarse
                     </button>
                     <div class="dropdown-content">
-                        <a href="/registro-comprador">Como usuario</a>
-                        <a href="/registro-vendedor">Como vendedor</a>
+                        <router-link :to="{name: 'RegistroComprador'}">Como usuario</router-link>
+                        <router-link :to="{name: 'RegistroVendedor'}">Como vendedor</router-link>
                     </div>
                 </div>
 
-                <a href="/login">
+                <router-link :to="{name: 'login'}">
                     <button>
                         Ingresar
                     </button>
-                </a>
+                </router-link>
             </div>
         </nav>
     </div>
@@ -70,14 +70,6 @@ export default {
         },
     },
     mounted() {
-        let url = window.location.href
-        let nav = document.querySelector("div.navegacion")
-        let links = nav.querySelectorAll(`a`)
-        links.forEach(link => {
-            if (link.href == url) {
-                link.className += "select"
-            }
-        });
     }
 };
 </script>
@@ -111,7 +103,6 @@ nav {
     height: 50px;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
     z-index: 2;
 }
 
@@ -127,7 +118,7 @@ nav {
     color: #f0e6dc;
 }
 
-.select {
+.navegacion .router-link-exact-active {
     background-color: #80562f;
     color: #f0e6dc;
 }

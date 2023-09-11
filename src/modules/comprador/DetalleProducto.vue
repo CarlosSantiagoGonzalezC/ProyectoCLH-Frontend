@@ -1,97 +1,87 @@
 <template>
-    <div>
-        <HeaderNav></HeaderNav>
-
-        <div class="content-full">
-            <v-card class="center" color="#da9f68" width="80%" elevation="24">
-                <div class="producto">
-                    <div class="fotos-producto">
-                        <img src="@/assets/cafe1.png" alt="" height="100px">
-                        <img src="@/assets/cafe1.png" alt="" height="100px">
-                        <img src="@/assets/cafe1.png" alt="" height="100px">
-                        <img src="@/assets/cafe1.png" alt="" height="100px">
-                        <img src="@/assets/cafe1.png" alt="" height="100px">
-                    </div>
-                    <div class="foto-producto">
-                        <img src="@/assets/cafe1.png" alt="">
-                    </div>
-                    <div class="info-producto">
-                        <div class="categoria-ventas">
-                            <p>Cantidad:</p>
-                            <p>{{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ? 'disponibles' :
-                                'disponible'
-                            }}</p>
-                        </div>
-                        <div class="title">
-                            <h2>{{ producto.proNombre }}</h2>
-                        </div>
-                        <div class="my-5">
-                            <h2>${{ producto.proPrecio }} COP</h2>
-                        </div>
-                        <div>
-                            <p class="my-5">{{ producto.proDescripcion }}</p>
-                        </div>
-                        <div class="envio">
-                            <v-icon class="mr-5">mdi-truck</v-icon>
-                            <p class="ma-0">Envio a nivel nacional</p>
-                        </div>
-                        <div class="estrellas">
-                            <v-icon>mdi-star</v-icon>
-                            <v-icon>mdi-star</v-icon>
-                            <v-icon>mdi-star</v-icon>
-                            <v-icon>mdi-star-half-full</v-icon>
-                            <v-icon>mdi-star-outline</v-icon>
-                        </div>
-                        <div class="butons">
-                            <button class="comprar">Comprar ahora</button>
-                            <button class="agregar">Agregar al carrito</button>
-                        </div>
-                        <div class="garantia">
-                            <i class="fa-solid fa-medal"></i>
-                            <p>30 dias de garantia</p>
-                        </div>
-                    </div>
+    <v-card class="center" color="#da9f68" width="80%" elevation="24">
+        <div class="producto">
+            <div class="fotos-producto">
+                <img src="@/assets/cafe1.png" alt="" height="100px">
+                <img src="@/assets/cafe1.png" alt="" height="100px">
+                <img src="@/assets/cafe1.png" alt="" height="100px">
+                <img src="@/assets/cafe1.png" alt="" height="100px">
+                <img src="@/assets/cafe1.png" alt="" height="100px">
+            </div>
+            <div class="foto-producto">
+                <img src="@/assets/cafe1.png" alt="">
+            </div>
+            <div class="info-producto">
+                <div class="categoria-ventas">
+                    <p>Cantidad:</p>
+                    <p>{{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ? 'disponibles' :
+                        'disponible'
+                    }}</p>
                 </div>
-                <div class="finca">
-                    <div class="info-finca">
-                        <h1>{{ empresa.comNombre }}</h1>
-                        <p>{{ empresa.comHistoria }}</p>
-                        <p>Municipio: {{ empresa.comMunicipio }}</p>
-                        <p>Dirección: {{ empresa.comDireccion }}</p>
-
-                        <p>E-mail: {{ empresa.comCorreo }}</p>
-                    </div>
-                    <img src="@/assets/finca.jpg" alt="">
+                <div class="title">
+                    <h2>{{ producto.proNombre }}</h2>
                 </div>
-                <div class="input-comentario">
-                    <textarea name="comentario" id="comentario" placeholder="Escribir comentario..."
-                        v-model="comentario"></textarea>
-                    <div class="butons-comentario">
-                        <button @click="comentario = ''">Cancelar</button>
-                        <button @click="comentar" :disabled="!comentario">Comentar</button>
-                    </div>
+                <div class="my-5">
+                    <h2>${{ producto.proPrecio }} COP</h2>
                 </div>
-                <div class="container-comentarios">
-                    <div class="comentario" v-for="comentario in comentarios" :key="comentario.id">
-                        <div class="user-coment">
-                            <img src="@/assets/usuario.png" class="user-foto">
-                            <p>{{ comentario.usuario }}</p>
-                        </div>
-                        <div class="coment">
-                            <p>{{ comentario.texto }}</p>
-                        </div>
-                    </div>
+                <div>
+                    <p class="my-5">{{ producto.proDescripcion }}</p>
                 </div>
-            </v-card>
+                <div class="envio">
+                    <v-icon class="mr-5">mdi-truck</v-icon>
+                    <p class="ma-0">Envio a nivel nacional</p>
+                </div>
+                <div class="estrellas">
+                    <v-icon>mdi-star</v-icon>
+                    <v-icon>mdi-star</v-icon>
+                    <v-icon>mdi-star</v-icon>
+                    <v-icon>mdi-star-half-full</v-icon>
+                    <v-icon>mdi-star-outline</v-icon>
+                </div>
+                <div class="butons">
+                    <button class="comprar">Comprar ahora</button>
+                    <button class="agregar">Agregar al carrito</button>
+                </div>
+                <div class="garantia">
+                    <i class="fa-solid fa-medal"></i>
+                    <p>30 dias de garantia</p>
+                </div>
+            </div>
         </div>
+        <div class="finca">
+            <div class="info-finca">
+                <h1>{{ empresa.comNombre }}</h1>
+                <p>{{ empresa.comHistoria }}</p>
+                <p>Municipio: {{ empresa.comMunicipio }}</p>
+                <p>Dirección: {{ empresa.comDireccion }}</p>
 
-        <FooterApp></FooterApp>
-    </div>
+                <p>E-mail: {{ empresa.comCorreo }}</p>
+            </div>
+            <img src="@/assets/finca.jpg" alt="">
+        </div>
+        <div class="input-comentario">
+            <textarea name="comentario" id="comentario" placeholder="Escribir comentario..."
+                v-model="comentario"></textarea>
+            <div class="butons-comentario">
+                <button @click="comentario = ''">Cancelar</button>
+                <button @click="comentar" :disabled="!comentario">Comentar</button>
+            </div>
+        </div>
+        <div class="container-comentarios">
+            <div class="comentario" v-for="comentario in comentarios" :key="comentario.id">
+                <div class="user-coment">
+                    <img src="@/assets/usuario.png" class="user-foto">
+                    <p>{{ comentario.usuario }}</p>
+                </div>
+                <div class="coment">
+                    <p>{{ comentario.texto }}</p>
+                </div>
+            </div>
+        </div>
+    </v-card>
 </template>
 
 <script>
-import HeaderNav from '../comprador/components/HeaderNav.vue';
-import FooterApp from '../general/components/FooterApp.vue';
 import '@fortawesome/fontawesome-free/css/all.css';
 //import store from '../store/store';
 import tiendaService from '@/services/tiendaService';
@@ -102,8 +92,6 @@ export default {
     name: "DetalleProducto",
 
     components: {
-        HeaderNav,
-        FooterApp,
     },
     data: () => ({
         producto: null,
@@ -192,14 +180,6 @@ export default {
 </script>
 
 <style scoped>
-.content-full {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-}
-
 .center {
     display: flex;
     align-items: center;

@@ -8,8 +8,81 @@ const routes = [
 
     {
         path: '/',
+        component: () => import(`@/modules/${rolInicial()}`),
+        children: [
+            {
+                path: '',
+                name: 'Inicio',
+                component: () => import(`@/modules/general/InicioApp.vue`)
+            },
+            {
+                path: 'login',
+                name: 'login',
+                component: () => import('@/modules/general/LoginApp.vue')
+            },
+            {
+                path: 'productos',
+                name: 'Productos',
+                component: () => import(`@/modules/${rol()}/ProductosApp.vue`)
+            },
+            {
+                path: 'categorias',
+                name: 'Categorias',
+                component: () => import(`@/modules/${rol()}/CategoriasProductos.vue`)
+            },
+            {
+                path: 'otros',
+                name: 'Otros',
+                component: () => import(`@/modules/${rol()}/OtrosProductos.vue`)
+            },
+            {
+                path: 'registro/',
+                component: () => import('@/modules/general/SimpleApp.vue'),
+                children: [
+                    {
+                        path: 'usuario',
+                        name: 'RegistroComprador',
+                        component: () => import('@/modules/comprador/RegistroComprador.vue')
+                    },
+                    {
+                        path: 'vendedor',
+                        name: 'RegistroVendedor',
+                        component: () => import('@/modules/vendedor/RegistroVendedor.vue')
+                    },
+                ]
+            },
+            {
+                path: '/',
+                component: () => import('@/modules/general/SimpleApp.vue'),
+                children: [
+                    {
+                        path: 'actualizar',
+                        name: 'actualizarUser',
+                        component: () => import('@/modules/comprador/ActualizarDatos.vue')
+                    },
+                    {
+                        path: 'producto',
+                        name: 'producto',
+                        component: () => import('@/modules/comprador/DetalleProducto.vue')
+                    },
+                ]
+            },
+        ]
+    },
+    {
+        path: '/inicio',
         name: 'InicioApp',
         component: () => import(/* webpackChunkName: "about" */ '../modules/general/InicioApp.vue')
+    },
+    {
+        path: '/inicio-vendedor',
+        name: 'InicioVendedor',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/InicioVendedor.vue')
+    },
+    {
+        path: '/inicio-comprador',
+        name: 'InicioComprador',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/InicioComprador.vue')
     },
     {
         path: '/login',
@@ -17,15 +90,31 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')
     },
     {
-        path: '/registro-comprador',
-        name: 'RegistroComprador',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/RegistroComprador.vue')
+        path: '/comprador/',
+        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/CompradorApp.vue'),
+        children: [
+            {
+                path: '',
+                name: 'InicioComprador',
+                component: () => import('../modules/comprador/InicioComprador.vue')
+            },
+            {
+                path: 'productos',
+                name: 'Productos',
+                component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/ProductosApp.vue')
+            }
+        ]
     },
-    {
-        path: '/registro-vendedor',
-        name: 'RegistroVendedor',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/RegistroVendedor.vue')
-    },
+    // {
+    //     path: '/registro-comprador',
+    //     name: 'RegistroComprador',
+    //     component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/RegistroComprador.vue')
+    // },
+    // {
+    //     path: '/registro-vendedor',
+    //     name: 'RegistroVendedor',
+    //     component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/RegistroVendedor.vue')
+    // },
     {
         path: '/agregar-producto',
         name: 'AgregarProducto',
@@ -104,7 +193,7 @@ const routes = [
     {
         path: '*',
         name: '',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')
+        redirect: { name: 'Inicio' }
     },
 ]
 
@@ -113,5 +202,27 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 })
+
+function rolInicial() {
+    if (!localStorage.token) {
+        return 'general/GeneralApp.vue'
+    } else {
+        if (localStorage.rol == "Comprador") {
+            return 'comprador/CompradorApp.vue'
+        } else {
+            return 'vendedor/InicioVendedor.vue'
+        }
+    }
+}
+
+function rol() {
+    if (!localStorage.token) {
+        return 'general'
+    } else {
+        if (localStorage.rol == "Comprador") {
+            return 'comprador'
+        }
+    }
+}
 
 export default router
