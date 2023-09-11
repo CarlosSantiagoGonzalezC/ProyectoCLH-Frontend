@@ -29,6 +29,11 @@
                                     prepend-inner-icon="mdi-map-marker" v-model="txtDireccion"></v-text-field>
                             </v-col>
                             <v-col class="col-6">
+                                <v-file-input filled label="Permiso de vendedor" :rules="[rules.required]"
+                                    prepend-inner-icon="mdi-file-document" prepend-icon=""
+                                    v-model="filePermiso"></v-file-input>
+                            </v-col>
+                            <v-col class="col-6">
                                 <v-text-field filled label="Numero de contacto" type="number" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-cellphone" v-model="txtNumContacto"></v-text-field>
                             </v-col>
@@ -95,13 +100,32 @@ export default {
         txtApellido: "",
         txtCorreo: "",
         txtDireccion: "",
+        filePermiso: null,
+        base64Archivo: null,
         txtNumContacto: "",
         txtPassword: "",
         txtConfirPassword: "",
         usuario: null,
         vendedor: null,
     }),
+    watch: {
+        filePermiso: {
+            handler: "convertToBase64",
+            immediate: true,
+        },
+    },
     methods: {
+        convertToBase64() {
+            if (this.filePermiso) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    this.base64Archivo = e.target.result;
+                };
+
+                reader.readAsDataURL(this.filePermiso);
+            }
+        },
         async obtenerUsuario() {
             let idUsuario = localStorage.idUsuario;
             let user = await tiendaService.getUser(idUsuario);
@@ -112,12 +136,15 @@ export default {
             this.txtApellido = this.usuario.useApellidos;
             this.txtCorreo = this.usuario.useCorreo;
             this.txtDireccion = this.vendedor[0].selDireccion,
-            this.txtNumContacto = this.vendedor[0].selNumContacto,
-            console.log(this.vendedor);
+                this.txtNumContacto = this.vendedor[0].selNumContacto,
+                console.log(this.vendedor);
         },
 
-        async actualizarDatos() {
+        actualizarDatos() {
             if (this.txtPassword == this.txtConfirPassword) {
+                if (this.base64Image == null) {
+                    this.base64Image = this.vendedor[0].selPermiso;
+                }
 
                 axios
                     .patch(this.url + "/user/update", {
@@ -126,18 +153,32 @@ export default {
                         useApellidos: this.txtApellido,
                         useCorreo: this.txtCorreo,
                         usePassword: this.txtPassword,
-                        useRol: "Comprador"
+                        useRol: "Vendedor"
                     })
-                    .then(function (response) {
+                    .then(async (response) => {
                         console.log(response);
-                        Swal.fire(
-                            '¡Datos actualizados!',
-                            'Se han actualizado los datos correctamente',
-                            'success'
-                        )
-                        setTimeout(function () {
-                            window.location.reload()
-                        }, 3000);
+                        return axios
+                            .patch(this.url + "/seller/update", {
+                                id: localStorage.idVendedor,
+                                selDireccion: this.txtDireccion,
+                                selNumContacto: this.txtNumContacto,
+                                selPermiso: this.base64Archivo,
+                                user_id: response.data.result.id
+                            })
+                            .then(function (respuesta) {
+                                console.log(respuesta);
+                                Swal.fire(
+                                    '¡Datos actualizados!',
+                                    'Se han actualizado los datos correctamente',
+                                    'success'
+                                )
+                                setTimeout(function () {
+                                    window.location.reload()
+                                }, 3000);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
 
                     })
                     .catch(function (error) {

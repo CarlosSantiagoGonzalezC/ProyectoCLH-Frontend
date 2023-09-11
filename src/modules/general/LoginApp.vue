@@ -18,7 +18,8 @@
                             label="Contraseña" hint="Minimo 5 caracteres" class="input-group--focused ml-16 mr-16"
                             @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"
                             v-model="txtPassword"></v-text-field>
-                        <VueRecaptcha sitekey="6LdexlcnAAAAAAbOQ2nCABf0s3Tf8UCq7GGI2Afx" class="mb-3"></VueRecaptcha>
+                        <vue-recaptcha @verify="onCaptchaVerified" sitekey="6LfGXWYlAAAAAHqCvlXfzzcM33f8CWYzi00xCzFj"
+                            class="mb-3"></vue-recaptcha>
                         <v-btn class="mr-4 rounded-pill" color="#331b05" @click="inicarSesion()">
                             Iniciar sesión
                         </v-btn>
@@ -39,7 +40,7 @@
 import HeaderNav from './components/HeaderNav.vue';
 import FooterApp from './components/FooterApp.vue';
 import '@fortawesome/fontawesome-free/css/all.css';
-import VueRecaptcha from 'vue-recaptcha';
+import VueRecaptcha from "vue-recaptcha";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -65,37 +66,51 @@ export default {
         url: process.env.VUE_APP_URL_BASE_TIENDA,
         txtCorreo: "",
         txtPassword: "",
+        recaptcha: null,
     }),
     methods: {
+        onCaptchaVerified(response) {
+            // Manejar la respuesta del captcha aquí
+            console.log("Captcha verificado:", response);
+            this.recaptcha = response;
+        },
         async inicarSesion() {
-            axios
-                .post(this.url + "/auth", {
-                    useCorreo: this.txtCorreo,
-                    usePassword: this.txtPassword
-                })
-                .then(function (response) {
-                    console.log(response);
-                    if (response.data.result.error_id == 200) {
-                        Swal.fire(
-                            '¡Credenciales incorrectas!',
-                            'Verifique que sus credenciales sean validas',
-                            'error'
-                        )
-                    } else {
-                        localStorage.idUsuario = response.data.result.id;
-                        localStorage.token = response.data.result.token;
-                        localStorage.rol = response.data.result.rol;
-                        if (response.data.result.rol == "Vendedor") {
-                            location.href = "/inicio-vendedor";
+            if (!this.recaptcha) {
+                Swal.fire(
+                    '¡Validación fallida!',
+                    'Por favor valide el recaptcha',
+                    'error'
+                )
+            } else {
+                axios
+                    .post(this.url + "/auth", {
+                        useCorreo: this.txtCorreo,
+                        usePassword: this.txtPassword
+                    })
+                    .then(function (response) {
+                        console.log(response);
+                        if (response.data.result.error_id == 200) {
+                            Swal.fire(
+                                '¡Credenciales incorrectas!',
+                                'Verifique que sus credenciales sean validas',
+                                'error'
+                            )
                         } else {
-                            location.href = "/inicio-comprador";
+                            localStorage.idUsuario = response.data.result.id;
+                            localStorage.token = response.data.result.token;
+                            localStorage.rol = response.data.result.rol;
+                            if (response.data.result.rol == "Vendedor") {
+                                location.href = "/inicio-vendedor";
+                            } else {
+                                location.href = "/inicio-comprador";
+                            }
                         }
-                    }
 
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
 
         },
     },
