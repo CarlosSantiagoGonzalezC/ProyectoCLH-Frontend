@@ -1,44 +1,37 @@
 <template>
-    <v-app>
-        <HeaderNav></HeaderNav>
-
-        <div class="mt-16 content-full" align="center">
-            <v-card color="#da9f68" dark width="70%" elevation="24" class="pl-16 pr-16">
-                <v-card-text>
-                    <h1>MODIFICAR PRODUCTO</h1>
-                    <div id="logoForm">
-                        <i class="fa fa-edit"></i>
-                    </div>
-                    <v-card class="mt-7 mb-5">
-                        <v-card-title class="tabla">
-                            <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line
-                                hide-details></v-text-field>
-                        </v-card-title>
-                        <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla">
-                            <template v-slot:item="row">
-                                <tr>
-                                    <td>{{ row.item.id }}</td>
-                                    <td>{{ row.item.proCodigo }}</td>
-                                    <td>{{ row.item.proNombre }}</td>
-                                    <td>{{ row.item.proDescripcion }}</td>
-                                    <td>{{ row.item.proCantDisponible }}</td>
-                                    <td>COP {{ row.item.proPrecio }}</td>
-                                    <td>
-                                        <v-img lazy-src="https://picsum.photos/id/11/10/6" height="50" width="50"
-                                            :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
-                                    </td>
-                                    <td>
-                                        <v-btn class="mx-2" fab dark small color="#925419"
-                                            @click="dialog = true; obtenerProductoId(row.item.id)"><v-icon
-                                                dark>mdi-pencil</v-icon></v-btn>
-                                    </td>
-                                </tr>
-                            </template></v-data-table>
-                    </v-card>
-                </v-card-text>
+    <v-card color="#da9f68" dark width="70%" elevation="24" class="pl-16 pr-16">
+        <v-card-text>
+            <h1>MODIFICAR PRODUCTO</h1>
+            <div id="logoForm">
+                <i class="fa fa-edit"></i>
+            </div>
+            <v-card class="mt-7 mb-5">
+                <v-card-title class="tabla">
+                    <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line
+                        hide-details></v-text-field>
+                </v-card-title>
+                <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla">
+                    <template v-slot:item="row">
+                        <tr>
+                            <td>{{ row.item.id }}</td>
+                            <td>{{ row.item.proCodigo }}</td>
+                            <td>{{ row.item.proNombre }}</td>
+                            <td>{{ row.item.proDescripcion }}</td>
+                            <td>{{ row.item.proCantDisponible }}</td>
+                            <td>COP {{ row.item.proPrecio }}</td>
+                            <td>
+                                <v-img lazy-src="https://picsum.photos/id/11/10/6" height="50" width="50"
+                                    :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
+                            </td>
+                            <td>
+                                <v-btn class="mx-2" fab dark small color="#925419"
+                                    @click="dialog = true; obtenerProductoId(row.item.id)"><v-icon
+                                        dark>mdi-pencil</v-icon></v-btn>
+                            </td>
+                        </tr>
+                    </template></v-data-table>
             </v-card>
-        </div>
-
+        </v-card-text>
         <v-dialog v-model="dialog" persistent max-width="1000px">
             <v-card>
                 <v-card-title class="text-center">
@@ -94,15 +87,10 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-
-        <FooterApp></FooterApp>
-
-    </v-app>
+    </v-card>
 </template>
   
 <script>
-import HeaderNav from './components/HeaderNav.vue';
-import FooterApp from '../general/components/FooterApp.vue';
 import '@fortawesome/fontawesome-free/css/all.css';
 //import store from '../store/store';
 import tiendaService from '@/services/tiendaService';
@@ -113,8 +101,6 @@ export default {
     name: 'ModificarProducto',
 
     components: {
-        HeaderNav,
-        FooterApp,
     },
 
     data: () => ({
@@ -260,11 +246,11 @@ export default {
     color: #331b05;
 }
 
-.content-full {
-    min-height: 60vh;
-}
-
 .tabla {
     background: #7b5028;
+}
+
+h1 {
+    text-align: center;
 }
 </style>

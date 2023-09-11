@@ -1,23 +1,23 @@
 <template>
-    <div>
+    <div class="mb-10">
         <header>
             <img src="../assets/logoCoffee.png" alt="logo" class="logo">
         </header>
 
         <nav>
             <div class="navegacion">
-                <a href="/inicio-vendedor">
+                <router-link :to="{name: 'Inicio'}">
                     <v-icon>mdi-home</v-icon> Inicio
-                </a>
-                <a href="/agregar-producto">
+                </router-link>
+                <router-link :to="{name: 'agregarProducto'}">
                     <v-icon>mdi-plus-circle</v-icon> Agregar
-                </a>
-                <a href="/modificar-producto">
+                </router-link>
+                <router-link :to="{name: 'modificarProducto'}">
                     <v-icon>mdi-pencil-circle</v-icon> Modificar
-                </a>
-                <a href="/desactivar-producto">
+                </router-link>
+                <router-link :to="{name: 'desactivarProducto'}">
                     <v-icon>mdi-minus-circle-multiple</v-icon> Desactivar
-                </a>
+                </router-link>
                 <a @click="descargarPDF">
                     <v-icon>mdi-help-circle</v-icon> Ayuda
                 </a>
@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <a @click="irFincaEmpresa" id="btnFinca" class="ml-2"><v-icon>mdi-home-silo</v-icon></a>
+                <router-link :to="{name: 'empresa'}" id="btnFinca" class="ml-2"><v-icon>mdi-home-silo</v-icon></router-link>
 
             </div>
         </nav>
@@ -84,13 +84,13 @@ export default {
         },
         irFincaEmpresa(){
             if (this.existeFinca) {
-                this.$router.push("info-empresa");
+                this.$router.push({name: 'empresa'});
             } else {
-                this.$router.push("finca-empresa");
+                this.$router.push({name: 'newEmpresa'});
             }
         },
         irAjustes() {
-            this.$router.push("actualizar-datos-vendedor");
+            this.$router.push({name: 'actualizarVendedor'});
         },
         irHistorial() {
             this.$router.push("historial");
@@ -124,14 +124,6 @@ export default {
         }
     },
     mounted() {
-        let url = window.location.href
-        let nav = document.querySelector("div.navegacion")
-        let links = nav.querySelectorAll(`a`)
-        links.forEach(link => {
-            if (link.href == url) {
-                link.className += "select"
-            }
-        });
         this.validarRutaFinca();
     }
 };
@@ -166,7 +158,6 @@ nav {
     height: 50px;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
     z-index: 2;
 }
 
@@ -182,7 +173,7 @@ nav {
     color: #f0e6dc;
 }
 
-.select {
+.navegacion .router-link-exact-active {
     background-color: #80562f;
     color: #f0e6dc;
 }

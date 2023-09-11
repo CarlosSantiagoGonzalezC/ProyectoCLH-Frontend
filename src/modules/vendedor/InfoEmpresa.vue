@@ -1,61 +1,53 @@
 <template>
-    <v-app>
-        <HeaderNav></HeaderNav>
-
-        <div class="mt-16 content-full" align="center">
-            <v-card color="#da9f68" dark width="65%" elevation="24" class="pl-16 pr-16">
-                <v-card-text>
-                    <h1>MI FINCA/EMPRESA</h1>
-                    <div class="mt-12 contenido">
-                        <h1>{{ finca.comNombre }}</h1>
-                        <div id="descrip" class="ma-4">
-                            <div>
-                                <img :src="finca.comImagen"
-                                    alt="" style="width: 250px;" id="imgFinca">
-                            </div>
-                            <div>
-                                <p>{{ finca.comHistoria }}
-                                </p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div id="infoFinca" class="mt-6 text-left">
-                            <div>
-                                <h2>Información empresa:</h2>
-                                <p>
-                                <ul>
-                                    <li>Municipio: {{ finca.comMunicipio }}</li>
-                                    <li>Dirección: {{ finca.comDireccion }}</li>
-                                    <li>Telefono: {{ finca.comTelefono }}</li>
-                                    <li>Correo electronico: {{ finca.comCorreo }}</li>
-                                </ul>
-                                </p>
-                            </div>
-                            <div>
-                                <h2>Información vendedor:</h2>
-                                <p>
-                                <ul>
-                                    <li>Nombre: {{ usuario.useNombres + " " + usuario.useApellidos}}</li>
-                                    <li>Telefono: {{ vendedor.selNumContacto }}</li>
-                                    <li>Direccion: {{ vendedor.selDireccion }}</li>
-                                    <li>Correo electronico: {{ usuario.useCorreo }}</li>
-                                </ul>
-                                </p>
-                            </div>
-                        </div>
-                        <div id="botones">
-                            <v-btn class="mr-4 rounded-pill" color="#331b05" @click="dialog = true">
-                                <v-icon>mdi-home-edit</v-icon>
-                            </v-btn>
-                            <v-btn color="#331b05" class="rounded-pill" to="/inicio-vendedor">
-                                Volver
-                            </v-btn>
-                        </div>
+    <v-card color="#da9f68" dark width="65%" elevation="24" class="pl-16 pr-16">
+        <v-card-text>
+            <h1>MI FINCA/EMPRESA</h1>
+            <div class="mt-12 contenido">
+                <h1>{{ finca.comNombre }}</h1>
+                <div id="descrip" class="ma-4">
+                    <div>
+                        <img :src="finca.comImagen" alt="" style="width: 250px;" id="imgFinca">
                     </div>
-                </v-card-text>
-            </v-card>
-        </div>
-
+                    <div>
+                        <p>{{ finca.comHistoria }}
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div id="infoFinca" class="mt-6 text-left">
+                    <div>
+                        <h2>Información empresa:</h2>
+                        <p>
+                        <ul>
+                            <li>Municipio: {{ finca.comMunicipio }}</li>
+                            <li>Dirección: {{ finca.comDireccion }}</li>
+                            <li>Telefono: {{ finca.comTelefono }}</li>
+                            <li>Correo electronico: {{ finca.comCorreo }}</li>
+                        </ul>
+                        </p>
+                    </div>
+                    <div>
+                        <h2>Información vendedor:</h2>
+                        <p>
+                        <ul>
+                            <li>Nombre: {{ usuario.useNombres + " " + usuario.useApellidos }}</li>
+                            <li>Telefono: {{ vendedor.selNumContacto }}</li>
+                            <li>Direccion: {{ vendedor.selDireccion }}</li>
+                            <li>Correo electronico: {{ usuario.useCorreo }}</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+                <div id="botones">
+                    <v-btn class="mr-4 rounded-pill" color="#331b05" @click="dialog = true">
+                        <v-icon>mdi-home-edit</v-icon>
+                    </v-btn>
+                    <v-btn color="#331b05" class="rounded-pill" to="/inicio-vendedor">
+                        Volver
+                    </v-btn>
+                </div>
+            </div>
+        </v-card-text>
         <v-dialog v-model="dialog" persistent max-width="1000px">
             <v-card>
                 <v-card-title class="text-center">
@@ -113,15 +105,10 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-
-        <FooterApp></FooterApp>
-
-    </v-app>
+    </v-card>
 </template>
   
 <script>
-import HeaderNav from './components/HeaderNav.vue';
-import FooterApp from '../general/components/FooterApp.vue';
 import '@fortawesome/fontawesome-free/css/all.css';
 import tiendaService from '@/services/tiendaService';
 import axios from 'axios';
@@ -131,8 +118,6 @@ export default {
     name: 'InfoEmpresa',
 
     components: {
-        HeaderNav,
-        FooterApp,
     },
 
     data: () => ({
@@ -141,16 +126,18 @@ export default {
             min: v => v.length >= 5 || 'Minimo 5 caracteres',
         },
         url: process.env.VUE_APP_URL_BASE_TIENDA,
-        txtNombre: "",
-        txtHistoria: "",
-        txtMunicipio: "",
-        txtDireccion: "",
-        txtTelefono: "",
         fileImagen: null,
         base64Image: null,
         txtCorreo: "",
         dialog: false,
-        finca: null,
+        finca: {
+            txtNombre: "",
+            txtHistoria: "",
+            txtMunicipio: "",
+            txtDireccion: "",
+            txtTelefono: "",
+            comImagen: "",
+        },
         vendedor: null,
         usuario: null,
     }),
@@ -173,8 +160,8 @@ export default {
             }
         },
         async obtenerEmpresa() {
-            let empresa = await tiendaService.getCompanyId(localStorage.idFinca);
-            this.finca = empresa.data;
+            let empresa = await tiendaService.getCompanySeller(localStorage.idVendedor);
+            this.finca = empresa.data[0];
             this.txtNombre = this.finca.comNombre;
             this.txtHistoria = this.finca.comHistoria;
             this.txtMunicipio = this.finca.comMunicipio;
@@ -269,7 +256,14 @@ export default {
     color: #331b05;
 }
 
-.content-full {
-    min-height: 60vh;
+h1 {
+    text-align: center;
+}
+
+#botones {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>
