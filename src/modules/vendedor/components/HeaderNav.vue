@@ -1,23 +1,23 @@
 <template>
-    <div>
+    <div class="mb-10">
         <header>
             <img src="../assets/logoCoffee.png" alt="logo" class="logo">
         </header>
 
         <nav>
             <div class="navegacion">
-                <a href="/inicio-vendedor">
+                <router-link :to="{ name: 'Inicio' }">
                     <v-icon>mdi-home</v-icon> Inicio
-                </a>
-                <a href="/agregar-producto">
+                </router-link>
+                <router-link :to="{ name: 'agregarProducto' }">
                     <v-icon>mdi-plus-circle</v-icon> Agregar
-                </a>
-                <a href="/modificar-producto">
+                </router-link>
+                <router-link :to="{ name: 'modificarProducto' }">
                     <v-icon>mdi-pencil-circle</v-icon> Modificar
-                </a>
-                <a href="/desactivar-producto">
+                </router-link>
+                <router-link :to="{ name: 'desactivarProducto' }">
                     <v-icon>mdi-minus-circle-multiple</v-icon> Desactivar
-                </a>
+                </router-link>
                 <a @click="descargarPDF">
                     <v-icon>mdi-help-circle</v-icon> Ayuda
                 </a>
@@ -35,14 +35,14 @@
                             <img src="@/assets/divisas.png" alt="divisas" class="divisas">
                         </div>
                         <div class="options">
-                            <button @click="irAjustes()" class="btn-options">
+                            <router-link :to="{ name: 'actualizarVendedor' }" class="btn-options">
                                 <v-icon>mdi-cogs</v-icon>
                                 Ajustes
-                            </button>
-                            <button class="btn-options" @click="irHistorial()">
+                            </router-link>
+                            <router-link :to="{ name: 'historial' }" class="btn-options" @click="irHistorial()">
                                 <v-icon aria-hidden="true">mdi-history</v-icon>
                                 Historial
-                            </button>
+                            </router-link>
                             <a @click="salir" class="btn-options">
                                 <v-icon aria-hidden="true">mdi-logout</v-icon>
                                 Salir
@@ -75,25 +75,19 @@ export default {
         existeFinca: true,
     }),
     methods: {
-        async validarRutaFinca(){
+        async validarRutaFinca() {
             let empresa = await tiendaService.getCompanyId(localStorage.idFinca);
             this.finca = empresa.data;
             if (!this.finca.comNombre) {
                 this.existeFinca = false
             }
         },
-        irFincaEmpresa(){
+        irFincaEmpresa() {
             if (this.existeFinca) {
-                this.$router.push("info-empresa");
+                this.$router.push({ name: 'empresa' }).catch(this.validarRutaFinca);
             } else {
-                this.$router.push("finca-empresa");
+                this.$router.push({ name: 'newEmpresa' }).catch(this.validarRutaFinca);
             }
-        },
-        irAjustes() {
-            this.$router.push("actualizar-datos-vendedor");
-        },
-        irHistorial() {
-            this.$router.push("historial");
         },
         descargarPDF() {
             // Ruta relativa al archivo PDF en la carpeta 'public'
@@ -117,21 +111,16 @@ export default {
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    this.$router.replace({ path: "inicio" });
-                    Swal.fire('¡Se ha cerrado la sesión!', '', 'success');
+                    this.$router.push({ name: "Inicio" }).catch(() => { })
+                    localStorage.clear()
+                    Swal.fire('¡Se ha cerrado la sesión!', '', 'success').then(() => {
+                        location.reload()
+                    })
                 }
             });
         }
     },
     mounted() {
-        let url = window.location.href
-        let nav = document.querySelector("div.navegacion")
-        let links = nav.querySelectorAll(`a`)
-        links.forEach(link => {
-            if (link.href == url) {
-                link.className += "select"
-            }
-        });
         this.validarRutaFinca();
     }
 };
@@ -166,7 +155,6 @@ nav {
     height: 50px;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
     z-index: 2;
 }
 
@@ -182,7 +170,7 @@ nav {
     color: #f0e6dc;
 }
 
-.select {
+.navegacion .router-link-exact-active {
     background-color: #80562f;
     color: #f0e6dc;
 }

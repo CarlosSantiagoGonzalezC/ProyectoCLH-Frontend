@@ -18,6 +18,13 @@ const routes = [
             {
                 path: 'login',
                 name: 'login',
+                beforeEnter: (to, from, next) => {
+                    if (localStorage.token) {
+                        next({ name: 'Inicio' })
+                    } else {
+                        next()
+                    }
+                },
                 component: () => import('@/modules/general/LoginApp.vue')
             },
             {
@@ -38,6 +45,13 @@ const routes = [
             {
                 path: 'registro/',
                 component: () => import('@/modules/general/SimpleApp.vue'),
+                beforeEnter: (to, from, next) => {
+                    if (localStorage.token) {
+                        next({ name: 'Inicio' })
+                    } else {
+                        next()
+                    }
+                },
                 children: [
                     {
                         path: 'usuario',
@@ -56,8 +70,8 @@ const routes = [
                 component: () => import('@/modules/general/SimpleApp.vue'),
                 beforeEnter: (to, from, next) => {
                     if (!localStorage.token) {
-                        next({name: 'login'})
-                    }else{
+                        next({ name: 'login' })
+                    } else {
                         next()
                     }
                 },
@@ -79,128 +93,59 @@ const routes = [
                     },
                 ]
             },
-        ]
-    },
-    {
-        path: '/inicio',
-        name: 'InicioApp',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/general/InicioApp.vue')
-    },
-    {
-        path: '/inicio-vendedor',
-        name: 'InicioVendedor',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/InicioVendedor.vue')
-    },
-    {
-        path: '/inicio-comprador',
-        name: 'InicioComprador',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/InicioComprador.vue')
-    },
-    {
-        path: '/login',
-        name: 'LoginApp',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/general/LoginApp.vue')
-    },
-    {
-        path: '/comprador/',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/CompradorApp.vue'),
-        children: [
             {
-                path: '',
-                name: 'InicioComprador',
-                component: () => import('../modules/comprador/InicioComprador.vue')
+                path: 'vendedor/',
+                component: () => import('@/modules/general/SimpleApp.vue'),
+                beforeEnter: (to, from, next) => {
+                    if (!localStorage.token) {
+                        next({ name: 'login' })
+                    } else {
+                        if (localStorage.rol == "Vendedor") {
+                            next()
+                        } else {
+                            next({ name: 'Inicio' })
+                        }
+                    }
+                },
+                children: [
+                    {
+                        path: 'agregar',
+                        name: 'agregarProducto',
+                        component: () => import('@/modules/vendedor/AgregarProducto.vue')
+                    },
+                    {
+                        path: 'modificar',
+                        name: 'modificarProducto',
+                        component: () => import('@/modules/vendedor/ModificarProducto.vue')
+                    },
+                    {
+                        path: 'desactivar',
+                        name: 'desactivarProducto',
+                        component: () => import('@/modules/vendedor/DesactivarProducto.vue')
+                    },
+                    {
+                        path: 'actualizar',
+                        name: 'actualizarVendedor',
+                        component: () => import('@/modules/vendedor/ActualizarDatos.vue')
+                    },
+                    {
+                        path: 'empresa',
+                        name: 'empresa',
+                        component: () => import('@/modules/vendedor/InfoEmpresa.vue')
+                    },
+                    {
+                        path: 'newEmpresa',
+                        name: 'newEmpresa',
+                        component: () => import('@/modules/vendedor/EmpresaVendedor.vue')
+                    },
+                    {
+                        path: 'historial',
+                        name: 'historial',
+                        component: () => import('@/modules/vendedor/HistorialGraficas.vue')
+                    },
+                ]
             },
-            {
-                path: 'productos',
-                name: 'Productos',
-                component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/ProductosApp.vue')
-            }
         ]
-    },
-    // {
-    //     path: '/registro-comprador',
-    //     name: 'RegistroComprador',
-    //     component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/RegistroComprador.vue')
-    // },
-    // {
-    //     path: '/registro-vendedor',
-    //     name: 'RegistroVendedor',
-    //     component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/RegistroVendedor.vue')
-    // },
-    {
-        path: '/agregar-producto',
-        name: 'AgregarProducto',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/AgregarProducto.vue')
-    },
-    {
-        path: '/modificar-producto',
-        name: 'ModificarProducto',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/ModificarProducto.vue')
-    },
-    {
-        path: '/desactivar-producto',
-        name: 'DesactivarProducto',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/DesactivarProducto.vue')
-    },
-    {
-        path: '/finca-empresa',
-        name: 'EmpresaVendedor',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/EmpresaVendedor.vue')
-    },
-    {
-        path: '/info-empresa',
-        name: 'InfoEmpresa',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/InfoEmpresa.vue')
-    },
-    {
-        path: '/productos',
-        name: 'ProductosApp',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/ProductosApp.vue')
-    },
-    {
-        path: '/detalle-producto',
-        name: 'DetalleProducto',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/DetalleProducto.vue')
-    },
-    {
-        path: '/categorias',
-        name: 'CategoriasProductos',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/CategoriasProductos.vue')
-    },
-    {
-        path: '/otros-productos',
-        name: 'OtrosProductos',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/OtrosProductos.vue')
-    },
-    {
-        path: '/actualizar-datos',
-        name: 'ActualizarDatos',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/comprador/ActualizarDatos.vue')
-    },
-    {
-        path: '/productos-inicio',
-        name: 'ProductosApp',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/general/ProductosApp.vue')
-    },
-    {
-        path: '/categorias-inicio',
-        name: 'CategoriasProductos',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/general/CategoriasProductos.vue')
-    },
-    {
-        path: '/otros-productos-inicio',
-        name: 'OtrosProductos',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/general/OtrosProductos.vue')
-    },
-    {
-        path: '/actualizar-datos-vendedor',
-        name: 'ActualizarDatos',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/ActualizarDatos.vue')
-    },
-    {
-        path: '/historial',
-        name: 'HistorialGraficas',
-        component: () => import(/* webpackChunkName: "about" */ '../modules/vendedor/HistorialGraficas.vue')
     },
     {
         path: '*',
@@ -222,7 +167,7 @@ function rolInicial() {
         if (localStorage.rol == "Comprador") {
             return 'comprador/CompradorApp.vue'
         } else {
-            return 'vendedor/InicioVendedor.vue'
+            return 'vendedor/VendedorApp.vue'
         }
     }
 }
@@ -234,7 +179,7 @@ function rol() {
         if (localStorage.rol == "Comprador") {
             return 'comprador'
         } else {
-            router.push({ name: 'Inicio' })
+            router.push({ name: 'Inicio' }).catch(() => { })
         }
     }
 }
