@@ -73,14 +73,26 @@ export default {
         show: false,
         finca: null,
         existeFinca: true,
+        vendedor: null,
+        nombre: null
     }),
     methods: {
+        async obtenerVendedor() {
+            let seller = await tiendaService.getSellerUser(localStorage.idUsuario);
+            this.vendedor = seller.data[0];
+            console.log(this.vendedor)
+        },
         async validarRutaFinca() {
-            let empresa = await tiendaService.getCompanyId(localStorage.idFinca);
+            await this.obtenerVendedor()
+            let empresa = await tiendaService.getCompanySeller(this.vendedor.id);
             this.finca = empresa.data;
-            if (!this.finca.comNombre) {
+            this.finca.forEach(element => {
+                this.nombre = element.comNombre
+            });
+            if (!this.nombre) {
                 this.existeFinca = false
             }
+            console.log(this.nombre)
         },
         irFincaEmpresa() {
             if (this.existeFinca) {
