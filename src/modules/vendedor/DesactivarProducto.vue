@@ -91,7 +91,7 @@ export default {
             { text: 'Cantidad Disponible', value: 'cantDisponible' },
             { text: 'Precio', value: 'precio' },
             { text: 'Imagen', value: 'imagen' },
-            { text: 'Modificar', value: 'modificar' },
+            { text: 'Desactivar', value: 'desactivar' },
         ],
         desserts: [],
         dialog: false,
@@ -114,7 +114,7 @@ export default {
             axios
                 .delete(this.url + "/product/delete", {
                     data: { id: this.idProducto }
-                })
+                }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                 .then((response) => {
                     console.log(response);
                     if (response.data.result.error_id == 400) {

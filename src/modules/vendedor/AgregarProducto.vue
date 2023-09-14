@@ -108,7 +108,7 @@ export default {
                     proImagen: this.base64Image,
                     category_id: this.txtCategoria,
                     user_id: localStorage.idUsuario
-                })
+                }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                 .then(function (response) {
                     console.log(response);
                     if (response.data.result.error_id == 400) {

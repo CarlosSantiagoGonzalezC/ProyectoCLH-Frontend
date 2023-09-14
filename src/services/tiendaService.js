@@ -7,58 +7,63 @@ const relative_path_seller = '/seller';
 const relative_path_comment = '/comment';
 const relative_path_user = '/user';
 
+let token = localStorage.token;
+let autorizacion = {
+    headers: { Authorization: `Bearer ${token}` },
+};
+
 export default {
-    
-    getProducts(){
+
+    getProducts() {
         return apiTienda.get(relative_path_product + "/read");
     },
 
-    getProductsSeller(id){
-        return apiTienda.get(relative_path_product + "?id=" + id);
+    getProductsSeller(id) {
+        return apiTienda.get(relative_path_product + "?id=" + id, autorizacion);
     },
 
-    getProductId(id){
+    getProductId(id) {
         return apiTienda.get(relative_path_product + "/read?id=" + id);
     },
 
-    getCategories(){
+    getCategories() {
         return apiTienda.get(relative_path_category + "/read");
     },
 
-    getProductsCategory(id){
+    getProductsCategory(id) {
         return apiTienda.get(relative_path_category + "?id=" + id);
     },
 
-    getOthersProducts(){
+    getOthersProducts() {
         return apiTienda.get(relative_path_category + "?id=6");
     },
 
-    getSellerUser(id){
-        return apiTienda.get(relative_path_seller + "?id=" + id);
+    getSellerUser(id) {
+        return apiTienda.get(relative_path_seller + "?id=" + id, autorizacion);
     },
 
-    getCompanySeller(id){
-        return apiTienda.get(relative_path_company + "?id=" + id);
+    getCompanySeller(id) {
+        return apiTienda.get(relative_path_company + "?id=" + id, autorizacion);
     },
 
-    getCommentsProduct(id){
-        return apiTienda.get(relative_path_comment + "?id=" + id);
+    getCommentsProduct(id) {
+        return apiTienda.get(relative_path_comment + "?id=" + id, autorizacion);
     },
 
-    getUser(id){
+    getUser(id) {
         return apiTienda.get(relative_path_user + "?id=" + id);
     },
 
-    getCompanyId(id){
-        return apiTienda.get(relative_path_company + "/read?id=" + id);
+    getCompanyId(id) {
+        return apiTienda.get(relative_path_company + "/read?id=" + id, autorizacion);
     },
 
-    getSellerId(id){
-        return apiTienda.get(relative_path_seller + "/read?id=" + id);
+    getSellerId(id) {
+        return apiTienda.get(relative_path_seller + "/read?id=" + id, autorizacion);
     },
 
-    getUserId(id){
-        return apiTienda.get(relative_path_user + "/read?id=" + id);
+    getUserId(id) {
+        return apiTienda.get(relative_path_user + "?id=" + id);
     },
 
 }

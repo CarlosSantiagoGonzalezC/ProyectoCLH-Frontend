@@ -140,7 +140,7 @@ export default {
                         useCorreo: this.txtCorreo,
                         usePassword: this.txtPassword,
                         useRol: "Vendedor"
-                    })
+                    }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                     .then(async (response) => {
                         console.log(response);
                         return axios
@@ -150,7 +150,7 @@ export default {
                                 selNumContacto: this.txtNumContacto,
                                 selPermiso: this.base64Archivo,
                                 user_id: response.data.result.id
-                            })
+                            }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                             .then(function (respuesta) {
                                 console.log(respuesta);
                                 Swal.fire(
