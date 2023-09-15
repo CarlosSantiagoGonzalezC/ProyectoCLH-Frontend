@@ -3,13 +3,15 @@
         <v-card-text>
             <h1>HISTORIAL/GRAFICAS</h1>
             <div class="mt-12 contenido">
-                <Bar :data="data" :options="options" />
+                <Bar v-if="data.datasets[0].data.length > 0" :data="data" :options="options" />
+                <div v-else>Cargando datos...</div>
             </div>
         </v-card-text>
     </v-card>
 </template>
   
 <script lang="ts">
+import tiendaService from '@/services/tiendaService';
 import '@fortawesome/fontawesome-free/css/all.css';
 import {
     Chart as ChartJS,
@@ -18,9 +20,9 @@ import {
     Legend,
     BarElement,
     CategoryScale,
-    LinearScale
-} from 'chart.js'
-import { Bar } from 'vue-chartjs'
+    LinearScale,
+} from 'chart.js';
+import { Bar } from 'vue-chartjs';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -29,16 +31,39 @@ export default {
     components: {
         Bar,
     },
-    data() {
-        return {
-            data: {
-                labels: ['January', 'February', 'March'],
-                datasets: [{ data: [40, 20, 12] }]
-            },
-            options: {
-                responsive: true
-            }
-        }
-    }
+    data: () => ({
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Cantidad disponible',
+                data: [],
+            }]
+        },
+        options: {
+            responsive: true
+        },
+        productos: null,
+        dataLoaded: false, // Variable de control
+    }),
+    methods: {
+        async obtenerProductos() {
+            let products = await tiendaService.getProductsSeller(localStorage.idUsuario);
+            this.productos = products.data;
+            this.data.labels = [];
+            this.data.datasets[0].data = [];
+
+            this.productos.forEach(element => {
+                let nombre = element.proNombre;
+                let cantidad = element.proCantDisponible;
+                this.data.labels.push(nombre);
+                this.data.datasets[0].data.push(cantidad);
+            });
+
+            this.dataLoaded = true; // Marcamos que los datos están cargados
+        },
+    },
+    mounted() {
+        this.obtenerProductos();
+    },
 }
 </script>

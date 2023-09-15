@@ -20,6 +20,7 @@ export default new Vuex.Store({
             let item = state.listaProductos.find(i => i.id === producto.id);
 
             if (item) {
+                /* eslint-disable */
                 state.listaProductos = state.listaProductos.filter(i => i.id !== producto.id)
             }
         },
