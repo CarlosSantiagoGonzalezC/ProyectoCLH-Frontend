@@ -1,6 +1,7 @@
 <template>
     <div>
-        <HeaderNav></HeaderNav>
+        <HeaderNav @open="openCarrito"></HeaderNav>
+        <CarritoNav :show="show" @close="closeCarrito"></CarritoNav>
         <div class="content">
             <router-view></router-view>
         </div>
@@ -11,6 +12,7 @@
 <script>
 
 import HeaderNav from './components/HeaderNav.vue';
+import CarritoNav from './components/CarritoNav.vue';
 import FooterApp from '../general/components/FooterApp.vue';
 
 export default {
@@ -18,12 +20,22 @@ export default {
 
     components: {
         HeaderNav,
+        CarritoNav,
         FooterApp,
     },
     data() {
         return {
+            show: false
         }
     },
+    methods:{
+        closeCarrito(bolean){
+            this.show = bolean
+        },
+        openCarrito(bolean){
+            this.show = bolean
+        },
+    }
 }
 </script>
 

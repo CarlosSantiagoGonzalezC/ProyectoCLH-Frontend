@@ -6,13 +6,13 @@
 
         <nav>
             <div class="navegacion">
-                <router-link :to="{name: 'Inicio'}">
+                <router-link :to="{ name: 'Inicio' }">
                     <v-icon>mdi-home</v-icon> Inicio
                 </router-link>
-                <router-link :to="{name: 'Productos'}">
+                <router-link :to="{ name: 'Productos' }">
                     <v-icon>mdi-coffee</v-icon> Productos
                 </router-link>
-                <router-link :to="{name: 'Categorias'}">
+                <router-link :to="{ name: 'Categorias' }">
                     <v-icon>mdi-list-box</v-icon> Categorias
                 </router-link>
                 <!-- <a>
@@ -21,7 +21,7 @@
                 <a>
                     <v-icon>mdi-star-circle</v-icon> Destacados
                 </a> -->
-                <router-link :to="{name: 'Otros'}">
+                <router-link :to="{ name: 'Otros' }">
                     <v-icon>mdi-plus-circle-multiple</v-icon> Otros
                 </router-link>
                 <a @click="descargarPDF">
@@ -29,11 +29,9 @@
                 </a>
             </div>
             <div class="opcUser">
-                <router-link :to="{name: 'carrito'}" class="mr-2">
-                    <button>
-                        <v-icon>mdi-cart</v-icon>
-                    </button>
-                </router-link>
+                <button @click="open">
+                    <v-icon>mdi-cart</v-icon>
+                </button>
                 <div class="dropdown">
                     <button class="drop-btn" @click="show = !show">
                         <v-icon>mdi-account-circle</v-icon>
@@ -67,11 +65,10 @@ export default {
     },
 
     data: () => ({
-        show: false
     }),
     methods: {
         irAjustes() {
-            this.$router.push({name: 'actualizarUser'});
+            this.$router.push({ name: 'actualizarUser' });
         },
         descargarPDF() {
             // Ruta relativa al archivo PDF en la carpeta 'public'
@@ -95,13 +92,16 @@ export default {
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    this.$router.push({ name: "Inicio" }).catch(()=>{})
+                    this.$router.push({ name: "Inicio" }).catch(() => { })
                     localStorage.clear()
                     Swal.fire('¡Se ha cerrado la sesión!', '', 'success').then(() => {
                         location.reload()
                     })
                 }
             });
+        },
+        open() {
+            this.$emit('open', true)
         }
     },
     mounted() {
@@ -241,19 +241,18 @@ button:hover {
     width: 100px;
 }
 
-.options{
+.options {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.show{
+.show {
     visibility: visible;
 }
 
-.hidden{
+.hidden {
     visibility: hidden;
 }
-
 </style>
