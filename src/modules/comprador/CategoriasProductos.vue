@@ -17,7 +17,7 @@
                             <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                         </template>
 
-                        <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                        <v-img height="250" :src="producto.proImagen"></v-img>
 
                         <v-card-title>{{ producto.proNombre }}</v-card-title>
 
@@ -48,7 +48,7 @@
                         </v-card-text>
 
                         <v-card-actions>
-                            <v-btn color="#331b05" class="rounded-pill">
+                            <v-btn color="#331b05" class="rounded-pill" @click="añadirCarrito(producto.id)">
                                 <v-icon>mdi-cart-plus</v-icon>
                             </v-btn>
                             <v-btn color="#331b05" class="rounded-pill" @click="obtnerIds(producto.id, producto.user_id)">
@@ -64,7 +64,7 @@
                             <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                         </template>
 
-                        <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                        <v-img height="250" :src="produ.proImagen"></v-img>
 
                         <v-card-title>{{ produ.proNombre }}</v-card-title>
 
@@ -95,7 +95,7 @@
                         </v-card-text>
 
                         <v-card-actions>
-                            <v-btn color="#331b05" class="rounded-pill">
+                            <v-btn color="#331b05" class="rounded-pill" @click="añadirCarrito(produ.id)">
                                 <v-icon>mdi-cart-plus</v-icon>
                             </v-btn>
                             <v-btn color="#331b05" class="rounded-pill" @click="obtnerIds(produ.id, produ.user_id)">
@@ -115,10 +115,10 @@
 </template>
   
 <script>
-//import store from '../store/store';
+import store from '@/store/store';
 import tiendaService from '@/services/tiendaService';
 // import axios from 'axios';
-// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 export default {
     name: 'CategoriasProductos',
@@ -131,6 +131,7 @@ export default {
         productosCategoria: [],
         categorias: null,
         categoria: null,
+        productoCarrito: null
     }),
     methods: {
         async obtenerProductos() {
@@ -142,7 +143,7 @@ export default {
         obtnerIds(idProducto, idUsuario) {
             localStorage.idProducto = idProducto;
             localStorage.idUser = idUsuario;
-            this.$router.push("detalle-producto");
+            this.$router.push({name: 'producto'});
         },
         async obtenerCategorias() {
             let categories = await tiendaService.getCategories();
@@ -154,6 +155,17 @@ export default {
             this.productosCategoria = products.data;
             console.log(this.productosCategoria);
         },
+        async añadirCarrito(idProducto) {
+            let product = await tiendaService.getProductId(idProducto);
+            this.productoCarrito = product.data;
+            store.dispatch('productoAñadido', this.productoCarrito);
+            console.log(store.state.listaProductos);
+            Swal.fire(
+                '¡Producto añadido!',
+                'Se ha agregado el producto al carrito de compras',
+                'success'
+            )
+        }
     },
     mounted() {
         this.obtenerProductos();

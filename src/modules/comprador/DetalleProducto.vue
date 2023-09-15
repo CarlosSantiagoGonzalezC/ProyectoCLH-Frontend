@@ -2,14 +2,14 @@
     <v-card class="center" color="#da9f68" width="80%" elevation="24">
         <div class="producto">
             <div class="fotos-producto">
-                <img src="@/assets/cafe1.png" alt="" height="100px">
-                <img src="@/assets/cafe1.png" alt="" height="100px">
-                <img src="@/assets/cafe1.png" alt="" height="100px">
-                <img src="@/assets/cafe1.png" alt="" height="100px">
-                <img src="@/assets/cafe1.png" alt="" height="100px">
+                <img :src="producto.proImagen" alt="" height="100px">
+                <img :src="producto.proImagen" alt="" height="100px">
+                <img :src="producto.proImagen" alt="" height="100px">
+                <img :src="producto.proImagen" alt="" height="100px">
+                <img :src="producto.proImagen" alt="" height="100px">
             </div>
             <div class="foto-producto">
-                <img src="@/assets/cafe1.png" alt="">
+                <img :src="producto.proImagen" alt="">
             </div>
             <div class="info-producto">
                 <div class="categoria-ventas">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="butons">
                     <button class="comprar">Comprar ahora</button>
-                    <button class="agregar">Agregar al carrito</button>
+                    <button class="agregar" @click="añadirCarrito(producto.id)">Agregar al carrito</button>
                 </div>
                 <div class="garantia">
                     <i class="fa-solid fa-medal"></i>
@@ -83,7 +83,7 @@
 
 <script>
 import '@fortawesome/fontawesome-free/css/all.css';
-//import store from '../store/store';
+import store from '@/store/store';
 import tiendaService from '@/services/tiendaService';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -100,6 +100,7 @@ export default {
         empresa: null,
         comentario: "",
         url: process.env.VUE_APP_URL_BASE_TIENDA,
+        productoCarrito: null
     }),
 
     methods: {
@@ -126,7 +127,7 @@ export default {
                     comTexto: this.comentario,
                     product_id: localStorage.idProducto,
                     user_id: localStorage.idUsuario
-                })
+                }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                 .then(function (response) {
                     console.log(response);
                     if (response.data.result.error_id == 400) {
@@ -136,6 +137,7 @@ export default {
                             'error'
                         )
                     } else {
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
                         Swal.fire(
                             '¡Comentario agregado!',
                             'Se ha agregado el comentario correctamente',
@@ -169,6 +171,17 @@ export default {
 
             console.log(this.comentarios);
         },
+        async añadirCarrito(idProducto) {
+            let product = await tiendaService.getProductId(idProducto);
+            this.productoCarrito = product.data;
+            store.dispatch('productoAñadido', this.productoCarrito);
+            console.log(store.state.listaProductos);
+            Swal.fire(
+                '¡Producto añadido!',
+                'Se ha agregado el producto al carrito de compras',
+                'success'
+            )
+        }
     },
     mounted() {
         this.obtenerProductoId();

@@ -9,7 +9,7 @@
                         <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                     </template>
 
-                    <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                    <v-img height="250" :src="producto.proImagen"></v-img>
                     <v-card-title>{{ producto.proNombre }}</v-card-title>
 
                     <v-card-text>
@@ -38,7 +38,7 @@
                     </v-card-text>
 
                     <v-card-actions>
-                        <v-btn color="#331b05" class="rounded-pill">
+                        <v-btn color="#331b05" class="rounded-pill" @click="añadirCarrito(producto.id)">
                             <v-icon>mdi-cart-plus</v-icon>
                         </v-btn>
                         <v-btn color="#331b05" class="rounded-pill" @click="obtnerIds(producto.id, producto.user_id)">
@@ -52,10 +52,10 @@
 </template>
   
 <script>
-//import store from '../store/store';
+import store from '@/store/store';
 import tiendaService from '@/services/tiendaService';
 // import axios from 'axios';
-// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 export default {
     name: 'ProductosApp',
@@ -65,6 +65,7 @@ export default {
 
     data: () => ({
         productos: null,
+        productoCarrito: null
     }),
     methods: {
         async obtenerProductos() {
@@ -76,6 +77,17 @@ export default {
             localStorage.idProducto = idProducto;
             localStorage.idUser = idUsuario;
             this.$router.push({name: 'producto'});
+        },
+        async añadirCarrito(idProducto) {
+            let product = await tiendaService.getProductId(idProducto);
+            this.productoCarrito = product.data;
+            store.dispatch('productoAñadido', this.productoCarrito);
+            console.log(store.state.listaProductos);
+            Swal.fire(
+                '¡Producto añadido!',
+                'Se ha agregado el producto al carrito de compras',
+                'success'
+            )
         }
     },
     mounted() {

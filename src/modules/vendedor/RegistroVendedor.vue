@@ -150,28 +150,6 @@ export default {
                 });
 
         },
-
-        // async registrarInfoAdicional(id) {
-        //     axios
-        //         .post(this.url + "/seller/create", {
-        //             selDireccion: this.txtDireccion,
-        //             selNumContacto: this.txtNumContacto,
-        //             selPermiso: this.txtPermiso,
-        //             user_id: id
-        //         })
-        //         .then(function (respuesta) {
-        //             console.log(respuesta);
-        //             Swal.fire(
-        //                 '¡Usuario registrado!',
-        //                 'Se ha registrado el usuario correctamente',
-        //                 'success'
-        //             )
-
-        //         })
-        //         .catch(function (error) {
-        //             console.log(error);
-        //         });
-        // },
     },
 };
 </script>

@@ -100,7 +100,7 @@ export default {
                         useCorreo: this.txtCorreo,
                         usePassword: this.txtPassword,
                         useRol: "Comprador"
-                    })
+                    }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                     .then(function (response) {
                         console.log(response);
                         Swal.fire(

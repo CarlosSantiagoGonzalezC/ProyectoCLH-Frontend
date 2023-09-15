@@ -211,7 +211,7 @@ export default {
                     comImagen: this.base64Image,
                     comCorreo: this.txtCorreo,
                     seller_id: localStorage.idVendedor
-                })
+                }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                 .then(function (response) {
                     if (response.data.result.error_id == 400) {
                         Swal.fire(

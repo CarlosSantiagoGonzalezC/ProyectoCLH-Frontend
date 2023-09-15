@@ -17,7 +17,7 @@
                             <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                         </template>
 
-                        <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                        <v-img height="250" :src="producto.proImagen"></v-img>
 
                         <v-card-title>{{ producto.proNombre }}</v-card-title>
 
@@ -55,7 +55,7 @@
                             <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                         </template>
 
-                        <v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
+                        <v-img height="250" :src="produ.proImagen"></v-img>
 
                         <v-card-title>{{ produ.proNombre }}</v-card-title>
 
