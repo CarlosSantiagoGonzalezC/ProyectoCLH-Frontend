@@ -14,7 +14,15 @@ export default new Vuex.Store({
     },
     mutations: {
         mutandoProductoAñadido(state, productoRecibido) {
-            state.listaProductos.push(productoRecibido);
+            let item = state.listaProductos.find((item, index) => {
+                if(item.id == productoRecibido.id){
+                    state.listaProductos[index].cantidad++
+                }
+                return item.id == productoRecibido.id
+            })
+            if (!item) {
+                state.listaProductos.push(productoRecibido);
+            }
         },
         mutandoProductoEliminado(state, producto) {
             let item = state.listaProductos.find(i => i.id === producto.id);

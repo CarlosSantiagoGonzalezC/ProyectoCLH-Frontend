@@ -65,6 +65,7 @@ export default {
     },
 
     data: () => ({
+        show: false
     }),
     methods: {
         irAjustes() {
