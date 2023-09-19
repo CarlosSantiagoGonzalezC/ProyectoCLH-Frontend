@@ -3,7 +3,7 @@
         <div class="buttoncontainer">
             <v-btn icon plain @click="close"><v-icon>mdi-close-box</v-icon></v-btn>
         </div>
-        <div class="carrito">
+        <div class="carrito elevation-10">
             <productoCarrito v-for="(p) in localproductos" :key="p.id" :object="p"></productoCarrito>
         </div>
     </div>
@@ -73,7 +73,6 @@ export default {
     width: 80%;
     overflow-y: scroll;
     overflow-x: hidden;
-    border: #202020 solid 1px;
     padding: 10px 0px;
     border-radius: 5px;
     background: #ece8e5;

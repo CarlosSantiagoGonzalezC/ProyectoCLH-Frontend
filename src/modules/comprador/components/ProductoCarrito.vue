@@ -6,7 +6,11 @@
                 <h3>{{ object.proNombre }}</h3>
                 <p>{{ object.proDescripcion }}</p>
                 <div class="precio">
-                    <input type="number" :value="object.cantidad">
+                    <div class="cantidad">
+                        <button class="minus"><v-icon>mdi-minus</v-icon></button>
+                        <input type="number" :value="object.cantidad">
+                        <button class="plus"><v-icon>mdi-plus</v-icon></button>
+                    </div>
                     <p>${{ precio }} COP</p>
                 </div>
             </div>
@@ -52,14 +56,17 @@ export default {
     display: flex;
     min-height: 100px;
     justify-content: space-between;
+    overflow: hidden;
     width: 100%;
     gap: 10px;
-    background: rgb(218, 159, 104);
+    background: rgb(195 195 195);
+    border: #202020 solid 1px;
 }
 
 .info-producto {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 100%;
     max-width: 60%;
 }
@@ -79,10 +86,50 @@ export default {
 
 .precio {
     display: flex;
+    align-items: center;
 }
 
-.precio input,
+.cantidad,
 .precio p {
     width: 50%;
+}
+
+.cantidad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cantidad input {
+    width: 30%;
+    height: 30px;
+    background: aliceblue;
+    text-align: center;
+    color: #202020;
+}
+
+.cantidad input::-webkit-inner-spin-button,
+.cantidad input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.plus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 5px;
+    height: 30px;
+    background: #a1ff5a;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.minus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 5px;
+    height: 30px;
+    background: #ff6767;
+    border-radius: 5px 0px 0px 5px;
 }
 </style>
