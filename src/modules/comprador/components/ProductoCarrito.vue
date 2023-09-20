@@ -7,9 +7,9 @@
                 <p>{{ object.proDescripcion }}</p>
                 <div class="precio">
                     <div class="cantidad">
-                        <button class="minus"><v-icon>mdi-minus</v-icon></button>
-                        <input type="number" :value="object.cantidad">
-                        <button class="plus"><v-icon>mdi-plus</v-icon></button>
+                        <button class="minus" @click="minus"><v-icon>mdi-minus</v-icon></button>
+                        <input type="number" v-model="cantidad" @focusout="saveCantidad">
+                        <button class="plus" @click="plus"><v-icon>mdi-plus</v-icon></button>
                     </div>
                     <p>${{ precio }} COP</p>
                 </div>
@@ -27,18 +27,41 @@ export default {
     },
     data() {
         return {
+            cantidad: this.object.cantidad
         }
     },
     computed: {
         precio() {
-            return this.object.proPrecio * this.object.cantidad
+            return this.object.proPrecio * this.cantidad
         }
     },
     methods: {
         eliminar() {
             this.$store.dispatch('productoEliminado', this.object)
-        }
+        },
+        saveCantidad() {
+            let payload = {
+                id: this.object.id,
+                cantidad: this.cantidad
+            }
+            this.$store.dispatch('productoSetCantidad', payload)
+        },
+        minus() {
+            if(this.cantidad > 1){
+                --this.cantidad
+            }
+        },
+        plus() {
+            if(this.object.proCantDisponible > this.cantidad){
+                ++this.cantidad
+            }
+        },
     },
+    watch: {
+        cantidad: function () {
+            this.saveCantidad()
+        }
+    }
 }
 </script>
 
@@ -113,7 +136,7 @@ export default {
     -webkit-appearance: none;
 }
 
-.plus{
+.plus {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -123,7 +146,7 @@ export default {
     border-radius: 0px 5px 5px 0px;
 }
 
-.minus{
+.minus {
     display: flex;
     align-items: center;
     justify-content: center;

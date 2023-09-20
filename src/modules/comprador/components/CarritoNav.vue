@@ -6,6 +6,9 @@
         <div class="carrito elevation-10">
             <productoCarrito v-for="(p) in localproductos" :key="p.id" :object="p"></productoCarrito>
         </div>
+        <div class="buttoncontainer">
+            <v-btn color="#a1ff5a"><v-icon>mdi-cash</v-icon>Comprar</v-btn>
+        </div>
     </div>
 </template>
 

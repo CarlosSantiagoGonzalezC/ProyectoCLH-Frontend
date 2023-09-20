@@ -55,7 +55,7 @@
 import store from '@/store/store';
 import tiendaService from '@/services/tiendaService';
 // import axios from 'axios';
-import Swal from 'sweetalert2';
+
 
 export default {
     name: 'ProductosApp',
@@ -83,11 +83,6 @@ export default {
             this.localproductos.includes
             this.$set(this.productoCarrito, 'cantidad', 1)
             store.dispatch('productoAñadido', this.productoCarrito);
-            Swal.fire(
-                '¡Producto añadido!',
-                'Se ha agregado el producto al carrito de compras',
-                'success'
-            )
         }
     },
     computed: {
