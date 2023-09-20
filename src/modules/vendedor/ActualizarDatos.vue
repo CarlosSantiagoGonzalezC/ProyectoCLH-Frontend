@@ -123,8 +123,8 @@ export default {
             this.txtApellido = this.usuario.useApellidos;
             this.txtCorreo = this.usuario.useCorreo;
             this.txtDireccion = this.vendedor[0].selDireccion,
-            this.txtNumContacto = this.vendedor[0].selNumContacto,
-            console.log(this.vendedor);
+                this.txtNumContacto = this.vendedor[0].selNumContacto,
+                console.log(this.vendedor);
         },
         actualizarDatos() {
             if (this.txtPassword == this.txtConfirPassword) {
@@ -162,11 +162,21 @@ export default {
                                 )
                             })
                             .catch(function (error) {
+                                Swal.fire(
+                                    '¡Error al actualizar datos!',
+                                    'Verifique que esta haciendo el proceso correctamente',
+                                    'error'
+                                )
                                 console.log(error);
                             });
 
                     })
                     .catch(function (error) {
+                        Swal.fire(
+                            '¡Error al actualizar datos!',
+                            'Verifique que esta haciendo el proceso correctamente',
+                            'error'
+                        )
                         console.log(error);
                     });
             } else {

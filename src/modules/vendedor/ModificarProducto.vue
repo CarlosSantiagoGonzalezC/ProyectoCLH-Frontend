@@ -225,6 +225,11 @@ export default {
                     }
                 })
                 .catch(function (error) {
+                    Swal.fire(
+                        '¡Error al modificar producto!',
+                        'Verifique que esta haciendo el proceso correctamente',
+                        'error'
+                    )
                     console.log(error);
                 });
         },

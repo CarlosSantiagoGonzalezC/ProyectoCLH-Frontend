@@ -93,6 +93,11 @@ export default {
                     })
                     .catch((error) => {
                         console.log(error);
+                        Swal.fire(
+                            '¡Error al iniciar sesión!',
+                            'Verifique que sus credenciales sean validas',
+                            'error'
+                        )
                     });
             }
 

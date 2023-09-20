@@ -1,6 +1,6 @@
 <template>
     <v-card class="center" color="#da9f68" width="80%" elevation="24">
-        <div class="producto">
+        <div v-if="producto" class="producto">
             <div class="fotos-producto">
                 <img :src="producto.proImagen" alt="" height="100px">
                 <img :src="producto.proImagen" alt="" height="100px">
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="finca">
+        <div v-if="empresa" class="finca">
             <div class="info-finca">
                 <h1>{{ empresa.comNombre }}</h1>
                 <p>{{ empresa.comHistoria }}</p>
@@ -59,7 +59,7 @@
             </div>
             <img src="@/assets/finca.jpg" alt="">
         </div>
-        <div class="input-comentario">
+        <div v-if="producto" class="input-comentario">
             <textarea name="comentario" id="comentario" placeholder="Escribir comentario..."
                 v-model="comentario"></textarea>
             <div class="butons-comentario">
@@ -67,7 +67,7 @@
                 <button @click="comentar" :disabled="!comentario">Comentar</button>
             </div>
         </div>
-        <div class="container-comentarios">
+        <div v-if="producto" class="container-comentarios">
             <div class="comentario" v-for="comentario in comentarios" :key="comentario.id">
                 <div class="user-coment">
                     <img src="@/assets/usuario.png" class="user-foto">
@@ -77,6 +77,11 @@
                     <p>{{ comentario.texto }}</p>
                 </div>
             </div>
+        </div>
+        <div class="text-center mt-15" v-else>
+            <v-progress-circular class="text-center" :size="200" :width="20" color="brown"
+                indeterminate></v-progress-circular>
+            <h2 class="mt-12">Cargando productos...</h2>
         </div>
     </v-card>
 </template>
@@ -149,6 +154,11 @@ export default {
                     }
                 })
                 .catch(function (error) {
+                    Swal.fire(
+                        '¡Error al registrar comentario!',
+                        'Verifique que esta haciendo el proceso correctamente',
+                        'error'
+                    )
                     console.log(error);
                 });
 

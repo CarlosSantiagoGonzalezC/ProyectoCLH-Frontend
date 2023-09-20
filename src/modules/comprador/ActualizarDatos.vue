@@ -114,6 +114,11 @@ export default {
 
                     })
                     .catch(function (error) {
+                        Swal.fire(
+                            '¡Error al actualizar datos!',
+                            'Verifique que esta haciendo el proceso correctamente',
+                            'error'
+                        )
                         console.log(error);
                     });
             } else {

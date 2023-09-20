@@ -100,6 +100,11 @@ export default {
 
                     })
                     .catch(function (error) {
+                        Swal.fire(
+                            '¡Error al registrarse!',
+                            'Verifique que esta haciendo el proceso correctamente',
+                            'error'
+                        )
                         console.log(error);
                     });
             } else {

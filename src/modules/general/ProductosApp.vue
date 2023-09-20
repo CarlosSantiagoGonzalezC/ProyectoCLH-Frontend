@@ -2,7 +2,7 @@
     <v-card color="#da9f68" dark width="90%" elevation="24" class="px-16 py-10">
         <v-card-text>
             <h1>PRODUCTOS</h1>
-            <v-row>
+            <v-row v-if="productos">
                 <v-card :loading="loading" class="producto mx-auto my-12" max-width="374" v-for="producto in productos"
                     :key="producto.id" elevation="7">
                     <template slot="progress">
@@ -40,15 +40,17 @@
                     </v-card-text>
                 </v-card>
             </v-row>
+
+            <div class="text-center mt-15" v-else>
+                <v-progress-circular class="text-center" :size="200" :width="20" color="brown" indeterminate></v-progress-circular>
+                <h2 class="mt-12">Cargando productos...</h2>
+            </div>
         </v-card-text>
     </v-card>
 </template>
   
 <script>
-//import store from '../store/store';
 import tiendaService from '@/services/tiendaService';
-// import axios from 'axios';
-// import Swal from 'sweetalert2';
 
 export default {
     name: 'ProductosApp',
@@ -83,7 +85,7 @@ export default {
     transform: scale(102%);
 }
 
-h1{
+h1 {
     text-align: center;
 }
 </style>
