@@ -138,6 +138,11 @@ export default {
                     }
                 })
                 .catch(function (error) {
+                    Swal.fire(
+                        '¡Error al registrar finca/empresa!',
+                        'Verifique que esta haciendo el proceso correctamente',
+                        'error'
+                    )
                     console.log(error);
                 });
         },

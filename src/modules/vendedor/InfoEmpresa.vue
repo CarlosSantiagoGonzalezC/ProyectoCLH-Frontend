@@ -2,7 +2,7 @@
     <v-card color="#da9f68" dark width="65%" elevation="24" class="pl-16 pr-16">
         <v-card-text>
             <h1>MI FINCA/EMPRESA</h1>
-            <div class="mt-12 contenido">
+            <div v-if="finca.comNombre != ''" class="mt-12 contenido">
                 <h1>{{ finca.comNombre }}</h1>
                 <div id="descrip" class="ma-4">
                     <div>
@@ -46,6 +46,11 @@
                         Volver
                     </v-btn>
                 </div>
+            </div>
+            <div class="text-center mt-15" v-else>
+                <v-progress-circular class="text-center" :size="200" :width="20" color="brown"
+                    indeterminate></v-progress-circular>
+                <h2 class="mt-12">Cargando datos...</h2>
             </div>
         </v-card-text>
         <v-dialog v-model="dialog" persistent max-width="1000px">
@@ -177,7 +182,7 @@ export default {
             let empresa = await tiendaService.getCompanySeller(this.vendedor.id);
             if (!empresa.data[0]) {
                 this.$router.push({ name: 'newEmpresa' })
-            }else{
+            } else {
                 this.finca = empresa.data[0];
                 this.txtNombre = this.finca.comNombre;
                 this.txtHistoria = this.finca.comHistoria;
