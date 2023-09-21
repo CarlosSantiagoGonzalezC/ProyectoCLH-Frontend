@@ -9,10 +9,16 @@
                 </v-chip>
             </v-chip-group>
             <v-row>
-
-                <template v-if="categoria == null">
-                    <v-card :loading="loading" class="producto mx-auto my-12" max-width="374" v-for="producto in productos"
-                        :key="producto.id" elevation="7">
+                <template v-if="loading">
+                    <div class="text-center mt-15 w-100">
+                        <v-progress-circular class="text-center" :size="200" :width="20" color="brown"
+                            indeterminate></v-progress-circular>
+                        <h2 class="mt-12">Cargando productos...</h2>
+                    </div>
+                </template>
+                <template v-else-if="categoria == null">
+                    <v-card class="producto mx-auto my-12" max-width="374" v-for="producto in productos" :key="producto.id"
+                        elevation="7">
                         <template slot="progress">
                             <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                         </template>
@@ -58,8 +64,8 @@
                     </v-card>
                 </template>
                 <template v-else-if="productosCategoria.length != 0">
-                    <v-card :loading="loading" class="producto mx-auto my-12" max-width="374"
-                        v-for="produ in productosCategoria" :key="produ.id" elevation="7">
+                    <v-card class="producto mx-auto my-12" max-width="374" v-for="produ in productosCategoria"
+                        :key="produ.id" elevation="7">
                         <template slot="progress">
                             <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                         </template>
@@ -131,19 +137,21 @@ export default {
         productosCategoria: [],
         categorias: null,
         categoria: null,
-        productoCarrito: null
+        productoCarrito: null,
+        loading: true
     }),
     methods: {
         async obtenerProductos() {
             let products = await tiendaService.getProducts();
             this.productos = products.data;
+            this.loading = false
             console.log(this.productos);
         },
 
         obtnerIds(idProducto, idUsuario) {
             localStorage.idProducto = idProducto;
             localStorage.idUser = idUsuario;
-            this.$router.push({name: 'producto'});
+            this.$router.push({ name: 'producto' });
         },
         async obtenerCategorias() {
             let categories = await tiendaService.getCategories();
@@ -158,6 +166,7 @@ export default {
         async añadirCarrito(idProducto) {
             let product = await tiendaService.getProductId(idProducto);
             this.productoCarrito = product.data;
+            this.$set(this.productoCarrito, 'cantidad', 1)
             store.dispatch('productoAñadido', this.productoCarrito);
             console.log(store.state.listaProductos);
             Swal.fire(
@@ -203,5 +212,9 @@ export default {
 
 h1 {
     text-align: center;
+}
+
+.w-100{
+    width: 100%;
 }
 </style>

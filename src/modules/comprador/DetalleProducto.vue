@@ -1,13 +1,6 @@
 <template>
     <v-card class="center" color="#da9f68" width="80%" elevation="24">
         <div v-if="producto" class="producto">
-            <div class="fotos-producto">
-                <img :src="producto.proImagen" alt="" height="100px">
-                <img :src="producto.proImagen" alt="" height="100px">
-                <img :src="producto.proImagen" alt="" height="100px">
-                <img :src="producto.proImagen" alt="" height="100px">
-                <img :src="producto.proImagen" alt="" height="100px">
-            </div>
             <div class="foto-producto">
                 <img :src="producto.proImagen" alt="">
             </div>
@@ -184,6 +177,7 @@ export default {
         async añadirCarrito(idProducto) {
             let product = await tiendaService.getProductId(idProducto);
             this.productoCarrito = product.data;
+            this.$set(this.productoCarrito, 'cantidad', 1)
             store.dispatch('productoAñadido', this.productoCarrito);
             console.log(store.state.listaProductos);
             Swal.fire(
@@ -220,28 +214,6 @@ export default {
     padding: 10px 0px;
 }
 
-.fotos-producto {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 10%;
-}
-
-.fotos-producto img {
-    background: #bebebe;
-    object-fit: contain;
-    object-position: center;
-    border-radius: 5px;
-    margin: 5px;
-    cursor: pointer;
-    transition: all 500ms;
-}
-
-.fotos-producto img:hover {
-    background: #e7e7e7;
-}
-
 .foto-producto {
     display: flex;
     align-items: center;
@@ -251,7 +223,7 @@ export default {
 }
 
 .foto-producto img {
-    background: #e7e7e7;
+    background: #fafaee;
     width: 90%;
     height: 100%;
     border-radius: 5px;

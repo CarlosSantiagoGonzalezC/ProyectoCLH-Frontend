@@ -60,7 +60,7 @@
 import store from '@/store/store';
 import tiendaService from '@/services/tiendaService';
 // import axios from 'axios';
-import Swal from 'sweetalert2';
+
 
 export default {
     name: 'ProductosApp',
@@ -76,7 +76,6 @@ export default {
         async obtenerProductos() {
             let products = await tiendaService.getProducts();
             this.productos = products.data;
-            console.log(this.productos);
         },
         obtnerIds(idProducto, idUsuario) {
             localStorage.idProducto = idProducto;
@@ -86,13 +85,14 @@ export default {
         async añadirCarrito(idProducto) {
             let product = await tiendaService.getProductId(idProducto);
             this.productoCarrito = product.data;
+            this.localproductos.includes
+            this.$set(this.productoCarrito, 'cantidad', 1)
             store.dispatch('productoAñadido', this.productoCarrito);
-            console.log(store.state.listaProductos);
-            Swal.fire(
-                '¡Producto añadido!',
-                'Se ha agregado el producto al carrito de compras',
-                'success'
-            )
+        }
+    },
+    computed: {
+        localproductos() {
+            return this.$store.state.listaProductos
         }
     },
     mounted() {
