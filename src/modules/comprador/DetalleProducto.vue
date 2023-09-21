@@ -184,6 +184,7 @@ export default {
         async añadirCarrito(idProducto) {
             let product = await tiendaService.getProductId(idProducto);
             this.productoCarrito = product.data;
+            this.$set(this.productoCarrito, 'cantidad', 1)
             store.dispatch('productoAñadido', this.productoCarrito);
             console.log(store.state.listaProductos);
             Swal.fire(
