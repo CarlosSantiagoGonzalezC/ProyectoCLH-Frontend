@@ -7,7 +7,9 @@
             <productoCarrito v-for="(p) in localproductos" :key="p.id" :object="p"></productoCarrito>
         </div>
         <div class="buttoncontainer">
-            <v-btn color="#a1ff5a"><v-icon>mdi-cash</v-icon>Comprar</v-btn>
+            <router-link :to="{name: 'compra'}">
+                <v-btn color="#a1ff5a"><v-icon>mdi-cash</v-icon>Comprar</v-btn>
+            </router-link>
         </div>
     </div>
 </template>

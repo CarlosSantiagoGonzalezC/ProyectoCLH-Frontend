@@ -32,7 +32,7 @@
                     <v-icon>mdi-star-outline</v-icon>
                 </div>
                 <div class="butons">
-                    <button class="comprar">Comprar ahora</button>
+                    <button class="comprar" @click="comprar">Comprar ahora</button>
                     <button class="agregar" @click="añadirCarrito(producto.id)">Agregar al carrito</button>
                 </div>
                 <div class="garantia">
@@ -180,11 +180,9 @@ export default {
             this.$set(this.productoCarrito, 'cantidad', 1)
             store.dispatch('productoAñadido', this.productoCarrito);
             console.log(store.state.listaProductos);
-            Swal.fire(
-                '¡Producto añadido!',
-                'Se ha agregado el producto al carrito de compras',
-                'success'
-            )
+        },
+        comprar() {
+            this.$router.push({ name: 'compra' });
         }
     },
     mounted() {

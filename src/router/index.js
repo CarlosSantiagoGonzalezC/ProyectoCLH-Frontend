@@ -87,9 +87,9 @@ const routes = [
                         component: () => import('@/modules/comprador/DetalleProducto.vue')
                     },
                     {
-                        path: 'carrito',
-                        name: 'carrito',
-                        component: () => import('@/modules/comprador/CarritoApp.vue')
+                        path: 'compra',
+                        name: 'compra',
+                        component: () => import('@/modules/comprador/RegistrarCompra.vue')
                     },
                 ]
             },
