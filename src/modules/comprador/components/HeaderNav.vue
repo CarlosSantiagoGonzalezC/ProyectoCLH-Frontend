@@ -28,6 +28,19 @@
                     <v-icon>mdi-help-circle</v-icon> Ayuda
                 </a>
             </div>
+            <div class="busqueda">
+                <v-autocomplete label="Buscar" :items="items" item-text="proNombre" item-value="id"
+                    prepend-inner-icon="mdi-magnify" dense filled rounded solo v-model="busqueda" @change="onProductChange()">
+                    <template v-slot:item="{ item }">
+                        <div class="product-item" @click="idUsuario = item.user_id">
+                            <v-avatar>
+                                <img :src="item.proImagen" class="product-image" />
+                            </v-avatar>
+                            <div class="product-name ml-4 mt-3">{{ item.proNombre }}</div>
+                        </div>
+                    </template>
+                </v-autocomplete>
+            </div>
             <div class="opcUser">
                 <button @click="open">
                     <v-icon>mdi-cart</v-icon>
@@ -57,6 +70,7 @@
   
 <script>
 import Swal from 'sweetalert2';
+import tiendaService from '@/services/tiendaService';
 
 export default {
     name: 'HeaderNav',
@@ -65,9 +79,31 @@ export default {
     },
 
     data: () => ({
-        show: false
+        items: [],
+        show: false,
+        busqueda: null,
+        productos: null,
+        idUsuario: null
     }),
     methods: {
+        onProductChange() {
+            // Aquí puedes acceder al producto seleccionado a través de this.busqueda
+            console.log('Producto seleccionado:', this.busqueda);
+            localStorage.idProducto = this.busqueda;
+            localStorage.idUser = this.idUsuario;
+            if (this.busqueda) {
+                //this.$router.push({name: 'producto'});
+                location.href = 'producto';
+            }
+        },
+        async obtenerProductos() {
+            let products = await tiendaService.getProducts();
+            this.productos = products.data;
+            this.productos.forEach(element => {
+                this.items.push(element)
+            });
+            console.log(this.items)
+        },
         irAjustes() {
             this.$router.push({ name: 'actualizarUser' });
         },
@@ -106,6 +142,7 @@ export default {
         }
     },
     mounted() {
+        this.obtenerProductos();
     }
 };
 </script>
@@ -162,6 +199,17 @@ nav {
 .opcUser {
     display: flex;
     margin-right: 20px;
+}
+
+.busqueda {
+    margin-left: 34%;
+    margin-top: 25px;
+}
+
+.product-item {
+    display: flex;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 /** botones */
