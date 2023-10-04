@@ -49,9 +49,6 @@ export default {
 </script>
 
 <style scoped>
-.tabla {
-    background: #7b5028;
-}
 
 .v-card {
     min-height: 60vh;

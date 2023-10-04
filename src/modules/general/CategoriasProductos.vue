@@ -9,8 +9,14 @@
                 </v-chip>
             </v-chip-group>
             <v-row>
-
-                <template v-if="categoria == null">
+                <template v-if="loading">
+                    <div class="text-center mt-15 w-100">
+                        <v-progress-circular class="text-center" :size="200" :width="20" color="brown"
+                            indeterminate></v-progress-circular>
+                        <h2 class="mt-12">Cargando productos...</h2>
+                    </div>
+                </template>
+                <template v-else-if="categoria == null">
                     <v-card :loading="loading" class="producto mx-auto my-12" max-width="374" v-for="producto in productos"
                         :key="producto.id" elevation="7">
                         <template slot="progress">
@@ -110,11 +116,13 @@ export default {
         productosCategoria: [],
         categorias: null,
         categoria: null,
+        loading: true
     }),
     methods: {
         async obtenerProductos() {
             let products = await tiendaService.getProducts();
             this.productos = products.data;
+            this.loading = false
             console.log(this.productos);
         },
         async obtenerCategorias() {
@@ -146,7 +154,7 @@ export default {
     transform: scale(105%);
 }
 
-h1{
+h1 {
     text-align: center;
 }
 
@@ -164,5 +172,9 @@ h1{
     letter-spacing: 5px;
     line-height: 40px;
     width: 60%;
+}
+
+.w-100{
+    width: 100%;
 }
 </style>
