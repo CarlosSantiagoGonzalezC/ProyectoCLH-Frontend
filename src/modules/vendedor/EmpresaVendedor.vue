@@ -103,8 +103,8 @@ export default {
         async obtenerIdVendedor() {
             let seller = await tiendaService.getSellerUser(localStorage.idUsuario);
             this.vendedor = seller.data;
-            this.idVendedor = this.vendedor[0].user_id;
-            // localStorage.idVendedor = this.vendedor[0].id;
+            this.idVendedor = this.vendedor[0].id;
+            //localStorage.idVendedor = this.vendedor[0].id;
         },
         async agregarDatosEmpresa() {
             axios
