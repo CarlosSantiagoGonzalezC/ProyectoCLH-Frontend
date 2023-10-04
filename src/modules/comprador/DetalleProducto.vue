@@ -50,7 +50,7 @@
 
                 <p>E-mail: {{ empresa.comCorreo }}</p>
             </div>
-            <img src="@/assets/finca.jpg" alt="">
+            <img :src="empresa.comImagen" alt="">
         </div>
         <div v-if="producto" class="input-comentario">
             <textarea name="comentario" id="comentario" placeholder="Escribir comentario..."
@@ -126,7 +126,7 @@ export default {
                     product_id: localStorage.idProducto,
                     user_id: localStorage.idUsuario
                 }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
-                .then(function (response) {
+                .then((response) => {
                     console.log(response);
                     if (response.data.result.error_id == 400) {
                         Swal.fire(
@@ -140,10 +140,7 @@ export default {
                             '¡Comentario agregado!',
                             'Se ha agregado el comentario correctamente',
                             'success'
-                        )
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 3000);
+                        ).then(window.location.reload())
                     }
                 })
                 .catch(function (error) {

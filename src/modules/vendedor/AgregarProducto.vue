@@ -109,7 +109,7 @@ export default {
                     category_id: this.txtCategoria,
                     user_id: localStorage.idUsuario
                 }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
-                .then(function (response) {
+                .then((response) => {
                     console.log(response);
                     if (response.data.result.error_id == 400) {
                         Swal.fire(
@@ -122,13 +122,12 @@ export default {
                             '¡Producto registrado!',
                             'Se ha registrado el producto correctamente',
                             'success'
-                        )
-                        setTimeout(function () {
-                            location.href = "/modificar-producto";
-                        }, 3000);
+                        ).then(() => {
+                            this.$router.push({ name: "modificarProducto" }).catch(() => { });
+                        })
                     }
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     Swal.fire(
                         '¡Error al registrar producto!',
                         'Verifique que esta haciendo el proceso correctamente',

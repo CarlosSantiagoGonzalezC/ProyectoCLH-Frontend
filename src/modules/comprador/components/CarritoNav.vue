@@ -8,7 +8,7 @@
         </div>
         <div class="buttoncontainer">
             <router-link :to="{name: 'compra'}">
-                <v-btn color="#a1ff5a"><v-icon>mdi-cash</v-icon>Comprar</v-btn>
+                <v-btn color="#a1ff5a" @click="close"><v-icon>mdi-cash</v-icon>Comprar</v-btn>
             </router-link>
         </div>
     </div>
