@@ -9,7 +9,8 @@
                     class="ml-16 mr-16" v-model="ciudad"></v-text-field>
                 <v-text-field filled label="Departamento" type="text" :rules="[rules.required]"
                     prepend-inner-icon="mdi-map-marker" class="ml-16 mr-16" v-model="departamento"></v-text-field>
-                <v-btn color="#331b05">
+                <h3>{{ total }}</h3>
+                <v-btn color="#331b05" @click="comprar">
                     Comprar
                 </v-btn>
             </form>
@@ -18,6 +19,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 
 export default {
     name: 'RegistrarCompra',
@@ -30,6 +33,8 @@ export default {
             direccion: "",
             ciudad: "",
             departamento: "",
+            total: 0,
+            carrito: [],
             rules: {
                 required: value => !!value || 'Campo requerido.',
                 min: v => v.length >= 5 || 'Minimo 5 caracteres',
@@ -41,15 +46,57 @@ export default {
     },
 
     methods: {
+        comprar() {
+            this.prepararCarrito()
+
+            let url = `${process.env.VUE_APP_URL_BASE_TIENDA}/purchase/create`
+
+            let data = {
+                id: localStorage.idUsuario,
+                ordDireccion: this.direccion,
+                ordCiudad: this.ciudad,
+                ordDepartamento: this.departamento,
+                ordTotal: this.total,
+                carrito: this.carrito,
+            }
+
+            let config = {
+                headers: {
+                    Authorization: `Bearer ${localStorage.token}`
+                }
+            }
+
+            axios.post(url, data, config)
+                .then(res => {
+                    console.log(res);
+                    this.$store.dispatch('eliminarCarrito')
+                }).catch(err => {
+                    console.log(err);
+                })
+        },
+        prepararCarrito() {
+            this.total = 0
+            this.carrito = []
+            this.$store.state.listaProductos.forEach(product => {
+                let p = {
+                    id: product.id,
+                    cantidad: product.cantidad,
+                    total: product.cantidad * product.proPrecio,
+                }
+
+                this.carrito.push(p)
+                this.total += p.total
+            });
+        },
     },
 
     mounted() {
+        this.prepararCarrito()
     }
 }
 </script>
 
 <style scoped>
-
 .v-card {
     min-height: 60vh;
 }

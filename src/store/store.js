@@ -55,6 +55,9 @@ export default new Vuex.Store({
                 this.state.listaProductos = listaProductos
             }
         },
+        eliminarCarrito(state) {
+            this.state.listaProductos = []
+        },
     },
     actions: {
         productoAñadido(context, productoRecibido) {
@@ -73,6 +76,11 @@ export default new Vuex.Store({
 
             // Actualiza la lista en localStorage después de eliminar
             localStorage.setItem('listaProductos', JSON.stringify(context.state.listaProductos));
+        },
+        eliminarCarrito(context) {
+            context.commit('eliminarCarrito')
+
+            localStorage.setItem('listaProductos', JSON.stringify(context.state.listaProductos))
         },
     },
 })

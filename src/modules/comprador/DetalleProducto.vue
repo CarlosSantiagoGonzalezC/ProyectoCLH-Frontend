@@ -109,7 +109,7 @@ export default {
             console.log(this.producto);
         },
         async obtenerVendedor() {
-            let id = localStorage.idUser;
+            let id = localStorage.idUsuario;
             let vendedor = await tiendaService.getSellerUser(id);
             this.idVendedor = vendedor.data[0].id;
             this.obtenerEmpresa(this.idVendedor);
