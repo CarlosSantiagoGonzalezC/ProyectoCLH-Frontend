@@ -14,7 +14,7 @@
 
                     <v-card-text>
                         <v-row align="center" class="mx-0">
-                            <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
+                            <v-rating :value="4.5" color="warning" dense half-increments readonly size="18"></v-rating>
 
                             <div class="grey--text ms-4">
                                 4.5

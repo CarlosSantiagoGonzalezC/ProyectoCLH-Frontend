@@ -25,11 +25,8 @@
                     <p class="ma-0">Envio a nivel nacional</p>
                 </div>
                 <div class="estrellas">
-                    <v-icon>mdi-star</v-icon>
-                    <v-icon>mdi-star</v-icon>
-                    <v-icon>mdi-star</v-icon>
-                    <v-icon>mdi-star-half-full</v-icon>
-                    <v-icon>mdi-star-outline</v-icon>
+                    <v-rating v-model="rating" color="yellow darken-3" background-color="grey darken-1"
+                        empty-icon="$ratingFull" half-increments hover size="23" :value="4.5"></v-rating>
                 </div>
                 <div class="butons">
                     <button class="comprar" @click="comprar">Comprar ahora</button>
