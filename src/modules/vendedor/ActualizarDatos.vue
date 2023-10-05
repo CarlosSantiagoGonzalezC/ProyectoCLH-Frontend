@@ -151,7 +151,7 @@ export default {
                                 selPermiso: this.base64Archivo,
                                 user_id: response.data.result.id
                             }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
-                            .then(function (respuesta) {
+                            .then((respuesta) => {
                                 console.log(respuesta);
                                 Swal.fire(
                                     '¡Datos actualizados!',
@@ -161,7 +161,7 @@ export default {
                                     window.location.reload()
                                 )
                             })
-                            .catch(function (error) {
+                            .catch((error) => {
                                 Swal.fire(
                                     '¡Error al actualizar datos!',
                                     'Verifique que esta haciendo el proceso correctamente',
@@ -171,7 +171,7 @@ export default {
                             });
 
                     })
-                    .catch(function (error) {
+                    .catch((error) => {
                         Swal.fire(
                             '¡Error al actualizar datos!',
                             'Verifique que esta haciendo el proceso correctamente',

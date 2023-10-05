@@ -207,7 +207,7 @@ export default {
 
             axios
                 .patch(this.url + "/company/update", {
-                    id: localStorage.idFinca,
+                    id: this.finca.id,
                     comNombre: this.txtNombre,
                     comHistoria: this.txtHistoria,
                     comMunicipio: this.txtMunicipio,
@@ -215,9 +215,9 @@ export default {
                     comTelefono: this.txtTelefono,
                     comImagen: this.base64Image,
                     comCorreo: this.txtCorreo,
-                    seller_id: localStorage.idVendedor
+                    seller_id: this.vendedor.id
                 }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
-                .then(function (response) {
+                .then((response) => {
                     if (response.data.result.error_id == 400) {
                         Swal.fire(
                             '¡Datos incorrectos!',
@@ -225,10 +225,8 @@ export default {
                             'error'
                         )
                     } else {
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 3000);
-
+                        this.dialog = false
+                        this.obtenerEmpresa()
                         Swal.fire(
                             'Datos modificados!',
                             'Se han modificado los datos de la finca/empresa',
@@ -236,7 +234,7 @@ export default {
                         )
                     }
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     console.log(error);
                 });
         },

@@ -29,7 +29,7 @@
                         empty-icon="$ratingFull" half-increments hover size="23" :value="4.5"></v-rating>
                 </div>
                 <div class="butons">
-                    <button class="comprar">Comprar ahora</button>
+                    <button class="comprar" @click="comprar">Comprar ahora</button>
                     <button class="agregar" @click="añadirCarrito(producto.id)">Agregar al carrito</button>
                 </div>
                 <div class="garantia">
@@ -47,7 +47,7 @@
 
                 <p>E-mail: {{ empresa.comCorreo }}</p>
             </div>
-            <img src="@/assets/finca.jpg" alt="">
+            <img :src="empresa.comImagen" alt="">
         </div>
         <div v-if="producto" class="input-comentario">
             <textarea name="comentario" id="comentario" placeholder="Escribir comentario..."
@@ -106,7 +106,7 @@ export default {
             console.log(this.producto);
         },
         async obtenerVendedor() {
-            let id = localStorage.idUser;
+            let id = localStorage.idUsuario;
             let vendedor = await tiendaService.getSellerUser(id);
             this.idVendedor = vendedor.data[0].id;
             this.obtenerEmpresa(this.idVendedor);
@@ -123,7 +123,7 @@ export default {
                     product_id: localStorage.idProducto,
                     user_id: localStorage.idUsuario
                 }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
-                .then(function (response) {
+                .then((response) => {
                     console.log(response);
                     if (response.data.result.error_id == 400) {
                         Swal.fire(
@@ -137,10 +137,7 @@ export default {
                             '¡Comentario agregado!',
                             'Se ha agregado el comentario correctamente',
                             'success'
-                        )
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 3000);
+                        ).then(window.location.reload())
                     }
                 })
                 .catch(function (error) {
@@ -177,11 +174,9 @@ export default {
             this.$set(this.productoCarrito, 'cantidad', 1)
             store.dispatch('productoAñadido', this.productoCarrito);
             console.log(store.state.listaProductos);
-            Swal.fire(
-                '¡Producto añadido!',
-                'Se ha agregado el producto al carrito de compras',
-                'success'
-            )
+        },
+        comprar() {
+            this.$router.push({ name: 'compra' });
         }
     },
     mounted() {

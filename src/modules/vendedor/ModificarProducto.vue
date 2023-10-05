@@ -205,7 +205,7 @@ export default {
                     category_id: this.txtCategoria,
                     user_id: localStorage.idUsuario
                 }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
-                .then(function (response) {
+                .then((response) => {
                     console.log(response);
                     if (response.data.result.error_id == 400) {
                         Swal.fire(
@@ -218,13 +218,12 @@ export default {
                             '¡Producto modificado!',
                             'Se ha modificado el producto correctamente',
                             'success'
+                        ).then(
+                            this.dialog = false
                         )
-                        setTimeout(function () {
-                            location.href = "/modificar-producto";
-                        }, 3000);
                     }
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     Swal.fire(
                         '¡Error al modificar producto!',
                         'Verifique que esta haciendo el proceso correctamente',

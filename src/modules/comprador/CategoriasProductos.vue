@@ -124,7 +124,6 @@
 import store from '@/store/store';
 import tiendaService from '@/services/tiendaService';
 // import axios from 'axios';
-import Swal from 'sweetalert2';
 
 export default {
     name: 'CategoriasProductos',
@@ -169,11 +168,6 @@ export default {
             this.$set(this.productoCarrito, 'cantidad', 1)
             store.dispatch('productoAñadido', this.productoCarrito);
             console.log(store.state.listaProductos);
-            Swal.fire(
-                '¡Producto añadido!',
-                'Se ha agregado el producto al carrito de compras',
-                'success'
-            )
         }
     },
     mounted() {
