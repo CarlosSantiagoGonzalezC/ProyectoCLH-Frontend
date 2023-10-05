@@ -28,38 +28,41 @@
                     <v-icon>mdi-help-circle</v-icon> Ayuda
                 </a>
             </div>
-            <div class="busqueda">
-                <v-autocomplete label="Buscar" :items="items" item-text="proNombre" item-value="id"
-                    prepend-inner-icon="mdi-magnify" dense filled rounded solo v-model="busqueda" @change="onProductChange()">
-                    <template v-slot:item="{ item }">
-                        <div class="product-item" @click="idUsuario = item.user_id">
-                            <v-avatar>
-                                <img :src="item.proImagen" class="product-image" />
-                            </v-avatar>
-                            <div class="product-name ml-4 mt-3">{{ item.proNombre }}</div>
-                        </div>
-                    </template>
-                </v-autocomplete>
-            </div>
-            <div class="opcUser">
-                <button @click="open">
-                    <v-icon>mdi-cart</v-icon>
-                </button>
-                <div class="dropdown">
-                    <button class="drop-btn" @click="show = !show">
-                        <v-icon>mdi-account-circle</v-icon>
+            <div class="flex">
+                <div class="busqueda">
+                    <v-autocomplete label="Buscar" :items="items" item-text="proNombre" item-value="id"
+                        prepend-inner-icon="mdi-magnify" dense filled rounded solo v-model="busqueda"
+                        @change="onProductChange()">
+                        <template v-slot:item="{ item }">
+                            <div class="product-item" @click="idUsuario = item.user_id">
+                                <v-avatar>
+                                    <img :src="item.proImagen" class="product-image" />
+                                </v-avatar>
+                                <div class="product-name ml-4 mt-3">{{ item.proNombre }}</div>
+                            </div>
+                        </template>
+                    </v-autocomplete>
+                </div>
+                <div class="opcUser">
+                    <button @click="open">
+                        <v-icon>mdi-cart</v-icon>
                     </button>
-                    <div class="dropdown-content" :class="show ? 'show' : 'hidden'">
-                        <img src="@/assets/usuario.png" class="user-foto">
-                        <div class="options">
-                            <button @click="irAjustes()">
-                                <v-icon>mdi-cogs</v-icon>
-                                Ajustes
-                            </button>
-                            <button @click="salir()">
-                                <v-icon>mdi-logout</v-icon>
-                                Salir
-                            </button>
+                    <div class="dropdown">
+                        <button class="drop-btn" @click="show = !show">
+                            <v-icon>mdi-account-circle</v-icon>
+                        </button>
+                        <div class="dropdown-content" :class="show ? 'show' : 'hidden'">
+                            <img src="@/assets/usuario.png" class="user-foto">
+                            <div class="options">
+                                <button @click="irAjustes()">
+                                    <v-icon>mdi-cogs</v-icon>
+                                    Ajustes
+                                </button>
+                                <button @click="salir()">
+                                    <v-icon>mdi-logout</v-icon>
+                                    Salir
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -196,14 +199,24 @@ nav {
     color: #f0e6dc;
 }
 
+.flex{
+    display: flex;
+    align-items: center;
+}
+
 .opcUser {
     display: flex;
     margin-right: 20px;
 }
 
 .busqueda {
-    margin-left: 34%;
-    margin-top: 25px;
+    width: 50%;
+    max-width: 200px;
+}
+
+.busqueda div {
+    position: relative;
+    top: 12px;
 }
 
 .product-item {

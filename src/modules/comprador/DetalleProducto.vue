@@ -1,6 +1,11 @@
 <template>
     <v-card class="center" color="#da9f68" width="80%" elevation="24">
-        <div v-if="producto" class="producto">
+        <div class="text-center mt-15" v-if="loading">
+            <v-progress-circular class="text-center" :size="200" :width="20" color="brown"
+                indeterminate></v-progress-circular>
+            <h2 class="mt-12">Cargando producto...</h2>
+        </div>
+        <div v-else-if="producto" class="producto">
             <div class="foto-producto">
                 <img :src="producto.proImagen" alt="">
             </div>
@@ -15,7 +20,7 @@
                     <h2>{{ producto.proNombre }}</h2>
                 </div>
                 <div class="my-5">
-                    <h2>${{ producto.proPrecio }} COP</h2>
+                    <h2>${{ comaEnMiles(producto.proPrecio) }} COP</h2>
                 </div>
                 <div>
                     <p class="my-5">{{ producto.proDescripcion }}</p>
@@ -25,15 +30,14 @@
                     <p class="ma-0">Envio a nivel nacional</p>
                 </div>
                 <div class="estrellas">
-                    <v-rating v-model="rating" color="yellow darken-3" background-color="grey darken-1"
-                        empty-icon="$ratingFull" half-increments hover size="23" :value="4.5"></v-rating>
+                    <v-rating color="yellow darken-3" background-color="grey darken-1" empty-icon="$ratingFull"
+                        half-increments hover size="23" :value="4.5"></v-rating>
                 </div>
                 <div class="butons">
-                    <button class="comprar" @click="comprar">Comprar ahora</button>
-                    <button class="agregar" @click="añadirCarrito(producto.id)">Agregar al carrito</button>
+                    <button class="comprar" @click="comprar(producto)">Comprar ahora</button>
+                    <button class="agregar" @click="añadirCarrito(producto)">Agregar al carrito</button>
                 </div>
                 <div class="garantia">
-                    <i class="fa-solid fa-medal"></i>
                     <p>30 dias de garantia</p>
                 </div>
             </div>
@@ -49,6 +53,11 @@
             </div>
             <img :src="empresa.comImagen" alt="">
         </div>
+        <div class="text-center mt-15" v-else>
+            <v-progress-circular class="text-center" :size="100" :width="20" color="brown"
+                indeterminate></v-progress-circular>
+            <h2 class="mt-12">Cargando Finca...</h2>
+        </div>
         <div v-if="producto" class="input-comentario">
             <textarea name="comentario" id="comentario" placeholder="Escribir comentario..."
                 v-model="comentario"></textarea>
@@ -57,7 +66,7 @@
                 <button @click="comentar" :disabled="!comentario">Comentar</button>
             </div>
         </div>
-        <div v-if="producto" class="container-comentarios">
+        <div v-if="comentarios" class="container-comentarios">
             <div class="comentario" v-for="comentario in comentarios" :key="comentario.id">
                 <div class="user-coment">
                     <img src="@/assets/usuario.png" class="user-foto">
@@ -89,9 +98,9 @@ export default {
     components: {
     },
     data: () => ({
+        loading: true,
         producto: null,
         comentarios: [],
-        idVendedor: "",
         empresa: null,
         comentario: "",
         url: process.env.VUE_APP_URL_BASE_TIENDA,
@@ -100,21 +109,20 @@ export default {
 
     methods: {
         async obtenerProductoId() {
-            let id = localStorage.idProducto;
-            let product = await tiendaService.getProductId(id);
-            this.producto = product.data;
-            console.log(this.producto);
+            let id = localStorage.idProducto
+            let product = await tiendaService.getProductId(id)
+            this.producto = product.data
+            this.loading = false
+            this.obtenerVendedor()
         },
         async obtenerVendedor() {
-            let id = localStorage.idUsuario;
-            let vendedor = await tiendaService.getSellerUser(id);
-            this.idVendedor = vendedor.data[0].id;
-            this.obtenerEmpresa(this.idVendedor);
+            let id = this.producto.user_id
+            let vendedor = await tiendaService.getSellerUser(id)
+            this.obtenerEmpresa(vendedor.data[0].id)
         },
         async obtenerEmpresa(id) {
             let empresa = await tiendaService.getCompanySeller(id);
             this.empresa = empresa.data[0];
-            console.log(this.empresa);
         },
         async comentar() {
             axios
@@ -124,7 +132,6 @@ export default {
                     user_id: localStorage.idUsuario
                 }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                 .then((response) => {
-                    console.log(response);
                     if (response.data.result.error_id == 400) {
                         Swal.fire(
                             '¡Datos incorrectos!',
@@ -152,6 +159,7 @@ export default {
             this.obtenerComentarios();
         },
         async obtenerComentarios() {
+            this.comentarios = []
             let id = localStorage.idProducto;
             let comments = await tiendaService.getCommentsProduct(id);
             // this.comentarios = comments.data;
@@ -165,23 +173,27 @@ export default {
                 };
                 this.comentarios.push(comentario);
             });
-
-            console.log(this.comentarios);
         },
-        async añadirCarrito(idProducto) {
-            let product = await tiendaService.getProductId(idProducto);
-            this.productoCarrito = product.data;
-            this.$set(this.productoCarrito, 'cantidad', 1)
-            store.dispatch('productoAñadido', this.productoCarrito);
-            console.log(store.state.listaProductos);
+        añadirCarrito(producto) {
+            this.$set(producto, 'cantidad', 1)
+            store.dispatch('productoAñadido', producto);
         },
-        comprar() {
+        comprar(producto) {
+            this.$set(producto, 'cantidad', 1)
+            let p = JSON.stringify(producto)
+            if (!localStorage.listaProductos.includes(p)) {
+                store.dispatch('productoAñadido', producto);
+            }
             this.$router.push({ name: 'compra' });
-        }
+        },
+        comaEnMiles(number) {
+            let exp = /(\d)(?=(\d{3})+(?!\d))/g //* expresion regular que busca tres digitos
+            let rep = '$1.' //parametro especial para splice porque los numeros no son menores a 100
+            return number.toString().replace(exp, rep)
+        },
     },
     mounted() {
         this.obtenerProductoId();
-        this.obtenerVendedor();
         this.obtenerComentarios();
     },
 
@@ -189,6 +201,10 @@ export default {
 </script>
 
 <style scoped>
+* {
+    font-weight: 500;
+}
+
 .center {
     display: flex;
     align-items: center;
