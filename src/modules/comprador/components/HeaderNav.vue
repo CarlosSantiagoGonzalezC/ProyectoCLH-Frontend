@@ -91,12 +91,12 @@ export default {
     methods: {
         onProductChange() {
             // Aquí puedes acceder al producto seleccionado a través de this.busqueda
-            console.log('Producto seleccionado:', this.busqueda);
+            // console.log('Producto seleccionado:', this.busqueda);
             localStorage.idProducto = this.busqueda;
             localStorage.idUser = this.idUsuario;
             if (this.busqueda) {
-                //this.$router.push({name: 'producto'});
-                location.href = 'producto';
+                this.$router.push({ name: 'producto' }).catch(() => { });
+                // location.href = 'producto';
             }
         },
         async obtenerProductos() {
@@ -105,10 +105,10 @@ export default {
             this.productos.forEach(element => {
                 this.items.push(element)
             });
-            console.log(this.items)
+            // console.log(this.items)
         },
         irAjustes() {
-            this.$router.push({ name: 'actualizarUser' });
+            this.$router.push({ name: 'actualizarUser' }).catch(() => { });
         },
         descargarPDF() {
             // Ruta relativa al archivo PDF en la carpeta 'public'
@@ -199,9 +199,11 @@ nav {
     color: #f0e6dc;
 }
 
-.flex{
+.flex {
     display: flex;
     align-items: center;
+    justify-content: end;
+    width: 40%;
 }
 
 .opcUser {
@@ -211,7 +213,7 @@ nav {
 
 .busqueda {
     width: 50%;
-    max-width: 200px;
+    max-width: 500px;
 }
 
 .busqueda div {

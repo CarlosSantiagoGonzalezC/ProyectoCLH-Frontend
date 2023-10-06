@@ -36,11 +36,16 @@
                     <h3>Redes sociales:</h3>
                     <p>
                     <ul>
-                        <li><a href="https://www.facebook.com"><v-icon>mdi-facebook</v-icon> CoffeeLineHuila</a></li>
-                        <li><a href="https://www.twitter.com"><v-icon>mdi-twitter</v-icon> @CoffeeLineHuila</a></li>
-                        <li><a href="https://github.com/CarlosSantiagoGonzalezC"><v-icon>mdi-github</v-icon> CoffeeLineHuila</a></li>
-                        <li><a href="https://www.instagram.com"><v-icon>mdi-instagram</v-icon> @CoffeeLineHuila.oficial</a></li>  
-                        <li><a href="https://wa.me/+573136998962?text=Quiero%20el%20cafe"><v-icon>mdi-whatsapp</v-icon> +57 3136998962</a></li>
+                        <li><a href="https://www.facebook.com" target="_blank"><v-icon>mdi-facebook</v-icon>
+                                CoffeeLineHuila</a></li>
+                        <li><a href="https://www.twitter.com" target="_blank"><v-icon>mdi-twitter</v-icon>
+                                @CoffeeLineHuila</a></li>
+                        <li><a href="https://github.com/CarlosSantiagoGonzalezC" target="_blank"><v-icon>mdi-github</v-icon>
+                                CoffeeLineHuila</a></li>
+                        <li><a href="https://www.instagram.com" target="_blank"><v-icon>mdi-instagram</v-icon>
+                                @CoffeeLineHuila.oficial</a></li>
+                        <li><a href="https://wa.me/+573136998962?text=Quiero%20el%20cafe"
+                                target="_blank"><v-icon>mdi-whatsapp</v-icon> +57 3136998962</a></li>
                     </ul>
                     </p>
                 </div>
@@ -99,14 +104,13 @@ a {
     color: #f0e6dc;
 }
 
-.around{
+.around {
     align-items: center;
     justify-content: space-around;
     width: 100%;
 }
 
-ul{
+ul {
     list-style: none;
     padding: 0;
-}
-</style>
+}</style>

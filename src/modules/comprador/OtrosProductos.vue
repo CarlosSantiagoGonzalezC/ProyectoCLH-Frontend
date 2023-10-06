@@ -3,7 +3,7 @@
         <v-card-text>
             <h1>OTROS PRODUCTOS</h1>
             <v-row v-if="productos">
-                <v-card :loading="loading" class="producto mx-auto my-12" max-width="374" v-for="producto in productos"
+                <v-card class="producto mx-auto my-12" max-width="374" v-for="producto in productos"
                     :key="producto.id" elevation="7">
                     <template slot="progress">
                         <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
@@ -39,7 +39,7 @@
                             'disponibles' : 'disponible' }}</v-chip>
                     </v-card-text>
 
-                    <v-card-actions>
+                    <v-card-actions v-if="producto.proCantDisponible > 0">
                         <v-btn color="#331b05" class="rounded-pill" @click="añadirCarrito(producto.id)">
                             <v-icon>mdi-cart-plus</v-icon>
                         </v-btn>

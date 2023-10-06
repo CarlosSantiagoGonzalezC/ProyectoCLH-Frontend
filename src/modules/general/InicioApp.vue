@@ -1,6 +1,6 @@
 <template>
         <v-carousel v-model="model" class="slider" hide-delimiter-background show-arrows-on-hover>
-            <v-carousel-item v-for="(slider) in content" :key="slider">
+            <v-carousel-item v-for="(slider, index) in content" :key="index">
                 <v-sheet height="100%" tile>
                     <v-row class="fill-height" align="center" justify="center">
                         <div class="text">

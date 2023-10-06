@@ -33,7 +33,7 @@
                     <v-rating color="yellow darken-3" background-color="grey darken-1" empty-icon="$ratingFull"
                         half-increments hover size="23" :value="4.5"></v-rating>
                 </div>
-                <div class="butons">
+                <div class="butons" v-if="producto.proCantDisponible > 0">
                     <button class="comprar" @click="comprar(producto)">Comprar ahora</button>
                     <button class="agregar" @click="añadirCarrito(producto)">Agregar al carrito</button>
                 </div>
@@ -42,7 +42,12 @@
                 </div>
             </div>
         </div>
-        <div v-if="empresa" class="finca">
+        <div class="text-center mt-15" v-if="loadingEmpresa">
+            <v-progress-circular class="text-center" :size="100" :width="20" color="brown"
+                indeterminate></v-progress-circular>
+            <h2 class="mt-12">Cargando Finca...</h2>
+        </div>
+        <div v-else-if="empresa" class="finca">
             <div class="info-finca">
                 <h1>{{ empresa.comNombre }}</h1>
                 <p>{{ empresa.comHistoria }}</p>
@@ -53,11 +58,7 @@
             </div>
             <img :src="empresa.comImagen" alt="">
         </div>
-        <div class="text-center mt-15" v-else>
-            <v-progress-circular class="text-center" :size="100" :width="20" color="brown"
-                indeterminate></v-progress-circular>
-            <h2 class="mt-12">Cargando Finca...</h2>
-        </div>
+        
         <div v-if="producto" class="input-comentario">
             <textarea name="comentario" id="comentario" placeholder="Escribir comentario..."
                 v-model="comentario"></textarea>
@@ -99,6 +100,7 @@ export default {
     },
     data: () => ({
         loading: true,
+        loadingEmpresa: true,
         producto: null,
         comentarios: [],
         empresa: null,
@@ -114,6 +116,7 @@ export default {
             this.producto = product.data
             this.loading = false
             this.obtenerVendedor()
+            this.obtenerComentarios()
         },
         async obtenerVendedor() {
             let id = this.producto.user_id
@@ -123,12 +126,13 @@ export default {
         async obtenerEmpresa(id) {
             let empresa = await tiendaService.getCompanySeller(id);
             this.empresa = empresa.data[0];
+            this.loadingEmpresa = false
         },
         async comentar() {
             axios
                 .post(this.url + "/comment/create", {
                     comTexto: this.comentario,
-                    product_id: localStorage.idProducto,
+                    product_id: this.producto.id,
                     user_id: localStorage.idUsuario
                 }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                 .then((response) => {
@@ -144,7 +148,7 @@ export default {
                             '¡Comentario agregado!',
                             'Se ha agregado el comentario correctamente',
                             'success'
-                        ).then(window.location.reload())
+                        ).then(this.obtenerComentarios())
                     }
                 })
                 .catch(function (error) {
@@ -159,9 +163,9 @@ export default {
             this.obtenerComentarios();
         },
         async obtenerComentarios() {
-            this.comentarios = []
-            let id = localStorage.idProducto;
+            let id = this.producto.id;
             let comments = await tiendaService.getCommentsProduct(id);
+            this.comentarios = []
             // this.comentarios = comments.data;
             comments.data.forEach(async element => {
                 let idUsuario = element.user_id;
@@ -194,7 +198,6 @@ export default {
     },
     mounted() {
         this.obtenerProductoId();
-        this.obtenerComentarios();
     },
 
 }

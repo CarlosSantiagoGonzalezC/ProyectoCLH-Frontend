@@ -41,6 +41,10 @@ export default {
 
 <style scoped>
 
+*{
+    font-weight: 500;
+}
+
 .content{
     display: flex;
     justify-content: center;
