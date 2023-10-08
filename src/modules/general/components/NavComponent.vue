@@ -1,53 +1,50 @@
 <template>
-    <div class="mb-10">
-        <header>
-            <img src="../assets/logoCoffee.png" alt="logo" class="logo">
-        </header>
+    <nav class="mb-10 elevation-4">
+        <div class="menuBtn">
 
-        <nav>
-            <div class="navegacion">
-                <router-link :to="{name: 'Inicio'}">
-                    <v-icon>mdi-home</v-icon> Inicio
-                </router-link>
-                <router-link :to="{name: 'Productos'}">
-                    <v-icon>mdi-coffee</v-icon> Productos
-                </router-link>
-                <router-link :to="{name: 'Categorias'}">
-                    <v-icon>mdi-list-box</v-icon> Categorias
-                </router-link>
-                <router-link :to="{name: 'Otros'}">
-                    <v-icon>mdi-plus-circle-multiple</v-icon> Otros
-                </router-link>
-                <a @click="descargarPDF">
-                    <v-icon>mdi-help-circle</v-icon> Ayuda
-                </a>
-            </div>
-            <div class="login">
+        </div>
+        <div class="navegacion">
+            <router-link :to="{ name: 'Inicio' }">
+                <v-icon>mdi-home</v-icon> Inicio
+            </router-link>
+            <router-link :to="{ name: 'Productos' }">
+                <v-icon>mdi-coffee</v-icon> Productos
+            </router-link>
+            <router-link :to="{ name: 'Categorias' }">
+                <v-icon>mdi-list-box</v-icon> Categorias
+            </router-link>
+            <router-link :to="{ name: 'Otros' }">
+                <v-icon>mdi-plus-circle-multiple</v-icon> Otros
+            </router-link>
+            <a @click="descargarPDF">
+                <v-icon>mdi-help-circle</v-icon> Ayuda
+            </a>
+        </div>
+        <div class="login">
 
-                <div class="dropdown">
-                    <button class="drop-btn">
-                        Registrarse
-                    </button>
-                    <div class="dropdown-content">
-                        <router-link :to="{name: 'RegistroComprador'}">Como usuario</router-link>
-                        <router-link :to="{name: 'RegistroVendedor'}">Como vendedor</router-link>
-                    </div>
+            <div class="dropdown">
+                <button class="drop-btn">
+                    Registrarse
+                </button>
+                <div class="dropdown-content">
+                    <router-link :to="{ name: 'RegistroComprador' }">Como usuario</router-link>
+                    <router-link :to="{ name: 'RegistroVendedor' }">Como vendedor</router-link>
                 </div>
-
-                <router-link :to="{name: 'login'}">
-                    <button>
-                        Ingresar
-                    </button>
-                </router-link>
             </div>
-        </nav>
-    </div>
+
+            <router-link :to="{ name: 'login' }">
+                <button>
+                    Ingresar
+                </button>
+            </router-link>
+        </div>
+    </nav>
 </template>
   
 <script>
 
 export default {
-    name: 'HeaderNav',
+    name: 'NavComponent',
 
     components: {
     },
@@ -76,41 +73,46 @@ export default {
   
 <style scoped>
 * {
-    font-family: 'Lucida Sans', Geneva, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-decoration: none;
     color: #331b05;
     margin: 0;
     padding: 0;
 }
 
-/** encabezado */
-header {
-    text-align: center;
-    background: #ece8e5;
-}
-
-.logo {
-    padding: 10px;
-    width: 300px;
+.menuBtn{
+    display: none;
 }
 
 /** barra de navegacion */
 nav {
     position: sticky;
-    top: 0px;
+    top: 0;
     background: #da9f68;
     display: flex;
-    height: 50px;
+    min-height: 50px;
     align-items: center;
     justify-content: space-between;
     z-index: 2;
 }
 
+.navegacion {
+    display: flex;
+    height: 100%;
+    width: 50%;
+}
+
 .navegacion a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 15px 16px;
+    padding: 0px 15px;
     font-size: 17px;
+    height: 100%;
+    min-width: 20%;
     color: #331b05;
+    transition: all 0.5s;
 }
 
 .navegacion a:hover {
@@ -162,6 +164,7 @@ button:hover,
     min-height: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    transition: visibility 0.5s;
 }
 
 .dropdown-content a {
@@ -184,5 +187,19 @@ button:hover,
 
 .dropdown:hover .drop-btn {
     background-color: #9b7c5f;
+}
+
+@media (max-width: 1100px) {
+    .menuBtn{
+        display: flex;
+    }
+
+    .navegacion{
+        position: fixed;
+        flex-direction: column;
+        top: 0;
+        height: 100vh;
+        background: #331b05;
+    }
 }
 </style>

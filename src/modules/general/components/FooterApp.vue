@@ -10,7 +10,7 @@
             </v-row>
 
             <v-row class="evenly">
-                <v-col cols="12" sm="6" md="3" class="center tx-center">
+                <v-col cols="12" sm="6" md="3" class="center">
                     <h4>Información:</h4>
                     <ul>
                         <li>sc805036@gmail.com</li>
@@ -23,19 +23,39 @@
                 <v-col cols="12" sm="6" md="3" class="center">
                     <h4>Redes Sociales:</h4>
                     <ul>
-                        <li><a href="https://www.instagram.com" target="_blank"><v-icon>mdi-instagram</v-icon>
-                            @CoffeeLineHuila.oficial</a></li>
-                            <li><a href="https://www.twitter.com" target="_blank"><v-icon>mdi-twitter</v-icon>
-                                @CoffeeLineHuila</a></li>
-                        <li><a href="https://wa.me/+573136998962?text=Quiero%20el%20cafe"
-                                target="_blank"><v-icon>mdi-whatsapp</v-icon> +57 3136998962</a></li>
-                        <li><a href="https://www.facebook.com" target="_blank"><v-icon>mdi-facebook</v-icon>
-                                CoffeeLineHuila</a></li>
-                        <li><a href="https://github.com/CarlosSantiagoGonzalezC" target="_blank"><v-icon>mdi-github</v-icon>
-                                CoffeeLineHuila</a></li>
+                        <li>
+                            <a href="https://www.instagram.com" target="_blank">
+                                <v-icon>mdi-instagram</v-icon>
+                                @CoffeeLineHuila.oficial
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.twitter.com" target="_blank">
+                                <v-icon>mdi-twitter</v-icon>
+                                @CoffeeLineHuila
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/+573136998962?text=Quiero%20el%20cafe" target="_blank">
+                                <v-icon>mdi-whatsapp</v-icon>
+                                +57 3136998962
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com" target="_blank">
+                                <v-icon>mdi-facebook</v-icon>
+                                CoffeeLineHuila
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/CarlosSantiagoGonzalezC" target="_blank">
+                                <v-icon>mdi-github</v-icon>
+                                CoffeeLineHuila
+                            </a>
+                        </li>
                     </ul>
                 </v-col>
-                <v-col cols="12" sm="6" md="3" class="center tx-center">
+                <v-col cols="12" sm="6" md="3" class="center">
                     <h4>Política De Privacidad:</h4>
                     <ul>
                         <li><a>Utilidades</a></li>
@@ -85,12 +105,17 @@ export default {
   
 <style scoped>
 * {
-    font-family: 'Lucida Sans', Geneva, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    letter-spacing: 2px;
 }
 
 a {
     text-decoration: none;
-    color: #f0e6dc;
+    color: #ffffffab;
+}
+
+a:hover {
+    color: #ffffff;
 }
 
 .around {
@@ -110,19 +135,19 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 5px;
 }
 
-.gap{
+.gap {
     gap: 5px;
 }
 
 ul {
+    display: flex;
+    flex-direction: column;
+    min-width: 70%;
     list-style: none;
     padding: 0;
+    gap: 10px;
 }
-
-.tx-center{
-    text-align: center;
-}
-
 </style>

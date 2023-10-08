@@ -1,19 +1,19 @@
 <template>
-  <v-app>
+    <v-app>
         <router-view />
-  </v-app>
+    </v-app>
 </template>
 
 <script>
 
 export default {
-  name: "App",
-  components: {
-    // 
-  },
-  data: () => ({
-    //
-  }),
+    name: "App",
+    components: {
+        // 
+    },
+    data: () => ({
+        //
+    }),
 };
 </script>
 
@@ -25,6 +25,5 @@ export default {
 #app {
     background-image: url(./assets/fondo.jpeg);
     background-position: center;
-    margin: 0;
 }
 </style>

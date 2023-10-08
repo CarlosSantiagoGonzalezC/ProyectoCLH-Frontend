@@ -1,6 +1,7 @@
 <template>
-    <div>
-        <HeaderNav></HeaderNav>
+    <div class="h-100">
+        <HeaderComponent></HeaderComponent>
+        <NavComponent></NavComponent>
         <div class="content">
             <router-view></router-view>
         </div>
@@ -9,14 +10,16 @@
 </template>
 
 <script>
-import HeaderNav from './components/HeaderNav.vue';
+import HeaderComponent from './components/HeaderComponent.vue';
+import NavComponent from './components/NavComponent.vue';
 import FooterApp from './components/FooterApp.vue';
 
 export default {
     name: 'GeneralApp',
 
     components: {
-        HeaderNav,
+        HeaderComponent,
+        NavComponent,
         FooterApp,
     },
     }
@@ -37,5 +40,11 @@ export default {
 
 .v-card {
     min-height: 60vh;
+}
+
+.h-100{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 </style>
