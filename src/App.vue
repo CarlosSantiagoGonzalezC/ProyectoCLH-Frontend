@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <v-main>
         <router-view />
-    </v-main>
   </v-app>
 </template>
 
@@ -27,5 +25,6 @@ export default {
 #app {
     background-image: url(./assets/fondo.jpeg);
     background-position: center;
+    margin: 0;
 }
 </style>

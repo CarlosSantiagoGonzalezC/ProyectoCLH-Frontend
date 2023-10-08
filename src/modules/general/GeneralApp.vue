@@ -24,6 +24,10 @@ export default {
 
 <style scoped>
 
+*{
+    font-weight: 500;
+}
+
 .content{
     display: flex;
     align-items: center;

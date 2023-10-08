@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="50%" elevation="24" class="pl-16 pr-16">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-16">
         <v-card-text>
             <form class="form">
                 <h1>REGISTRO USUARIO</h1>
@@ -7,26 +7,26 @@
                     <i class="fa fa-user"></i>
                 </div>
                 <v-row>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled label="Nombres" :rules="[rules.required]"
                             prepend-inner-icon="mdi-card-account-details" v-model="txtNombre"></v-text-field>
                     </v-col>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled label="Apellidos" :rules="[rules.required]"
                             prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido"></v-text-field>
                     </v-col>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled label="Correo eletronico" type="email" :rules="[rules.required]"
                             prepend-inner-icon="mdi-at" v-model="txtCorreo"></v-text-field>
                     </v-col>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
                             :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
                             label="Contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
                             @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"
                             v-model="txtPassword"></v-text-field>
                     </v-col>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
                             :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
                             label="Confirmar contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
@@ -35,7 +35,7 @@
                     </v-col>
                 </v-row>
                 <div class="btns">
-                    <v-btn class="mr-4 rounded-pill" color="#331b05" @click="registrarComprador()">
+                    <v-btn class="rounded-pill" color="#331b05" @click="registrarComprador()">
                         Registrarse
                     </v-btn>
                     <v-btn color="#331b05" class="rounded-pill" to="inicio">
@@ -135,10 +135,23 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .form h1, .form .v-input, .btns{
     width: 100%;
     text-align: center;
+}
+
+.btns{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.v-card{
+    max-width: 800px;
 }
 </style>

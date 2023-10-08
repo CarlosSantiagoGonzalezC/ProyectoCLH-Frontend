@@ -1,67 +1,69 @@
 <template>
     <div>
-        <v-footer dark padless color="#331b05" class="around mt-10">
-            <div id="texto1" class="ma-3">
-                <h3>Todos los derechos reservados
-                    <i class="fa far fa-copyright"></i>
-                </h3>
-            </div>
+        <v-footer dark color="#331b05" class="around mt-10">
 
-            <div id="info" class="around">
-                <div>
-                    <h3>Información:</h3>
-                    <p>
+            <v-row justify="center" align="center" class="gap py-5">
+                <h3>
+                    Todos los derechos reservados
+                </h3>
+                <v-icon>mdi-copyright</v-icon>
+            </v-row>
+
+            <v-row class="evenly">
+                <v-col cols="12" sm="6" md="3" class="center tx-center">
+                    <h4>Información:</h4>
                     <ul>
-                        <li>Cra 5 #14-22</li>
                         <li>sc805036@gmail.com</li>
-                        <li>57 3136998962</li>
+                        <li>+57 3136998962</li>
                         <li>SENA Industrial</li>
                         <li>Neiva - Huila</li>
+                        <li>Cra 5 #14-22</li>
                     </ul>
-                    </p>
-                </div>
-                <div>
-                    <h3>Navegador:</h3>
-                    <p>
+                </v-col>
+                <v-col cols="12" sm="6" md="3" class="center">
+                    <h4>Redes Sociales:</h4>
                     <ul>
-                        <li><a><v-icon>mdi-home</v-icon> Inicio</a></li>
-                        <li><a><v-icon>mdi-coffee</v-icon> Productos</a></li>
-                        <li><a><v-icon>mdi-star-circle</v-icon> Destacados</a></li>
-                        <li><a><v-icon>mdi-plus-circle-multiple</v-icon> Otros</a></li>
-                        <li><a><v-icon>mdi-help-circle</v-icon> Ayuda</a></li>
-                    </ul>
-                    </p>
-                </div>
-                <div>
-                    <h3>Redes sociales:</h3>
-                    <p>
-                    <ul>
-                        <li><a href="https://www.facebook.com" target="_blank"><v-icon>mdi-facebook</v-icon>
-                                CoffeeLineHuila</a></li>
-                        <li><a href="https://www.twitter.com" target="_blank"><v-icon>mdi-twitter</v-icon>
-                                @CoffeeLineHuila</a></li>
-                        <li><a href="https://github.com/CarlosSantiagoGonzalezC" target="_blank"><v-icon>mdi-github</v-icon>
-                                CoffeeLineHuila</a></li>
                         <li><a href="https://www.instagram.com" target="_blank"><v-icon>mdi-instagram</v-icon>
-                                @CoffeeLineHuila.oficial</a></li>
+                            @CoffeeLineHuila.oficial</a></li>
+                            <li><a href="https://www.twitter.com" target="_blank"><v-icon>mdi-twitter</v-icon>
+                                @CoffeeLineHuila</a></li>
                         <li><a href="https://wa.me/+573136998962?text=Quiero%20el%20cafe"
                                 target="_blank"><v-icon>mdi-whatsapp</v-icon> +57 3136998962</a></li>
+                        <li><a href="https://www.facebook.com" target="_blank"><v-icon>mdi-facebook</v-icon>
+                                CoffeeLineHuila</a></li>
+                        <li><a href="https://github.com/CarlosSantiagoGonzalezC" target="_blank"><v-icon>mdi-github</v-icon>
+                                CoffeeLineHuila</a></li>
                     </ul>
-                    </p>
-                </div>
-                <div>
-                    <h3>Politica de privacidad:</h3>
-                    <p>
+                </v-col>
+                <v-col cols="12" sm="6" md="3" class="center tx-center">
+                    <h4>Política De Privacidad:</h4>
                     <ul>
-                        <li><a>Licencias</a></li>
-                        <li><a>Politicas</a></li>
-                        <li><a>Permisos</a></li>
-                        <li><a>Ayudas</a></li>
                         <li><a>Utilidades</a></li>
+                        <li><a>Licencias</a></li>
+                        <li><a>Permisos</a></li>
+                        <li><a>Politicas</a></li>
+                        <li><a>Ayudas</a></li>
                     </ul>
-                    </p>
-                </div>
-            </div>
+                </v-col>
+                <v-col cols="12" sm="6" md="3" class="center">
+                    <h4>Equipo:</h4>
+                    <ul>
+                        <li>
+                            <a href="https://github.com/CarlosSantiagoGonzalezC" target="_blank">
+                                <v-icon>mdi-github</v-icon>
+                                Desarrollador Principal
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/tetraform69" target="_blank">
+                                <v-icon>mdi-github</v-icon>
+                                Oscar
+                            </a>
+                        </li>
+                    </ul>
+                </v-col>
+            </v-row>
+            <p></p>
         </v-footer>
     </div>
 </template>
@@ -86,31 +88,41 @@ export default {
     font-family: 'Lucida Sans', Geneva, sans-serif;
 }
 
-
-#texto1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#info {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
 a {
     text-decoration: none;
     color: #f0e6dc;
 }
 
 .around {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
     width: 100%;
 }
 
+.evenly {
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gap{
+    gap: 5px;
+}
+
 ul {
     list-style: none;
     padding: 0;
-}</style>
+}
+
+.tx-center{
+    text-align: center;
+}
+
+</style>

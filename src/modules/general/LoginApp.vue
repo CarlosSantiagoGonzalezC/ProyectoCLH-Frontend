@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="50%" elevation="24" class="px-16 py-10">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-16 py-10">
         <v-card-text>
             <form class="form">
                 <h1>INICIAR SESIÓN</h1>
@@ -8,15 +8,15 @@
                     <!-- <v-icon color="#331b05">mdi-account</v-icon> -->
                 </div>
                 <v-text-field filled label="Correo electronico" type="email" :rules="[rules.required]"
-                    prepend-inner-icon="mdi-at" class="ml-16 mr-16" v-model="txtCorreo"></v-text-field>
+                    prepend-inner-icon="mdi-at" class="" v-model="txtCorreo"></v-text-field>
                 <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
                     :type="show3 ? 'text' : 'password'" name="input-10-2" label="Contraseña" hint="Minimo 5 caracteres"
-                    class="input-group--focused ml-16 mr-16" @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"
+                    class="input-group--focused" @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"
                     v-model="txtPassword"></v-text-field>
                 <vue-recaptcha @verify="onCaptchaVerified" sitekey="6LfGXWYlAAAAAHqCvlXfzzcM33f8CWYzi00xCzFj"
                     class="mb-3"></vue-recaptcha>
                 <div class="btns">
-                    <v-btn class="mr-4 rounded-pill" color="#331b05" @click="inicarSesion()">
+                    <v-btn class="rounded-pill" color="#331b05" @click="inicarSesion()">
                         Iniciar sesión
                     </v-btn>
                     <v-btn color="#331b05" class="rounded-pill" to="inicio">
@@ -139,5 +139,17 @@ export default {
 .btns {
     width: 100%;
     text-align: center;
+}
+
+.btns{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.v-card{
+    max-width: 500px;
 }
 </style>

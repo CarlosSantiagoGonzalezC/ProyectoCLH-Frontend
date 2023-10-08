@@ -23,7 +23,11 @@ export default {
 </script>
 
 <style scoped>
-.content{
+* {
+    font-weight: 500;
+}
+
+.content {
     display: flex;
     align-items: center;
     justify-content: center;
