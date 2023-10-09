@@ -1,74 +1,73 @@
 <template>
-    <div class="mb-10">
-        <header>
-            <img src="../assets/logoCoffee.png" alt="logo" class="logo">
-        </header>
-
-        <nav>
-            <div class="navegacion">
-                <router-link :to="{ name: 'Inicio' }">
-                    <v-icon>mdi-home</v-icon> Inicio
-                </router-link>
-                <router-link :to="{ name: 'Productos' }">
-                    <v-icon>mdi-coffee</v-icon> Productos
-                </router-link>
-                <router-link :to="{ name: 'Categorias' }">
-                    <v-icon>mdi-list-box</v-icon> Categorias
-                </router-link>
-                <!-- <a>
+    <nav class="mb-10 elevation-4">
+        <div class="menuBtn">
+            <button @click="showMenu = true">
+                <v-icon>mdi-menu</v-icon>
+            </button>
+        </div>
+        <div class="navegacion">
+            <router-link :to="{ name: 'Inicio' }">
+                <v-icon>mdi-home</v-icon> Inicio
+            </router-link>
+            <router-link :to="{ name: 'Productos' }">
+                <v-icon>mdi-coffee</v-icon> Productos
+            </router-link>
+            <router-link :to="{ name: 'Categorias' }">
+                <v-icon>mdi-list-box</v-icon> Categorias
+            </router-link>
+            <!-- <a>
                     <v-icon>mdi-tag</v-icon> Ofertas
                 </a>
                 <a>
                     <v-icon>mdi-star-circle</v-icon> Destacados
                 </a> -->
-                <router-link :to="{ name: 'Otros' }">
-                    <v-icon>mdi-plus-circle-multiple</v-icon> Otros
-                </router-link>
-                <a @click="descargarPDF">
-                    <v-icon>mdi-help-circle</v-icon> Ayuda
-                </a>
+            <router-link :to="{ name: 'Otros' }">
+                <v-icon>mdi-plus-circle-multiple</v-icon> Otros
+            </router-link>
+            <a @click="descargarPDF">
+                <v-icon>mdi-help-circle</v-icon> Ayuda
+            </a>
+        </div>
+        <div class="flex">
+            <div class="busqueda">
+                <v-autocomplete label="Buscar" :items="items" item-text="proNombre" item-value="id"
+                    prepend-inner-icon="mdi-magnify" dense filled rounded solo v-model="busqueda"
+                    @change="onProductChange()">
+                    <template v-slot:item="{ item }">
+                        <div class="product-item" @click="idUsuario = item.user_id">
+                            <v-avatar>
+                                <img :src="item.proImagen" class="product-image" />
+                            </v-avatar>
+                            <div class="product-name ml-4 mt-3">{{ item.proNombre }}</div>
+                        </div>
+                    </template>
+                </v-autocomplete>
             </div>
-            <div class="flex">
-                <div class="busqueda">
-                    <v-autocomplete label="Buscar" :items="items" item-text="proNombre" item-value="id"
-                        prepend-inner-icon="mdi-magnify" dense filled rounded solo v-model="busqueda"
-                        @change="onProductChange()">
-                        <template v-slot:item="{ item }">
-                            <div class="product-item" @click="idUsuario = item.user_id">
-                                <v-avatar>
-                                    <img :src="item.proImagen" class="product-image" />
-                                </v-avatar>
-                                <div class="product-name ml-4 mt-3">{{ item.proNombre }}</div>
-                            </div>
-                        </template>
-                    </v-autocomplete>
-                </div>
-                <div class="opcUser">
-                    <button @click="open">
-                        <v-icon>mdi-cart</v-icon>
+            <div class="opcUser">
+                <button @click="open">
+                    <v-icon>mdi-cart</v-icon>
+                </button>
+                <div class="dropdown">
+                    <button class="drop-btn" @click="show = !show">
+                        <v-icon>mdi-account-circle</v-icon>
                     </button>
-                    <div class="dropdown">
-                        <button class="drop-btn" @click="show = !show">
-                            <v-icon>mdi-account-circle</v-icon>
-                        </button>
-                        <div class="dropdown-content" :class="show ? 'show' : 'hidden'">
-                            <img src="@/assets/usuario.png" class="user-foto">
-                            <div class="options">
-                                <button @click="irAjustes()">
-                                    <v-icon>mdi-cogs</v-icon>
-                                    Ajustes
-                                </button>
-                                <button @click="salir()">
-                                    <v-icon>mdi-logout</v-icon>
-                                    Salir
-                                </button>
-                            </div>
+                    <div class="dropdown-content" :class="show ? 'show' : 'hidden'">
+                        <img src="@/assets/usuario.png" class="user-foto">
+                        <div class="options">
+                            <button @click="irAjustes()">
+                                <v-icon>mdi-cogs</v-icon>
+                                Ajustes
+                            </button>
+                            <button @click="salir()">
+                                <v-icon>mdi-logout</v-icon>
+                                Salir
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
 </template>
   
 <script>
@@ -76,7 +75,7 @@ import Swal from 'sweetalert2';
 import tiendaService from '@/services/tiendaService';
 
 export default {
-    name: 'HeaderNav',
+    name: 'NavComponent',
 
     components: {
     },
@@ -159,15 +158,8 @@ export default {
     padding: 0;
 }
 
-/** encabezado */
-header {
-    text-align: center;
-    background: #ece8e5;
-}
-
-.logo {
-    padding: 10px;
-    width: 300px;
+.menuBtn {
+    display: none;
 }
 
 /** barra de navegacion */
@@ -179,14 +171,27 @@ nav {
     height: 50px;
     align-items: center;
     justify-content: space-between;
-    z-index: 2;
+    z-index: 1;
+}
+
+.navegacion {
+    display: flex;
+    height: 100%;
+    width: 50%;
 }
 
 .navegacion a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 15px 16px;
-    font-size: 17px;
+    padding: 0px 15px;
+    font-size: clamp(10px, 15px, 17px);
+    height: 100%;
+    min-width: 20%;
     color: #331b05;
+    transition: background-color color 0.5s;
+    gap: 5px;
 }
 
 .navegacion a:hover {
@@ -203,7 +208,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: end;
-    width: 40%;
+    width: 50%;
 }
 
 .opcUser {

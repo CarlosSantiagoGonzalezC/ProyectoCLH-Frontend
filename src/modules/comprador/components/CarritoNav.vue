@@ -57,8 +57,9 @@ export default {
     right: 0;
     background: #FFF;
     height: 100vh;
-    width: 40%;
-    transition: 0.5s;
+    width: 100%;
+    max-width: 600px;
+    transition: transform 0.5s;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -66,7 +67,7 @@ export default {
 }
 
 .hide {
-    right: -40%;
+    transform: translateX(100%);
 }
 
 .carrito {

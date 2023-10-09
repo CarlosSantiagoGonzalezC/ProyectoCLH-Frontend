@@ -1,24 +1,45 @@
 <template>
     <nav class="mb-10 elevation-4">
         <div class="menuBtn">
-
+            <button @click="showMenu = true">
+                <v-icon>mdi-menu</v-icon>
+            </button>
         </div>
-        <div class="navegacion">
-            <router-link :to="{ name: 'Inicio' }">
+        <div class="navegacion" :class="showMenu ? 'show' : 'hide'">
+            <div class="menuBtn">
+                <button @click="showMenu = false">
+                    <v-icon>mdi-close</v-icon>
+                </button>
+            </div>
+            <router-link :to="{ name: 'Inicio' }" @click.native="showMenu = false">
                 <v-icon>mdi-home</v-icon> Inicio
             </router-link>
-            <router-link :to="{ name: 'Productos' }">
+            <router-link :to="{ name: 'Productos' }" @click.native="showMenu = false">
                 <v-icon>mdi-coffee</v-icon> Productos
             </router-link>
-            <router-link :to="{ name: 'Categorias' }">
+            <router-link :to="{ name: 'Categorias' }" @click.native="showMenu = false">
                 <v-icon>mdi-list-box</v-icon> Categorias
             </router-link>
-            <router-link :to="{ name: 'Otros' }">
+            <router-link :to="{ name: 'Otros' }" @click.native="showMenu = false">
                 <v-icon>mdi-plus-circle-multiple</v-icon> Otros
             </router-link>
             <a @click="descargarPDF">
                 <v-icon>mdi-help-circle</v-icon> Ayuda
             </a>
+            <div class="loginRes">
+                <router-link :to="{ name: 'login' }" @click.native="showMenu = false"><v-icon>mdi-login-variant</v-icon>Ingresar</router-link>
+                <v-expansion-panels>
+                    <v-expansion-panel>
+                        <v-expansion-panel-header>
+                            Registrarse
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <router-link :to="{ name: 'RegistroComprador' }" @click.native="showMenu = false">Como usuario</router-link>
+                            <router-link :to="{ name: 'RegistroVendedor' }" @click.native="showMenu = false">Como vendedor</router-link>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                </v-expansion-panels>
+            </div>
         </div>
         <div class="login">
 
@@ -50,6 +71,7 @@ export default {
     },
 
     data: () => ({
+        showMenu: false,
     }),
     methods: {
         descargarPDF() {
@@ -80,7 +102,7 @@ export default {
     padding: 0;
 }
 
-.menuBtn{
+.menuBtn, .loginRes {
     display: none;
 }
 
@@ -108,11 +130,12 @@ nav {
     justify-content: center;
     text-align: center;
     padding: 0px 15px;
-    font-size: 17px;
+    font-size: clamp(10px, 15px, 17px);
     height: 100%;
     min-width: 20%;
     color: #331b05;
-    transition: all 0.5s;
+    transition: background-color color 0.5s;
+    gap: 5px;
 }
 
 .navegacion a:hover {
@@ -190,16 +213,68 @@ button:hover,
 }
 
 @media (max-width: 1100px) {
-    .menuBtn{
+    .menuBtn {
         display: flex;
+        align-self: flex-start;
+        margin: 10px;
     }
 
-    .navegacion{
+    .menuBtn button {
+        background: none;
+        border-radius: 5px;
+        border: #331b05 solid 1px;
+    }
+
+    .show {
+        transform: translateX(0);
+    }
+
+    .hide {
+        transform: translateX(-100%);
+    }
+
+    .navegacion {
         position: fixed;
         flex-direction: column;
+        align-items: center;
         top: 0;
+        width: 100%;
+        max-width: 400px;
         height: 100vh;
-        background: #331b05;
+        background: #ffffff;
+        z-index: 3;
+        transition: transform 0.25s;
+    }
+
+    .navegacion a {
+        height: 50px;
+        width: 95%;
+        border-radius: 5px;
+        justify-content: flex-start;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 800px) {
+    .login {
+        display: none;
+    }
+
+    .loginRes{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .v-expansion-panels{
+        width: 95%
+    }
+
+    .v-expansion-panels button{
+        background: none;
+        color: black;
     }
 }
 </style>
