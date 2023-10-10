@@ -11,7 +11,7 @@
 
             <v-row class="evenly">
                 <v-col cols="12" sm="6" md="3" class="center">
-                    <h4>Información:</h4>
+                    <h3>Información:</h3>
                     <ul>
                         <li>sc805036@gmail.com</li>
                         <li>+57 3136998962</li>
@@ -21,7 +21,7 @@
                     </ul>
                 </v-col>
                 <v-col cols="12" sm="6" md="3" class="center">
-                    <h4>Redes Sociales:</h4>
+                    <h3>Redes Sociales:</h3>
                     <ul>
                         <li>
                             <a href="https://www.instagram.com" target="_blank">
@@ -56,7 +56,7 @@
                     </ul>
                 </v-col>
                 <v-col cols="12" sm="6" md="3" class="center">
-                    <h4>Política De Privacidad:</h4>
+                    <h3>Política De Privacidad:</h3>
                     <ul>
                         <li><a>Utilidades</a></li>
                         <li><a>Licencias</a></li>
@@ -66,12 +66,12 @@
                     </ul>
                 </v-col>
                 <v-col cols="12" sm="6" md="3" class="center">
-                    <h4>Equipo:</h4>
+                    <h3>Equipo:</h3>
                     <ul>
                         <li>
                             <a href="https://github.com/CarlosSantiagoGonzalezC" target="_blank">
                                 <v-icon>mdi-github</v-icon>
-                                Desarrollador Principal
+                                Carlos Santiago Gonzalez Cuellar
                             </a>
                         </li>
                         <li>
@@ -135,19 +135,21 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 20px;
 }
 
 .gap {
-    gap: 5px;
+    gap: 10px;
 }
 
 ul {
     display: flex;
     flex-direction: column;
     min-width: 70%;
+    font-size: 15px;
     list-style: none;
     padding: 0;
     gap: 10px;
+    font-weight: 250;
 }
 </style>

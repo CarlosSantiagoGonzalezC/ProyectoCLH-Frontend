@@ -37,7 +37,7 @@
                             </v-row>
 
                             <div class="my-4 text-subtitle-1 text-left">
-                                $ • {{ producto.proPrecio }} COP
+                                $ {{ comaEnMiles(producto.proPrecio) }} COP
                             </div>
 
                             <div>{{ producto.proDescripcion }}
@@ -135,6 +135,11 @@ export default {
             this.productosCategoria = products.data;
             console.log(this.productosCategoria);
         },
+        comaEnMiles(number) {
+            let exp = /(\d)(?=(\d{3})+(?!\d))/g //* expresion regular que busca tres digitos
+            let rep = '$1.' //parametro especial para splice porque los numeros no son menores a 100
+            return number.toString().replace(exp, rep)
+        },
     },
     mounted() {
         this.obtenerProductos();
@@ -174,7 +179,7 @@ h1 {
     width: 60%;
 }
 
-.w-100{
+.w-100 {
     width: 100%;
 }
 </style>

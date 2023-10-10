@@ -5,23 +5,36 @@
                 <v-icon>mdi-menu</v-icon>
             </button>
         </div>
-        <div class="navegacion">
-            <router-link :to="{ name: 'Inicio' }">
+        <div class="navegacion" :class="showMenu ? 'showMenu' : 'hideMenu'">
+            <div class="menuBtn">
+                <button @click="showMenu = false">
+                    <v-icon>mdi-close</v-icon>
+                </button>
+            </div>
+            <div class="busquedaRes">
+                <v-autocomplete label="Buscar" :items="items" item-text="proNombre" item-value="id"
+                    prepend-inner-icon="mdi-magnify" dense filled rounded solo v-model="busqueda"
+                    @change="onProductChange()">
+                    <template v-slot:item="{ item }">
+                        <div class="product-item" @click="idUsuario = item.user_id">
+                            <v-avatar>
+                                <img :src="item.proImagen" class="product-image" />
+                            </v-avatar>
+                            <div class="product-name ml-4 mt-3">{{ item.proNombre }}</div>
+                        </div>
+                    </template>
+                </v-autocomplete>
+            </div>
+            <router-link :to="{ name: 'Inicio' }" @click.native="showMenu = false">
                 <v-icon>mdi-home</v-icon> Inicio
             </router-link>
-            <router-link :to="{ name: 'Productos' }">
+            <router-link :to="{ name: 'Productos' }" @click.native="showMenu = false">
                 <v-icon>mdi-coffee</v-icon> Productos
             </router-link>
-            <router-link :to="{ name: 'Categorias' }">
+            <router-link :to="{ name: 'Categorias' }" @click.native="showMenu = false">
                 <v-icon>mdi-list-box</v-icon> Categorias
             </router-link>
-            <!-- <a>
-                    <v-icon>mdi-tag</v-icon> Ofertas
-                </a>
-                <a>
-                    <v-icon>mdi-star-circle</v-icon> Destacados
-                </a> -->
-            <router-link :to="{ name: 'Otros' }">
+            <router-link :to="{ name: 'Otros' }" @click.native="showMenu = false">
                 <v-icon>mdi-plus-circle-multiple</v-icon> Otros
             </router-link>
             <a @click="descargarPDF">
@@ -85,7 +98,8 @@ export default {
         show: false,
         busqueda: null,
         productos: null,
-        idUsuario: null
+        idUsuario: null,
+        showMenu: false,
     }),
     methods: {
         onProductChange() {
@@ -151,14 +165,15 @@ export default {
   
 <style scoped>
 * {
-    font-family: 'Lucida Sans', Geneva, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-decoration: none;
     color: #331b05;
     margin: 0;
     padding: 0;
 }
 
-.menuBtn {
+.menuBtn,
+.busquedaRes {
     display: none;
 }
 
@@ -168,7 +183,7 @@ nav {
     top: 0px;
     background: #da9f68;
     display: flex;
-    height: 50px;
+    min-height: 50px;
     align-items: center;
     justify-content: space-between;
     z-index: 1;
@@ -208,6 +223,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: end;
+    height: 50px;
     width: 50%;
 }
 
@@ -317,11 +333,56 @@ button:hover {
     justify-content: center;
 }
 
-.show {
-    visibility: visible;
-}
+@media (max-width: 1100px) {
+    .busqueda {
+        display: none;
+    }
 
-.hidden {
-    visibility: hidden;
+    .busquedaRes{
+        display: block;
+    }
+
+    .menuBtn {
+        display: flex;
+        align-self: flex-start;
+        margin: 10px;
+    }
+
+    .menuBtn button {
+        background: none;
+        border-radius: 5px;
+        border: #331b05 solid 1px;
+        padding: 5px 40px;
+    }
+
+
+    .showMenu {
+        transform: translateX(0);
+    }
+
+    .hideMenu {
+        transform: translateX(-100%);
+    }
+
+    .navegacion {
+        position: fixed;
+        flex-direction: column;
+        align-items: center;
+        top: 0;
+        width: 100%;
+        max-width: 400px;
+        height: 100vh;
+        background: #ffffff;
+        z-index: 4;
+        transition: transform 0.25s;
+    }
+
+    .navegacion a {
+        height: 50px;
+        width: 95%;
+        border-radius: 5px;
+        justify-content: flex-start;
+        gap: 5px;
+    }
 }
 </style>
