@@ -1,6 +1,7 @@
 <template>
     <div>
-        <HeaderNav></HeaderNav>
+        <HeaderComponent></HeaderComponent>
+        <NavComponent></NavComponent>
         <div class="content">
             <router-view></router-view>
         </div>
@@ -9,14 +10,16 @@
 </template>
 
 <script>
-import HeaderNav from './components/HeaderNav.vue';
+import HeaderComponent from '../general/components/HeaderComponent.vue';
+import NavComponent from './components/NavComponent.vue';
 import FooterApp from '../general/components/FooterApp.vue';
 
 export default {
     name: 'GeneralApp',
 
     components: {
-        HeaderNav,
+        HeaderComponent,
+        NavComponent,
         FooterApp,
     },
 }

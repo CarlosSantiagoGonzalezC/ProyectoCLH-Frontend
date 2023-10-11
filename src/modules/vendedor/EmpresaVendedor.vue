@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="50%" elevation="24" class="pl-16 pr-16">
+    <v-card color="#da9f68" dark width="90%" max-width="1000px" elevation="24" class="px-5">
         <v-card-text>
             <form class="form">
                 <h1>MI FINCA/EMPRESA</h1>
@@ -7,15 +7,15 @@
                     <i class="fa fa-home"></i>
                 </div>
                 <v-row>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled label="Nombre" :rules="[rules.required]"
                             prepend-inner-icon="mdi-card-account-details" v-model="txtNombre"></v-text-field>
                     </v-col>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
                             prepend-icon="" chips counter v-model="fileImagen"></v-file-input>
                     </v-col>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-textarea filled label="Historia o información" :rules="[rules.required]"
                             prepend-inner-icon="mdi-information" rows="1" row-height="20" auto-grow
                             v-model="txtHistoria"></v-textarea>
@@ -23,19 +23,19 @@
                     <v-col class="col-12">
                         <v-divider></v-divider>
                     </v-col>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled label="Municipio" :rules="[rules.required]" prepend-inner-icon="mdi-map-marker"
                             v-model="txtMunicipio"></v-text-field>
                     </v-col>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled label="Direccion" :rules="[rules.required]"
                             prepend-inner-icon="mdi-map-marker-outline" v-model="txtDireccion"></v-text-field>
                     </v-col>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled label="Telefono" type="number" :rules="[rules.required]"
                             prepend-inner-icon="mdi-cellphone" v-model="txtTelefono"></v-text-field>
                     </v-col>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled label="Correo electronico" type="email" :rules="[rules.required]"
                             prepend-inner-icon="mdi-at" v-model="txtCorreo"></v-text-field>
                     </v-col>

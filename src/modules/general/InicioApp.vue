@@ -1,16 +1,22 @@
 <template>
-        <v-carousel v-model="model" class="slider" hide-delimiter-background show-arrows-on-hover>
-            <v-carousel-item v-for="(slider, index) in content" :key="index">
-                <v-sheet height="100%" tile>
-                    <v-row class="fill-height" align="center" justify="center">
+    <v-carousel v-model="model" class="slider" hide-delimiter-background show-arrows-on-hover>
+        <v-carousel-item v-for="(slider, index) in content" :key="index">
+            <v-sheet height="100%" tile>
+                <v-row class="fill-height" align-content="center">
+                    <v-col cols="12" md="6">
                         <div class="text">
                             {{ slider.text }}
                         </div>
-                        <img :src="slider.img" height="300" class="ml-8 rounded-xxl">
-                    </v-row>
-                </v-sheet>
-            </v-carousel-item>
-        </v-carousel>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <div class="img">
+                            <img :src="slider.img" class="rounded-xxl">
+                        </div>
+                    </v-col>
+                </v-row>
+            </v-sheet>
+        </v-carousel-item>
+    </v-carousel>
 </template>
   
 <script>
@@ -43,19 +49,40 @@ export default {
   
 <style scoped>
 .slider {
-    margin-top: 20px;
-    align-self: center;
-    width: 80%;
+    justify-self: center;
+    width: 90%;
     border-radius: 5px;
     background: #da9f68;
 }
 
 .text {
-    width: 50%;
+    display: flex;
+    height: 100%;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+}
+
+.img {
+    display: flex;
+    height: 100%;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.img img {
+    width: 100%;
+    max-width: 500px;
+    max-height: 300px;
 }
 
 .fill-height {
     height: 100%;
     background: #da9f68;
+    font-size: clamp(0.5rem, 1rem, 1.25rem);
 }
 </style>
