@@ -186,7 +186,7 @@ nav {
     min-height: 50px;
     align-items: center;
     justify-content: space-between;
-    z-index: 1;
+    z-index: 2;
 }
 
 .navegacion {
@@ -200,7 +200,7 @@ nav {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0px 15px;
+    padding: 15px;
     font-size: clamp(10px, 15px, 17px);
     height: 100%;
     min-width: 20%;

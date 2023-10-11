@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-16 py-10">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5 py-10">
         <v-card-text>
             <form class="form">
                 <h1>INICIAR SESIÓN</h1>

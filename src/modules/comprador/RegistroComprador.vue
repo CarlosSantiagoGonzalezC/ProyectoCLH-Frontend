@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-16">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5">
         <v-card-text>
             <form class="form">
                 <h1>REGISTRO USUARIO</h1>

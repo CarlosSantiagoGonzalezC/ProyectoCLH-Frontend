@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="50%" elevation="24" class="py-16">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5">
         <v-card-text>
             <form class="form">
                 <h1>ACTUALIZAR DATOS</h1>
@@ -7,15 +7,15 @@
                     <i class="fa fa-edit"></i>
                 </div>
                 <v-row>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled label="Nombres" :rules="[rules.required]"
                             prepend-inner-icon="mdi-card-account-details" v-model="txtNombre"></v-text-field>
                     </v-col>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled label="Apellidos" :rules="[rules.required]"
                             prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido"></v-text-field>
                     </v-col>
-                    <v-col class="col-6">
+                    <v-col cols="12" md="6">
                         <v-text-field filled label="Correo eletronico" type="email" :rules="[rules.required]"
                             prepend-inner-icon="mdi-at" v-model="txtCorreo"></v-text-field>
                     </v-col>

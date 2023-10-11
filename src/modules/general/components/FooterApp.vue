@@ -138,6 +138,10 @@ a:hover {
     gap: 20px;
 }
 
+.gap h3{
+    max-width: 70%;
+}
+
 .gap {
     gap: 10px;
 }
@@ -152,4 +156,6 @@ ul {
     gap: 10px;
     font-weight: 250;
 }
+
+
 </style>

@@ -96,7 +96,6 @@ export default {
             if (!this.nombre) {
                 this.existeFinca = false
             }
-            console.log(this.nombre)
         },
         irFincaEmpresa() {
             if (this.existeFinca) {
