@@ -1,61 +1,65 @@
 <template>
-    <div class="mb-10">
-        <header>
-            <img src="../assets/logoCoffee.png" alt="logo" class="logo">
-        </header>
-
-        <nav>
-            <div class="navegacion">
-                <router-link :to="{ name: 'Inicio' }">
-                    <v-icon>mdi-home</v-icon> Inicio
-                </router-link>
-                <router-link :to="{ name: 'agregarProducto' }">
-                    <v-icon>mdi-plus-circle</v-icon> Agregar
-                </router-link>
-                <router-link :to="{ name: 'modificarProducto' }">
-                    <v-icon>mdi-pencil-circle</v-icon> Modificar
-                </router-link>
-                <router-link :to="{ name: 'desactivarProducto' }">
-                    <v-icon>mdi-minus-circle-multiple</v-icon> Desactivar
-                </router-link>
-                <a @click="descargarPDF">
-                    <v-icon>mdi-help-circle</v-icon> Ayuda
-                </a>
+    <nav class="mb-10 elevation-4">
+        <div class="menuBtn">
+            <button @click="showMenu = true">
+                <v-icon>mdi-menu</v-icon>
+            </button>
+        </div>
+        <div class="navegacion" :class="showMenu ? 'showMenu' : 'hideMenu'">
+            <div class="menuBtn">
+                <button @click="showMenu = false">
+                    <v-icon>mdi-close</v-icon>
+                </button>
             </div>
-            <div class="opcVendedor">
+            <router-link :to="{ name: 'Inicio' }" @click.native="showMenu = false">
+                <v-icon>mdi-home</v-icon> Inicio
+            </router-link>
+            <router-link :to="{ name: 'agregarProducto' }" @click.native="showMenu = false">
+                <v-icon>mdi-plus-circle</v-icon> Agregar
+            </router-link>
+            <router-link :to="{ name: 'modificarProducto' }" @click.native="showMenu = false">
+                <v-icon>mdi-pencil-circle</v-icon> Modificar
+            </router-link>
+            <router-link :to="{ name: 'desactivarProducto' }" @click.native="showMenu = false">
+                <v-icon>mdi-minus-circle-multiple</v-icon> Desactivar
+            </router-link>
+            <a @click="descargarPDF">
+                <v-icon>mdi-help-circle</v-icon> Ayuda
+            </a>
+        </div>
+        <div class="opcVendedor">
 
-                <div class="dropdown">
+            <div class="dropdown">
 
-                    <button class="btn-options" @click="show = !show">
-                        <v-icon>mdi-account-circle</v-icon>
-                    </button>
-                    <div class="dropdown-content" :class="show ? 'show' : 'hidden'">
-                        <img src="@/assets/usuario.png" class="user-foto">
-                        <div>
-                            <img src="@/assets/divisas.png" alt="divisas" class="divisas">
-                        </div>
-                        <div class="options">
-                            <router-link :to="{ name: 'actualizarVendedor' }" class="btn-options">
-                                <v-icon>mdi-cogs</v-icon>
-                                Ajustes
-                            </router-link>
-                            <router-link :to="{ name: 'historial' }" class="btn-options" @click="irHistorial()">
-                                <v-icon aria-hidden="true">mdi-history</v-icon>
-                                Historial
-                            </router-link>
-                            <a @click="salir" class="btn-options">
-                                <v-icon aria-hidden="true">mdi-logout</v-icon>
-                                Salir
-                            </a>
-                        </div>
+                <button class="btn-options" @click="show = !show">
+                    <v-icon>mdi-account-circle</v-icon>
+                </button>
+                <div class="dropdown-content" :class="show ? 'show' : 'hidden'">
+                    <img src="@/assets/usuario.png" class="user-foto">
+                    <div>
+                        <img src="@/assets/divisas.png" alt="divisas" class="divisas">
+                    </div>
+                    <div class="options">
+                        <router-link :to="{ name: 'actualizarVendedor' }" class="btn-options" @click.native="show = false">
+                            <v-icon>mdi-cogs</v-icon>
+                            Ajustes
+                        </router-link>
+                        <router-link :to="{ name: 'historial' }" class="btn-options" @click="irHistorial()">
+                            <v-icon aria-hidden="true">mdi-history</v-icon>
+                            Historial
+                        </router-link>
+                        <a @click="salir" class="btn-options">
+                            <v-icon aria-hidden="true">mdi-logout</v-icon>
+                            Salir
+                        </a>
                     </div>
                 </div>
-
-                <a @click="irFincaEmpresa" id="btnFinca" class="ml-2"><v-icon>mdi-home-silo</v-icon></a>
-
             </div>
-        </nav>
-    </div>
+
+            <a @click="irFincaEmpresa" id="btnFinca" class="ml-2"><v-icon>mdi-home-silo</v-icon></a>
+
+        </div>
+    </nav>
 </template>
   
 <script>
@@ -71,16 +75,16 @@ export default {
 
     data: () => ({
         show: false,
+        showMenu: false,
         finca: null,
         existeFinca: true,
         vendedor: null,
-        nombre: null
+        nombre: null,
     }),
     methods: {
         async obtenerVendedor() {
             let seller = await tiendaService.getSellerUser(localStorage.idUsuario);
             this.vendedor = seller.data[0];
-            console.log(this.vendedor)
         },
         async validarRutaFinca() {
             await this.obtenerVendedor()
@@ -100,6 +104,7 @@ export default {
             } else {
                 this.$router.push({ name: 'newEmpresa' }).catch(this.validarRutaFinca);
             }
+            this.show = false
         },
         descargarPDF() {
             // Ruta relativa al archivo PDF en la carpeta 'public'
@@ -140,22 +145,15 @@ export default {
   
 <style scoped>
 * {
-    font-family: 'Lucida Sans', Geneva, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-decoration: none;
     color: #331b05;
     margin: 0;
     padding: 0;
 }
 
-/** encabezado */
-header {
-    text-align: center;
-    background: #ece8e5;
-}
-
-.logo {
-    padding: 10px;
-    width: 300px;
+.menuBtn {
+    display: none;
 }
 
 /** barra de navegacion */
@@ -164,17 +162,30 @@ nav {
     top: 0px;
     background: #da9f68;
     display: flex;
-    height: 50px;
+    min-height: 50px;
     align-items: center;
     justify-content: space-between;
     z-index: 2;
 }
 
+.navegacion {
+    display: flex;
+    height: 100%;
+    width: 50%;
+}
+
 .navegacion a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 15px 16px;
-    font-size: 17px;
+    padding: 15px;
+    font-size: clamp(10px, 15px, 17px);
+    height: 100%;
+    min-width: 20%;
     color: #331b05;
+    transition: background-color color 0.5s;
+    gap: 5px;
 }
 
 .navegacion a:hover {
@@ -281,5 +292,49 @@ nav {
     height: 100px;
     width: 200px;
     border-radius: 5px;
+}
+
+@media (max-width: 1100px) {
+    .menuBtn {
+        display: flex;
+        align-self: flex-start;
+        margin: 10px;
+    }
+
+    .menuBtn button {
+        background: none;
+        border-radius: 5px;
+        border: #331b05 solid 1px;
+        padding: 5px 40px;
+    }
+
+    .showMenu {
+        transform: translateX(0);
+    }
+
+    .hideMenu {
+        transform: translateX(-100%);
+    }
+
+    .navegacion {
+        position: fixed;
+        flex-direction: column;
+        align-items: center;
+        top: 0;
+        width: 100%;
+        max-width: 400px;
+        height: 100vh;
+        background: #ffffff;
+        z-index: 4;
+        transition: transform 0.25s;
+    }
+
+    .navegacion a {
+        height: 50px;
+        width: 95%;
+        border-radius: 5px;
+        justify-content: flex-start;
+        gap: 5px;
+    }
 }
 </style>

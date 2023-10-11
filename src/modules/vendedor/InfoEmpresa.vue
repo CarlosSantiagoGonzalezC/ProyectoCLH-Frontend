@@ -1,58 +1,59 @@
 <template>
-    <v-card color="#da9f68" dark width="65%" elevation="24" class="pl-16 pr-16">
-        <v-card-text>
-            <h1>MI FINCA/EMPRESA</h1>
-            <div v-if="finca.comNombre != ''" class="mt-12 contenido">
-                <h1>{{ finca.comNombre }}</h1>
-                <div id="descrip" class="ma-4">
-                    <div>
-                        <img :src="finca.comImagen" alt="" style="width: 250px;" id="imgFinca">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5">
+        <h1>MI FINCA/EMPRESA</h1>
+        <div v-if="finca.comNombre != ''" class="mt-12 contenido">
+            <h1>{{ finca.comNombre }}</h1>
+            <v-row id="descrip" class="ma-4" align-content="center">
+                <v-col cols="12" md="6">
+                    <div class="center">
+                        <img :src="finca.comImagen" alt="" id="imgFinca">
                     </div>
-                    <div>
-                        <p>{{ finca.comHistoria }}
-                        </p>
+                </v-col>
+                <v-col cols="12" md="6">
+                    <div class="center">
+                        {{ finca.comHistoria }}
                     </div>
-                </div>
-                <hr>
-                <div id="infoFinca" class="mt-6 text-left">
-                    <div>
+                </v-col>
+            </v-row>
+            <hr>
+            <v-row id="infoFinca" class="mt-6 text-left">
+                <v-col cols="12" md="6">
+                    <div class="informacion">
                         <h2>Información empresa:</h2>
-                        <p>
                         <ul>
                             <li>Municipio: {{ finca.comMunicipio }}</li>
                             <li>Dirección: {{ finca.comDireccion }}</li>
                             <li>Telefono: {{ finca.comTelefono }}</li>
                             <li>Correo electronico: {{ finca.comCorreo }}</li>
                         </ul>
-                        </p>
                     </div>
-                    <div>
+                </v-col>
+                <v-col cols="12" md="6">
+                    <div class="informacion">
                         <h2>Información vendedor:</h2>
-                        <p>
                         <ul>
                             <li>Nombre: {{ usuario.useNombres + " " + usuario.useApellidos }}</li>
                             <li>Telefono: {{ vendedor.selNumContacto }}</li>
                             <li>Direccion: {{ vendedor.selDireccion }}</li>
                             <li>Correo electronico: {{ usuario.useCorreo }}</li>
                         </ul>
-                        </p>
                     </div>
-                </div>
-                <div id="botones">
-                    <v-btn class="mr-4 rounded-pill" color="#331b05" @click="dialog = true">
-                        <v-icon>mdi-home-edit</v-icon>
-                    </v-btn>
-                    <v-btn color="#331b05" class="rounded-pill" to="/inicio-vendedor">
-                        Volver
-                    </v-btn>
-                </div>
+                </v-col>
+            </v-row>
+            <div id="botones" class="my-5">
+                <v-btn class="rounded-pill" color="#331b05" @click="dialog = true">
+                    <v-icon>mdi-home-edit</v-icon>
+                </v-btn>
+                <v-btn color="#331b05" class="rounded-pill" :to="{ name: 'Inicio' }">
+                    Volver
+                </v-btn>
             </div>
-            <div class="text-center mt-15" v-else>
-                <v-progress-circular class="text-center" :size="200" :width="20" color="brown"
-                    indeterminate></v-progress-circular>
-                <h2 class="mt-12">Cargando datos...</h2>
-            </div>
-        </v-card-text>
+        </div>
+        <div class="text-center mt-15" v-else>
+            <v-progress-circular class="text-center" :size="200" :width="20" color="brown"
+                indeterminate></v-progress-circular>
+            <h2 class="mt-12">Cargando datos...</h2>
+        </div>
         <v-dialog v-model="dialog" persistent max-width="1000px">
             <v-card>
                 <v-card-title class="text-center">
@@ -63,15 +64,15 @@
                 <v-card-text>
                     <form class="mt-7 ml-5 mr-5">
                         <v-row>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-text-field filled label="Nombre" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-card-account-details" v-model="txtNombre"></v-text-field>
                             </v-col>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
                                     prepend-icon="" chips counter v-model="fileImagen"></v-file-input>
                             </v-col>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-textarea filled label="Historia o información" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-information" rows="1" row-height="20" auto-grow
                                     v-model="txtHistoria"></v-textarea>
@@ -79,19 +80,19 @@
                             <v-col class="col-12">
                                 <v-divider></v-divider>
                             </v-col>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-text-field filled label="Municipio" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-map-marker" v-model="txtMunicipio"></v-text-field>
                             </v-col>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-text-field filled label="Direccion" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-map-marker-outline" v-model="txtDireccion"></v-text-field>
                             </v-col>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-text-field filled label="Telefono" type="number" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-cellphone" v-model="txtTelefono"></v-text-field>
                             </v-col>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-text-field filled label="Correo electronico" type="email" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-at" v-model="txtCorreo"></v-text-field>
                             </v-col>
@@ -247,25 +248,9 @@ export default {
 </script>
   
 <style scoped>
-#descrip {
-    margin-left: 150px;
-    margin-right: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
 #imgFinca {
     border-radius: 20px;
-    margin-right: 20px;
-}
-
-#infoFinca {
-    margin-left: 100px;
-    margin-right: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+    width: 75%;
 }
 
 .contenido {
@@ -281,5 +266,26 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 5px;
+}
+
+.center {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.informacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.informacion ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 </style>

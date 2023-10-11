@@ -1,37 +1,36 @@
 <template>
-    <v-card color="#da9f68" dark width="70%" elevation="24" class="pl-16 pr-16">
-        <v-card-text>
-            <h1>MODIFICAR PRODUCTO</h1>
-            <div id="logoForm">
-                <i class="fa fa-edit"></i>
-            </div>
-            <v-card class="mt-7 mb-5">
-                <v-card-title class="tabla">
-                    <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line
-                        hide-details></v-text-field>
-                </v-card-title>
-                <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla">
-                    <template v-slot:item="row">
-                        <tr>
-                            <td>{{ row.item.id }}</td>
-                            <td>{{ row.item.proCodigo }}</td>
-                            <td>{{ row.item.proNombre }}</td>
-                            <td>{{ row.item.proDescripcion }}</td>
-                            <td>{{ row.item.proCantDisponible }}</td>
-                            <td>COP {{ row.item.proPrecio }}</td>
-                            <td>
-                                <v-img lazy-src="https://picsum.photos/id/11/10/6" height="50" width="50"
-                                    :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
-                            </td>
-                            <td>
-                                <v-btn class="mx-2" fab dark small color="#925419"
-                                    @click="dialog = true; obtenerProductoId(row.item.id)"><v-icon
-                                        dark>mdi-pencil</v-icon></v-btn>
-                            </td>
-                        </tr>
-                    </template></v-data-table>
-            </v-card>
-        </v-card-text>
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5" max-width="1500px">
+
+        <h1>MODIFICAR PRODUCTO</h1>
+        <div id="logoForm">
+            <i class="fa fa-edit"></i>
+        </div>
+        <v-card class="mt-7 mb-5">
+            <v-card-title class="tabla">
+                <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line
+                    hide-details></v-text-field>
+            </v-card-title>
+            <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla">
+                <template v-slot:item="row">
+                    <tr>
+                        <td>{{ row.item.id }}</td>
+                        <td>{{ row.item.proCodigo }}</td>
+                        <td>{{ row.item.proNombre }}</td>
+                        <td>{{ row.item.proDescripcion }}</td>
+                        <td>{{ row.item.proCantDisponible }}</td>
+                        <td>COP {{ row.item.proPrecio }}</td>
+                        <td>
+                            <v-img lazy-src="https://picsum.photos/id/11/10/6" height="50" width="50"
+                                :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
+                        </td>
+                        <td>
+                            <v-btn class="mx-2" fab dark small color="#925419"
+                                @click="dialog = true; obtenerProductoId(row.item.id)"><v-icon
+                                    dark>mdi-pencil</v-icon></v-btn>
+                        </td>
+                    </tr>
+                </template></v-data-table>
+        </v-card>
         <v-dialog v-model="dialog" persistent max-width="1000px">
             <v-card>
                 <v-card-title class="text-center">
@@ -42,33 +41,33 @@
                 <v-card-text>
                     <v-container class="mt-5">
                         <v-row>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-text-field filled label="Nombre" :rules="[rules.required]" v-model="txtNombre"
                                     prepend-inner-icon="mdi-card-account-details"></v-text-field>
                             </v-col>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-text-field filled label="Código" type="number" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-barcode" v-model="txtCodigo"></v-text-field>
                             </v-col>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-text-field filled label="Cantidad disponible" type="number" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-sort-numeric-descending"
                                     v-model="txtCantDisponible"></v-text-field>
                             </v-col>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-text-field filled label="Precio" type="number" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-cash" v-model="txtPrecio"></v-text-field>
                             </v-col>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-textarea filled label="Descripción" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-text" rows="1" row-height="20" auto-grow
                                     v-model="txtDescripcion"></v-textarea>
                             </v-col>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
                                     prepend-icon="" chips counter v-model="fileImagen"></v-file-input>
                             </v-col>
-                            <v-col class="col-6">
+                            <v-col cols="12" md="6">
                                 <v-select prepend-inner-icon="mdi-list-box" :items="items" filled label="Categoria"
                                     v-model="txtCategoria" item-text="catNombre" item-value="id"></v-select>
                             </v-col>
@@ -256,5 +255,10 @@ export default {
 
 h1 {
     text-align: center;
+}
+
+h1,
+h2 {
+    text-wrap: balance;
 }
 </style>

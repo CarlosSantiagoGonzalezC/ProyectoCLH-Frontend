@@ -3,7 +3,7 @@
         <v-card-text>
             <h1>OTROS PRODUCTOS</h1>
             <v-row v-if="productos">
-                <v-card :loading="loading" class="producto mx-auto my-12" max-width="374" v-for="producto in productos"
+                <v-card class="producto mx-auto my-12" max-width="374" v-for="producto in productos"
                     :key="producto.id" elevation="7">
                     <template slot="progress">
                         <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
@@ -23,7 +23,7 @@
                         </v-row>
 
                         <div class="my-4 text-subtitle-1 text-left">
-                            $ • {{ producto.proPrecio }} COP
+                            $ • {{ comaEnMiles(producto.proPrecio) }} COP
                         </div>
 
                         <div>{{ producto.proDescripcion }}
@@ -39,7 +39,7 @@
                             'disponibles' : 'disponible' }}</v-chip>
                     </v-card-text>
 
-                    <v-card-actions>
+                    <v-card-actions v-if="producto.proCantDisponible > 0">
                         <v-btn color="#331b05" class="rounded-pill" @click="añadirCarrito(producto.id)">
                             <v-icon>mdi-cart-plus</v-icon>
                         </v-btn>
@@ -96,7 +96,12 @@ export default {
                 'Se ha agregado el producto al carrito de compras',
                 'success'
             )
-        }
+        },
+        comaEnMiles(number) {
+            let exp = /(\d)(?=(\d{3})+(?!\d))/g //* expresion regular que busca tres digitos
+            let rep = '$1.' //parametro especial para splice porque los numeros no son menores a 100
+            return number.toString().replace(exp, rep)
+        },
     },
     mounted() {
         this.obtenerProductos()

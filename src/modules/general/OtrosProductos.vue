@@ -23,7 +23,7 @@
                         </v-row>
 
                         <div class="my-4 text-subtitle-1 text-left">
-                            $ • {{ producto.proPrecio }} COP
+                            $ {{ comaEnMiles(producto.proPrecio) }} COP
                         </div>
 
                         <div>{{ producto.proDescripcion }}
@@ -42,7 +42,8 @@
             </v-row>
 
             <div class="text-center mt-15" v-else>
-                <v-progress-circular class="text-center" :size="200" :width="20" color="brown" indeterminate></v-progress-circular>
+                <v-progress-circular class="text-center" :size="200" :width="20" color="brown"
+                    indeterminate></v-progress-circular>
                 <h2 class="mt-12">Cargando productos...</h2>
             </div>
         </v-card-text>
@@ -70,6 +71,11 @@ export default {
             this.productos = products.data;
             console.log(this.productos);
         },
+        comaEnMiles(number) {
+            let exp = /(\d)(?=(\d{3})+(?!\d))/g //* expresion regular que busca tres digitos
+            let rep = '$1.' //parametro especial para splice porque los numeros no son menores a 100
+            return number.toString().replace(exp, rep)
+        },
     },
     mounted() {
         this.obtenerProductos()
@@ -88,11 +94,11 @@ export default {
     transform: scale(105%);
 }
 
-h1{
+h1 {
     text-align: center;
 }
 
-.v-image__image{
+.v-image__image {
     background-size: contain;
 }
 </style>

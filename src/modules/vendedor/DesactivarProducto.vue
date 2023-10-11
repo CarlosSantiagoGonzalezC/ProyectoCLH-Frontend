@@ -1,37 +1,34 @@
 <template>
-    <v-card color="#da9f68" dark width="70%" elevation="24" class="pl-16 pr-16">
-        <v-card-text>
-            <h1>DESACTIVAR PRODUCTO</h1>
-            <div id="logoForm">
-                <i class="fa fa-minus-square"></i>
-            </div>
-            <v-card class="mt-7 mb-5">
-                <v-card-title class="tabla">
-                    <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line
-                        hide-details></v-text-field>
-                </v-card-title>
-                <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla">
-                    <template v-slot:item="row">
-                        <tr>
-                            <td>{{ row.item.id }}</td>
-                            <td>{{ row.item.proCodigo }}</td>
-                            <td>{{ row.item.proNombre }}</td>
-                            <td>{{ row.item.proDescripcion }}</td>
-                            <td>{{ row.item.proCantDisponible }}</td>
-                            <td>COP {{ row.item.proPrecio }}</td>
-                            <td>
-                                <v-img lazy-src="https://picsum.photos/id/11/10/6" height="50" width="50"
-                                    :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
-                            </td>
-                            <td>
-                                <v-btn class="mx-2" fab dark small color="#925419"
-                                    @click="dialog = true; obtenerId(row.item.id)"><v-icon
-                                        dark>mdi-minus-box</v-icon></v-btn>
-                            </td>
-                        </tr>
-                    </template></v-data-table>
-            </v-card>
-        </v-card-text>
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5" max-width="1500px">
+        <h1>DESACTIVAR PRODUCTO</h1>
+        <div id="logoForm">
+            <i class="fa fa-minus-square"></i>
+        </div>
+        <v-card class="mt-7 mb-5">
+            <v-card-title class="tabla">
+                <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line
+                    hide-details></v-text-field>
+            </v-card-title>
+            <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla">
+                <template v-slot:item="row">
+                    <tr>
+                        <td>{{ row.item.id }}</td>
+                        <td>{{ row.item.proCodigo }}</td>
+                        <td>{{ row.item.proNombre }}</td>
+                        <td>{{ row.item.proDescripcion }}</td>
+                        <td>{{ row.item.proCantDisponible }}</td>
+                        <td>COP {{ row.item.proPrecio }}</td>
+                        <td>
+                            <v-img lazy-src="https://picsum.photos/id/11/10/6" height="50" width="50"
+                                :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
+                        </td>
+                        <td>
+                            <v-btn class="mx-2" fab dark small color="#925419"
+                                @click="dialog = true; obtenerId(row.item.id)"><v-icon dark>mdi-minus-box</v-icon></v-btn>
+                        </td>
+                    </tr>
+                </template></v-data-table>
+        </v-card>
         <v-dialog v-model="dialog" persistent max-width="450px">
             <v-card>
                 <v-card-title class="text-center">
@@ -170,5 +167,11 @@ export default {
 
 h1 {
     text-align: center;
+    width: 100%;
+}
+
+h1,
+h2 {
+    text-wrap: balance;
 }
 </style>

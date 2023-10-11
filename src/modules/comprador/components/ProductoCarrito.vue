@@ -90,8 +90,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
-    max-width: 60%;
+    width: 60%;
 }
 
 .info-producto button {
@@ -110,6 +109,7 @@ export default {
 .precio {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .cantidad,

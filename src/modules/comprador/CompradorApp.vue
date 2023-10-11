@@ -1,6 +1,7 @@
 <template>
     <div>
-        <HeaderNav @open="openCarrito"></HeaderNav>
+        <HeaderComponent></HeaderComponent>
+        <NavComponent @open="openCarrito"></NavComponent>
         <CarritoNav :show="show" @close="closeCarrito"></CarritoNav>
         <div class="content">
             <router-view></router-view>
@@ -11,7 +12,8 @@
 
 <script>
 
-import HeaderNav from './components/HeaderNav.vue';
+import HeaderComponent from '../general/components/HeaderComponent.vue';
+import NavComponent from './components/NavComponent.vue';
 import CarritoNav from './components/CarritoNav.vue';
 import FooterApp from '../general/components/FooterApp.vue';
 
@@ -19,7 +21,8 @@ export default {
     name: 'CompradorApp',
 
     components: {
-        HeaderNav,
+        HeaderComponent,
+        NavComponent,
         CarritoNav,
         FooterApp,
     },
@@ -40,6 +43,10 @@ export default {
 </script>
 
 <style scoped>
+
+*{
+    font-weight: 500;
+}
 
 .content{
     display: flex;
