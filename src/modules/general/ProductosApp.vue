@@ -1,11 +1,11 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-16 py-10">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5">
         <v-card-text>
             <h1>PRODUCTOS</h1>
             <v-row v-if="productos">
                 <v-col v-for="producto in productos" :key="producto.id">
                     <div class="center">
-                        <v-card :loading="loading" class="producto mx-auto my-12" max-width="300" elevation="7">
+                        <v-card class="producto" max-width="300" elevation="7">
                             <template slot="progress">
                                 <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                             </template>

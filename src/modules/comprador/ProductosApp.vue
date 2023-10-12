@@ -24,7 +24,7 @@
                                 </v-row>
 
                                 <div class="my-4 text-subtitle-1 text-left">
-                                    $ • {{ comaEnMiles(producto.proPrecio) }} COP
+                                    $ {{ comaEnMiles(producto.proPrecio) }} COP
                                 </div>
 
                                 <div>{{ producto.proDescripcion }}

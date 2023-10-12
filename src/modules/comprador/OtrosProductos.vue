@@ -1,9 +1,9 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="pl-16 pr-16">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5">
         <v-card-text>
             <h1>OTROS PRODUCTOS</h1>
             <v-row v-if="productos">
-                <v-card class="producto mx-auto my-12" max-width="374" v-for="producto in productos"
+                <v-card class="producto" max-width="300" v-for="producto in productos"
                     :key="producto.id" elevation="7">
                     <template slot="progress">
                         <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
