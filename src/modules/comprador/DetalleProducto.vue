@@ -37,9 +37,6 @@
                     <button class="comprar" @click="comprar(producto)">Comprar ahora</button>
                     <button class="agregar" @click="añadirCarrito(producto)">Agregar al carrito</button>
                 </div>
-                <div class="garantia">
-                    <p>30 dias de garantia</p>
-                </div>
             </div>
         </div>
         <div class="text-center mt-15" v-if="loadingEmpresa">
@@ -58,7 +55,7 @@
             </div>
             <img :src="empresa.comImagen" alt="">
         </div>
-        
+
         <div v-if="producto" class="input-comentario">
             <textarea name="comentario" id="comentario" placeholder="Escribir comentario..."
                 v-model="comentario"></textarea>
@@ -223,6 +220,7 @@ export default {
     justify-content: center;
     width: 90%;
     padding: 10px 0px;
+    gap: 10px;
 }
 
 .foto-producto {
@@ -234,10 +232,8 @@ export default {
 }
 
 .foto-producto img {
-    background: #fafaee;
-    width: 90%;
+    width: 100%;
     height: 100%;
-    border-radius: 5px;
     object-fit: contain;
     object-position: center;
 }
@@ -292,10 +288,6 @@ export default {
 .agregar:hover {
     background: #4f8deb;
     color: #e7e7e7;
-}
-
-.garantia {
-    justify-content: center;
 }
 
 /** finca */

@@ -1,35 +1,33 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5">
-        <v-card-text>
-            <form class="form">
-                <h1>ACTUALIZAR DATOS</h1>
-                <div id="logoForm" class="my-5">
-                    <i class="fa fa-edit"></i>
-                </div>
-                <v-row>
-                    <v-col cols="12" md="6">
-                        <v-text-field filled label="Nombres" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-card-account-details" v-model="txtNombre"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field filled label="Apellidos" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field filled label="Correo eletronico" type="email" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-at" v-model="txtCorreo"></v-text-field>
-                    </v-col>
-                </v-row>
-                <v-row class="my-5">
-                    <v-btn class="mr-4 rounded-pill" color="#331b05" @click="actualizarDatos()">
-                        Actualizar
-                    </v-btn>
-                    <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
-                        Cancelar
-                    </v-btn>
-                </v-row>
-            </form>
-        </v-card-text>
+    <v-card color="#da9f68" dark width="90%" max-width="500px" elevation="24" class="px-5">
+        <form class="form" @submit.prevent="actualizarDatos()">
+            <h1>ACTUALIZAR DATOS</h1>
+            <div id="logoForm" class="my-5">
+                <i class="fa fa-edit"></i>
+            </div>
+            <v-row>
+                <v-col cols="12">
+                    <v-text-field filled label="Nombres" :rules="[rules.required]"
+                        prepend-inner-icon="mdi-card-account-details" v-model="txtNombre" required></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field filled label="Apellidos" :rules="[rules.required]"
+                        prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido" required></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field filled label="Correo eletronico" type="email" :rules="[rules.required]"
+                        prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row class="my-5">
+                <v-btn class="mr-4 rounded-pill" color="#331b05" type="submit">
+                    Actualizar
+                </v-btn>
+                <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
+                    Cancelar
+                </v-btn>
+            </v-row>
+        </form>
     </v-card>
 </template>
   

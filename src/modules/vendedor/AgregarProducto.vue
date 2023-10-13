@@ -1,7 +1,6 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="pl-16 pr-16">
-        <v-card-text>
-            <form class="form">
+    <v-card color="#da9f68" dark width="90%" max-width="700px" elevation="24" class="px-5">
+            <form class="form" @submit.prevent="agregarProducto()">
                 <h1>AGREGAR PRODUCTO</h1>
                 <div id="logoForm">
                     <i class="fa fa-plus-square"></i>
@@ -23,7 +22,7 @@
                         <v-text-field filled label="Precio" type="number" :rules="[rules.required]"
                             prepend-inner-icon="mdi-cash" v-model="txtPrecio"></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6">
+                    <v-col cols="12">
                         <v-textarea filled label="Descripción" :rules="[rules.required]" prepend-inner-icon="mdi-text"
                             rows="1" row-height="20" auto-grow v-model="txtDescripcion"></v-textarea>
                     </v-col>
@@ -37,7 +36,7 @@
                     </v-col>
                 </v-row>
                 <v-row class="mb-5 gap">
-                    <v-btn class="rounded-pill" color="#331b05" @click="agregarProducto()">
+                    <v-btn class="rounded-pill" color="#331b05" type="submit">
                         Agregar
                     </v-btn>
                     <v-btn color="#331b05" class="rounded-pill" to="inicio-vendedor">
@@ -45,7 +44,6 @@
                     </v-btn>
                 </v-row>
             </form>
-        </v-card-text>
     </v-card>
 </template>
   
@@ -172,10 +170,6 @@ export default {
 .form .v-input {
     width: 100%;
     text-align: center;
-}
-
-.v-card{
-    max-width: 700px;
 }
 
 .gap{

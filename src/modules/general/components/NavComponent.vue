@@ -18,7 +18,7 @@
                 <v-icon>mdi-coffee</v-icon> Productos
             </router-link>
             <router-link :to="{ name: 'Categorias' }" @click.native="showMenu = false">
-                <v-icon>mdi-list-box</v-icon> Categorias
+                <v-icon>mdi-list-box</v-icon> Categorías
             </router-link>
             <router-link :to="{ name: 'Otros' }" @click.native="showMenu = false">
                 <v-icon>mdi-plus-circle-multiple</v-icon> Otros

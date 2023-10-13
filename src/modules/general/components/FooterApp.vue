@@ -24,7 +24,7 @@
                     <h3>Redes Sociales:</h3>
                     <ul>
                         <li>
-                            <a href="https://www.instagram.com" target="_blank">
+                            <a href="https://www.instagram.com/coffeelinehuila.oficial/" target="_blank">
                                 <v-icon>mdi-instagram</v-icon>
                                 @CoffeeLineHuila.oficial
                             </a>
@@ -42,7 +42,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.facebook.com" target="_blank">
+                            <a href="https://web.facebook.com/profile.php?id=61552156058535" target="_blank">
                                 <v-icon>mdi-facebook</v-icon>
                                 CoffeeLineHuila
                             </a>
@@ -138,7 +138,7 @@ a:hover {
     gap: 20px;
 }
 
-.gap h3{
+.gap h3 {
     max-width: 70%;
 }
 
@@ -156,6 +156,4 @@ ul {
     gap: 10px;
     font-weight: 250;
 }
-
-
 </style>
