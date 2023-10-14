@@ -1,7 +1,6 @@
 <template>
     <div>
         <v-footer dark color="#331b05" class="around mt-10">
-
             <v-row justify="center" align="center" class="gap py-5">
                 <h3>
                     Todos los derechos reservados
@@ -36,7 +35,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="https://wa.me/+573136998962?text=Quiero%20el%20cafe" target="_blank">
+                            <a href="https://wa.me/+573136998962?text=Quiero%20el%20café" target="_blank">
                                 <v-icon>mdi-whatsapp</v-icon>
                                 +57 3136998962
                             </a>
@@ -61,7 +60,7 @@
                         <li><a>Utilidades</a></li>
                         <li><a>Licencias</a></li>
                         <li><a>Permisos</a></li>
-                        <li><a>Politicas</a></li>
+                        <li><a>Políticas</a></li>
                         <li><a>Ayudas</a></li>
                     </ul>
                 </v-col>

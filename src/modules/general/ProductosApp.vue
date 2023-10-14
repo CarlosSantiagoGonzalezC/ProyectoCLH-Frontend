@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="pa-5">
         <h1>PRODUCTOS</h1>
         <v-row v-if="productos">
             <v-col v-for="producto in productos" :key="producto.id">

@@ -1,5 +1,14 @@
 <template>
     <v-card color="#da9f68" dark width="90%" elevation="24" class="py-16">
+        <v-dialog v-model="dialog" persistent max-width="1000px">
+            <v-cad>
+                <v-card-title class="text-center">
+                    <v-spacer></v-spacer>
+                    <h2>Ubicacion Del Pedido</h2>
+                    <v-spacer></v-spacer>
+                </v-card-title>
+            </v-cad>
+        </v-dialog>
         <v-card-text>
             <form>
                 <h1 class="mb-10">Ubicacion del Pedido</h1>

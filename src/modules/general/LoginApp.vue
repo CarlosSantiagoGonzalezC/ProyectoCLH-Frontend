@@ -1,22 +1,21 @@
 <template>
     <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5 py-10">
         <v-card-text>
-            <form class="form" @submit.prevent="inicarSesion()">
+            <form class="form" @submit.prevent="iniciarSesion()">
                 <h1>INICIAR SESIÓN</h1>
                 <div id="logoForm" class="my-5">
                     <i class="fa fa-user"></i>
-                    <!-- <v-icon color="#331b05">mdi-account</v-icon> -->
                 </div>
                 <v-text-field filled label="Correo electrónico" type="email" :rules="[rules.required]"
-                    prepend-inner-icon="mdi-at" class="" v-model="txtCorreo" required></v-text-field>
-                <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]"
-                    :type="show3 ? 'text' : 'password'" name="input-10-2" label="Contraseña" hint="Minimo 5 caracteres"
-                    class="input-group--focused" @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"
-                    v-model="txtPassword" required></v-text-field>
+                    prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
+                <v-text-field filled label="Contraseña" :type="show3 ? 'text' : 'password'"
+                    :rules="[rules.required, rules.min]" hint="Mínimo 5 caracteres" class="input-group--focused"
+                    @click:append="show3 = !show3" :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                    prepend-inner-icon="mdi-lock" v-model="txtPassword" required></v-text-field>
                 <vue-recaptcha @verify="onCaptchaVerified" sitekey="6LfGXWYlAAAAAHqCvlXfzzcM33f8CWYzi00xCzFj"
                     class="mb-3"></vue-recaptcha>
                 <div class="btns">
-                    <v-btn class="rounded-pill" color="#331b05" type="submit">
+                    <v-btn :loading="cargando" class="rounded-pill" color="#331b05" type="submit">
                         Iniciar sesión
                     </v-btn>
                     <v-btn color="#331b05" class="rounded-pill" to="inicio">
@@ -55,6 +54,7 @@ export default {
         txtCorreo: "",
         txtPassword: "",
         recaptcha: null,
+        cargando: false,
     }),
     methods: {
         onCaptchaVerified(response) {
@@ -62,13 +62,15 @@ export default {
             console.log("Captcha verificado:", response);
             this.recaptcha = response;
         },
-        async inicarSesion() {
+        async iniciarSesion() {
+            this.cargando = true
             if (!this.recaptcha) {
                 Swal.fire(
                     '¡Validación fallida!',
                     'Por favor valide el recaptcha',
                     'error'
                 )
+                this.cargando = false
             } else {
                 axios
                     .post(this.url + "/auth", {
@@ -90,6 +92,7 @@ export default {
                             this.$router.push({ name: "Inicio" }).catch(() => { })
                             location.reload()
                         }
+                        this.cargando = false
                     })
                     .catch((error) => {
                         console.log(error);

@@ -9,7 +9,7 @@
             <div class="foto-producto">
                 <img :src="producto.proImagen" alt="">
             </div>
-            <div class="info-producto">
+            <div class="info-producto py-2">
                 <div class="categoria-ventas">
                     <p>Cantidad:</p>
                     <p>{{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ? 'disponibles' :
@@ -34,8 +34,8 @@
                         half-increments hover size="23" :value="4.5"></v-rating>
                 </div>
                 <div class="butons" v-if="producto.proCantDisponible > 0">
-                    <button class="comprar" @click="comprar(producto)">Comprar ahora</button>
-                    <button class="agregar" @click="añadirCarrito(producto)">Agregar al carrito</button>
+                    <v-btn color="#80562f" class="comprar" @click="comprar(producto)">Comprar ahora</v-btn>
+                    <v-btn color="#80562f" class="agregar" @click="añadirCarrito(producto)">Agregar al carrito</v-btn>
                 </div>
             </div>
         </div>
@@ -60,8 +60,8 @@
             <textarea name="comentario" id="comentario" placeholder="Escribir comentario..."
                 v-model="comentario"></textarea>
             <div class="butons-comentario">
-                <button @click="comentario = ''">Cancelar</button>
-                <button @click="comentar" :disabled="!comentario">Comentar</button>
+                <v-btn color="#80562f" @click="comentario = ''">Cancelar</v-btn>
+                <v-btn color="#80562f" @click="comentar" :disabled="!comentario">Comentar</v-btn>
             </div>
         </div>
         <div v-if="comentarios" class="container-comentarios">
@@ -160,6 +160,7 @@ export default {
             this.obtenerComentarios();
         },
         async obtenerComentarios() {
+            this.comentario = ""
             let id = this.producto.id;
             let comments = await tiendaService.getCommentsProduct(id);
             this.comentarios = []
@@ -239,12 +240,12 @@ export default {
 }
 
 .info-producto {
-    background: #e7e7e7;
+    background: #e3e3e3;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 60vh;
+    min-height: 60vh;
     border-radius: 5px;
     width: 30%;
 }
@@ -255,39 +256,13 @@ export default {
 }
 
 .categoria-ventas * {
-    margin-right: 10px;
-    color: #ac9580;
+    color: #00000082;
 }
 
 .title,
 .butons {
     flex-direction: column;
-}
-
-.butons button {
-    margin-bottom: 5px;
-    border-radius: 5px;
-    padding: 10px;
-    transition: all 0.5s;
-}
-
-.comprar {
-    background: #3483FA;
-    color: #EAF2FE;
-}
-
-.comprar:hover {
-    background: #1768e0;
-}
-
-.agregar {
-    background: #83b5ff;
-    color: #287eff;
-}
-
-.agregar:hover {
-    background: #4f8deb;
-    color: #e7e7e7;
+    gap: 5px;
 }
 
 /** finca */
@@ -326,6 +301,7 @@ export default {
     padding: 10px;
     width: 80%;
     min-height: 10vh;
+    max-height: 500px;
     padding: 10px 40px;
     font-size: 18px;
     border: solid 1px #202020;
@@ -346,18 +322,7 @@ export default {
     align-items: center;
     justify-content: end;
     width: 80%;
-}
-
-.butons-comentario button {
-    background: #3483FA;
-    color: #EAF2FE;
-    margin: 5px;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.butons-comentario button:hover {
-    background: #1768e0;
+    gap: 5px;
 }
 
 /** comentarios */
