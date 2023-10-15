@@ -15,7 +15,7 @@
                         prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido" required></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field filled label="Correo eletronico" type="email" :rules="[rules.required]"
+                    <v-text-field filled label="Correo electrónico" type="email" :rules="[rules.required]"
                         prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
                 </v-col>
             </v-row>
@@ -52,14 +52,12 @@ export default {
         password: 'Password',
         rules: {
             required: value => !!value || 'Campo requerido.',
-            min: v => v.length >= 5 || 'Minimo 5 caracteres',
+            min: v => v.length >= 5 || 'Mínimo 5 caracteres',
         },
         url: process.env.VUE_APP_URL_BASE_TIENDA,
         txtNombre: "",
         txtApellido: "",
         txtCorreo: "",
-        txtPassword: "",
-        txtConfirPassword: "",
         usuario: null,
     }),
     methods: {
@@ -70,48 +68,34 @@ export default {
             this.txtNombre = this.usuario.useNombres;
             this.txtApellido = this.usuario.useApellidos;
             this.txtCorreo = this.usuario.useCorreo;
-            console.log(this.usuario);
         },
-
         async actualizarDatos() {
-            if (this.txtPassword == this.txtConfirPassword) {
-
-                axios
-                    .patch(this.url + "/user/update", {
-                        id: localStorage.idUsuario,
-                        useNombres: this.txtNombre,
-                        useApellidos: this.txtApellido,
-                        useCorreo: this.txtCorreo,
-                        usePassword: this.txtPassword,
-                        useRol: "Comprador"
-                    }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
-                    .then(function (response) {
-                        console.log(response);
-                        Swal.fire(
-                            '¡Datos actualizados!',
-                            'Se han actualizado los datos correctamente',
-                            'success'
-                        )
-                        setTimeout(function () {
-                            window.location.reload()
-                        }, 3000);
-
-                    })
-                    .catch(function (error) {
-                        Swal.fire(
-                            '¡Error al actualizar datos!',
-                            'Verifique que esta haciendo el proceso correctamente',
-                            'error'
-                        )
-                        console.log(error);
-                    });
-            } else {
-                Swal.fire(
-                    '¡Las contraseñas no coinciden!',
-                    'La confirmacion de contraseña no es correcta',
-                    'error'
-                )
-            }
+            axios
+                .patch(this.url + "/user/update", {
+                    id: localStorage.idUsuario,
+                    useNombres: this.txtNombre,
+                    useApellidos: this.txtApellido,
+                    useCorreo: this.txtCorreo,
+                    usePassword: this.txtPassword,
+                    useRol: "Comprador"
+                }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
+                .then((response) => {
+                    console.log(response);
+                    Swal.fire(
+                        '¡Datos actualizados!',
+                        'Se han actualizado los datos correctamente',
+                        'success'
+                    )
+                        .then(this.$router.push({ name: "Inicio" }))
+                })
+                .catch((error) => {
+                    Swal.fire(
+                        '¡Error al actualizar datos!',
+                        'Verifique que esta haciendo el proceso correctamente',
+                        'error'
+                    )
+                    console.log(error);
+                });
         },
 
     },

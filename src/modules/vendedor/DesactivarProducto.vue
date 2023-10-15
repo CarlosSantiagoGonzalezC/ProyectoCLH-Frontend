@@ -29,30 +29,7 @@
                     </tr>
                 </template></v-data-table>
         </v-card>
-        <v-dialog v-model="dialog" persistent max-width="450px">
-            <v-card>
-                <v-card-title class="text-center">
-                    <v-spacer></v-spacer>
-                    <h2>DESACTIVAR PRODUCTO</h2>
-                    <v-spacer></v-spacer>
-                </v-card-title>
-                <v-card-text>
-                    <v-container class="mt-5 text-center">
-                        <p class="body-1">¿Está seguro de eliminar este producto?</p>
-                    </v-container>
-                </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn class="rounded-pill text-white" color="#925419" @click="desactivarProducto()">
-                        Desactivar
-                    </v-btn>
-                    <v-btn color="#925419" class="rounded-pill" @click="dialog = false">
-                        Cancelar
-                    </v-btn>
-                    <v-spacer></v-spacer>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+        
     </v-card>
 </template>
   
@@ -120,7 +97,6 @@ export default {
                             'Ha ocurrido un error al desactivar el producto',
                             'error'
                         )
-
                     } else {
                         Swal.fire(
                             '¡Producto desactivado!',

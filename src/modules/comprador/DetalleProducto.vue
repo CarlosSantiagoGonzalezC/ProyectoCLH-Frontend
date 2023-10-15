@@ -12,9 +12,9 @@
             <div class="info-producto py-2">
                 <div class="categoria-ventas">
                     <p>Cantidad:</p>
-                    <p>{{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ? 'disponibles' :
-                        'disponible'
-                    }}</p>
+                    <p>
+                        {{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ? 'disponibles' : 'disponible' }}
+                    </p>
                 </div>
                 <div class="title">
                     <h2>{{ producto.proNombre }}</h2>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="envio">
                     <v-icon class="mr-5">mdi-truck</v-icon>
-                    <p class="ma-0">Envio a nivel nacional</p>
+                    <p class="ma-0">Envío a nivel nacional</p>
                 </div>
                 <div class="estrellas">
                     <v-rating color="yellow darken-3" background-color="grey darken-1" empty-icon="$ratingFull"
@@ -50,7 +50,6 @@
                 <p>{{ empresa.comHistoria }}</p>
                 <p>Municipio: {{ empresa.comMunicipio }}</p>
                 <p>Dirección: {{ empresa.comDireccion }}</p>
-
                 <p>E-mail: {{ empresa.comCorreo }}</p>
             </div>
             <img :src="empresa.comImagen" alt="">

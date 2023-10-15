@@ -1,35 +1,32 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="py-16">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="pa-5">
         <v-dialog v-model="dialog" persistent max-width="1000px">
             <v-cad>
                 <v-card-title class="text-center">
                     <v-spacer></v-spacer>
-                    <h2>Ubicacion Del Pedido</h2>
+                    <h2>Ubicación Del Pedido</h2>
                     <v-spacer></v-spacer>
                 </v-card-title>
+                <form @submit.prevent="comprar()">
+                    <h1 class="mb-10">Ubicación del Pedido</h1>
+                    <v-text-field filled label="Dirección" type="text" :rules="[rules.required]"
+                        prepend-inner-icon="mdi-map-marker" class="ml-16 mr-16" v-model="direccion"></v-text-field>
+                    <v-text-field filled label="Ciudad" type="text" :rules="[rules.required]" prepend-inner-icon="mdi-city"
+                        class="ml-16 mr-16" v-model="ciudad"></v-text-field>
+                    <v-text-field filled label="Departamento" type="text" :rules="[rules.required]"
+                        prepend-inner-icon="mdi-map-marker" class="ml-16 mr-16" v-model="departamento"></v-text-field>
+                    <h3>{{ total }}</h3>
+                    <v-btn color="#331b05" type="submit">
+                        Comprar
+                    </v-btn>
+                </form>
             </v-cad>
         </v-dialog>
-        <v-card-text>
-            <form>
-                <h1 class="mb-10">Ubicacion del Pedido</h1>
-                <v-text-field filled label="Direccion" type="text" :rules="[rules.required]"
-                    prepend-inner-icon="mdi-map-marker" class="ml-16 mr-16" v-model="direccion"></v-text-field>
-                <v-text-field filled label="Ciudad" type="text" :rules="[rules.required]" prepend-inner-icon="mdi-city"
-                    class="ml-16 mr-16" v-model="ciudad"></v-text-field>
-                <v-text-field filled label="Departamento" type="text" :rules="[rules.required]"
-                    prepend-inner-icon="mdi-map-marker" class="ml-16 mr-16" v-model="departamento"></v-text-field>
-                <h3>{{ total }}</h3>
-                <v-btn color="#331b05" @click="comprar">
-                    Comprar
-                </v-btn>
-            </form>
-        </v-card-text>
     </v-card>
 </template>
 
 <script>
 import axios from 'axios';
-
 
 export default {
     name: 'RegistrarCompra',
@@ -46,7 +43,7 @@ export default {
             carrito: [],
             rules: {
                 required: value => !!value || 'Campo requerido.',
-                min: v => v.length >= 5 || 'Minimo 5 caracteres',
+                min: v => v.length >= 5 || 'Mínimo 5 caracteres',
             },
         }
     },

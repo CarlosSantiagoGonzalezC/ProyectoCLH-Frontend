@@ -48,7 +48,7 @@ export default {
         password: 'Password',
         rules: {
             required: value => !!value || 'Campo requerido.',
-            min: v => v.length >= 5 || 'Minimo 5 caracteres',
+            min: v => v.length >= 5 || 'Mínimo 5 caracteres',
         },
         url: process.env.VUE_APP_URL_BASE_TIENDA,
         txtCorreo: "",

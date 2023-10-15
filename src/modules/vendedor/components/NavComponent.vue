@@ -18,10 +18,7 @@
                 <v-icon>mdi-plus-circle</v-icon> Agregar
             </router-link>
             <router-link :to="{ name: 'modificarProducto' }" @click.native="showMenu = false">
-                <v-icon>mdi-pencil-circle</v-icon> Modificar
-            </router-link>
-            <router-link :to="{ name: 'desactivarProducto' }" @click.native="showMenu = false">
-                <v-icon>mdi-minus-circle-multiple</v-icon> Desactivar
+                <v-icon>mdi-pencil-circle</v-icon> Mis Productos
             </router-link>
             <a @click="descargarPDF">
                 <v-icon>mdi-help-circle</v-icon> Ayuda

@@ -23,10 +23,6 @@
                     <v-text-field filled label="Precio" type="number" :rules="[rules.required]"
                         prepend-inner-icon="mdi-cash" v-model="txtPrecio" required></v-text-field>
                 </v-col>
-                <v-col cols="12">
-                    <v-textarea filled label="Descripción" :rules="[rules.required]" prepend-inner-icon="mdi-text" rows="1"
-                        row-height="20" auto-grow v-model="txtDescripcion" required></v-textarea>
-                </v-col>
                 <v-col cols="12" md="6">
                     <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
                         prepend-icon="" v-model="fileImagen" chips counter required></v-file-input>
@@ -34,6 +30,10 @@
                 <v-col cols="12" md="6">
                     <v-select prepend-inner-icon="mdi-list-box" :items="items" filled label="Categoría"
                         v-model="txtCategoria" item-text="catNombre" item-value="id" required></v-select>
+                </v-col>
+                <v-col cols="12">
+                    <v-textarea filled label="Descripción" :rules="[rules.required]" prepend-inner-icon="mdi-text" rows="1"
+                        row-height="20" auto-grow v-model="txtDescripcion" required></v-textarea>
                 </v-col>
             </v-row>
             <v-row class="mb-5 gap">
