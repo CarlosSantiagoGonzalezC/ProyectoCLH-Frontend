@@ -124,9 +124,14 @@ const routes = [
                         component: () => import('@/modules/vendedor/ModificarProducto.vue')
                     },
                     {
-                        path: 'desactivar',
-                        name: 'desactivarProducto',
-                        component: () => import('@/modules/vendedor/DesactivarProducto.vue')
+                        path: 'pedidos',
+                        name: 'PedidosApp',
+                        component: () => import('@/modules/vendedor/PedidosApp.vue')
+                    },
+                    {
+                        path: 'venta',
+                        name: 'ConfirmarVenta',
+                        component: () => import('@/modules/vendedor/ConfirmarVenta.vue')
                     },
                     {
                         path: 'actualizar',

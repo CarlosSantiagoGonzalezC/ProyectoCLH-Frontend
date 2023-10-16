@@ -1,7 +1,7 @@
 <template>
     <v-card color="#da9f68" dark width="90%" max-width="1000px" elevation="24" class="px-5">
         <v-card-text>
-            <form class="form">
+            <form class="form" @submit.prevent="agregarDatosEmpresa()">
                 <h1>MI FINCA/EMPRESA</h1>
                 <div id="logoForm" class="my-5">
                     <i class="fa fa-home"></i>
@@ -9,39 +9,39 @@
                 <v-row>
                     <v-col cols="12" md="6">
                         <v-text-field filled label="Nombre" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-card-account-details" v-model="txtNombre"></v-text-field>
+                            prepend-inner-icon="mdi-card-account-details" v-model="txtNombre" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
-                            prepend-icon="" chips counter v-model="fileImagen"></v-file-input>
+                            prepend-icon="" chips counter v-model="fileImagen" required></v-file-input>
                     </v-col>
-                    <v-col cols="12" md="6">
+                    <v-col cols="12" md="12">
                         <v-textarea filled label="Historia o información" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-information" rows="1" row-height="20" auto-grow
-                            v-model="txtHistoria"></v-textarea>
+                            prepend-inner-icon="mdi-information" rows="1" row-height="20" auto-grow v-model="txtHistoria"
+                            required></v-textarea>
                     </v-col>
                     <v-col class="col-12">
                         <v-divider></v-divider>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled label="Municipio" :rules="[rules.required]" prepend-inner-icon="mdi-map-marker"
-                            v-model="txtMunicipio"></v-text-field>
+                            v-model="txtMunicipio" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled label="Direccion" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-map-marker-outline" v-model="txtDireccion"></v-text-field>
+                            prepend-inner-icon="mdi-map-marker-outline" v-model="txtDireccion" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled label="Telefono" type="number" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-cellphone" v-model="txtTelefono"></v-text-field>
+                            prepend-inner-icon="mdi-cellphone" v-model="txtTelefono" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled label="Correo electronico" type="email" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-at" v-model="txtCorreo"></v-text-field>
+                            prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row class="mb-5">
-                    <v-btn class="mr-4 rounded-pill" color="#331b05" @click="agregarDatosEmpresa()">
+                    <v-btn class="mr-4 rounded-pill" color="#331b05" type="submit">
                         Guardar
                     </v-btn>
                     <v-btn color="#331b05" class="rounded-pill" to="inicio-vendedor">

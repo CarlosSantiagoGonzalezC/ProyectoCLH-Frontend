@@ -62,46 +62,48 @@
                     <v-spacer></v-spacer>
                 </v-card-title>
                 <v-card-text>
-                    <form class="mt-7 ml-5 mr-5">
+                    <form class="mt-7 ml-5 mr-5" @submit.prevent="actualizarEmpresa()">
                         <v-row>
                             <v-col cols="12" md="6">
                                 <v-text-field filled label="Nombre" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-card-account-details" v-model="txtNombre"></v-text-field>
+                                    prepend-inner-icon="mdi-card-account-details" v-model="txtNombre"
+                                    required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
-                                    prepend-icon="" chips counter v-model="fileImagen"></v-file-input>
+                                    prepend-icon="" chips counter v-model="fileImagen" required></v-file-input>
                             </v-col>
-                            <v-col cols="12" md="6">
+                            <v-col cols="12">
                                 <v-textarea filled label="Historia o información" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-information" rows="1" row-height="20" auto-grow
-                                    v-model="txtHistoria"></v-textarea>
+                                    v-model="txtHistoria" required></v-textarea>
                             </v-col>
                             <v-col class="col-12">
                                 <v-divider></v-divider>
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-text-field filled label="Municipio" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-map-marker" v-model="txtMunicipio"></v-text-field>
+                                    prepend-inner-icon="mdi-map-marker" v-model="txtMunicipio" required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-text-field filled label="Direccion" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-map-marker-outline" v-model="txtDireccion"></v-text-field>
+                                    prepend-inner-icon="mdi-map-marker-outline" v-model="txtDireccion"
+                                    required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-text-field filled label="Telefono" type="number" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-cellphone" v-model="txtTelefono"></v-text-field>
+                                    prepend-inner-icon="mdi-cellphone" v-model="txtTelefono" required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-text-field filled label="Correo electronico" type="email" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-at" v-model="txtCorreo"></v-text-field>
+                                    prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
                             </v-col>
                         </v-row>
                     </form>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn class="rounded-pill text-white mb-5" color="#925419" @click="actualizarEmpresa()">
+                    <v-btn class="rounded-pill text-white mb-5" color="#925419" type="submit">
                         Modificar
                     </v-btn>
                     <v-btn color="#925419" class="rounded-pill mb-5" @click="dialog = false">

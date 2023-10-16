@@ -1,7 +1,7 @@
 <template>
     <v-card color="#da9f68" dark width="90%" max-width="1000px" elevation="24" class="pl-16 pr-16">
         <v-card-text>
-            <form class="form">
+            <form class="form" @submit.prevent="actualizarDatos()">
                 <h1>ACTUALIZAR DATOS</h1>
                 <div id="logoForm" class="my-5">
                     <i class="fa fa-edit"></i>
@@ -30,7 +30,7 @@
                     </v-col>
                 </v-row>
                 <v-row class="mb-5 gap">
-                    <v-btn class="rounded-pill" color="#331b05" @click="actualizarDatos()">
+                    <v-btn class="rounded-pill" color="#331b05" type="submit">
                         Actualizar
                     </v-btn>
                     <v-btn color="#331b05" class="rounded-pill" to="inicio-vendedor">
@@ -41,7 +41,7 @@
 
             <hr>
 
-            <form class="form mt-8">
+            <form class="form mt-8" @submit.prevent="cambiarContraseña()">
                 <h1>CAMBIAR CONTRASEÑA</h1>
                 <div id="logoForm" class="my-5">
                     <i class="fa fa-lock"></i>
@@ -56,10 +56,10 @@
                     </v-col>
                     <v-col class="col-6">
                         <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Contraseña nueva" hint="Minimo 5 caracteres" class="input-group--focused"
-                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtPasswordNueva"
-                            required></v-text-field>
+                            :rules="[rules.required, rules.min, rules.passReq]" :type="show3 ? 'text' : 'password'"
+                            name="input-10-2" label="Contraseña nueva" hint="Minimo 5 caracteres"
+                            class="input-group--focused" @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"
+                            v-model="txtPasswordNueva" required></v-text-field>
                     </v-col>
                     <v-col class="col-6">
                         <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -70,7 +70,7 @@
                     </v-col>
                 </v-row>
                 <v-row class="my-5">
-                    <v-btn class="mr-4 rounded-pill" color="#331b05" @click="cambiarContraseña()">
+                    <v-btn class="mr-4 rounded-pill" color="#331b05" type="submit">
                         Cambiar contraseña
                     </v-btn>
                     <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
@@ -104,6 +104,7 @@ export default {
         rules: {
             required: value => !!value || 'Campo requerido.',
             min: v => v.length >= 5 || 'Minimo 5 caracteres',
+            passReq: value => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/.test(value) || 'Requiere al menos un número, una mayúscula y una minúscula',
         },
         url: process.env.VUE_APP_URL_BASE_TIENDA,
         txtNombre: "",
@@ -137,7 +138,12 @@ export default {
                 this.txtNumContacto = this.vendedor[0].selNumContacto,
                 console.log(this.vendedor);
         },
-        
+
+        validarContraseña(contraseña) {
+            const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
+            return regex.test(contraseña);
+        },
+
         actualizarDatos() {
             axios
                 .patch(this.url + "/user/update", {
@@ -185,6 +191,15 @@ export default {
         },
 
         async cambiarContraseña() {
+            if (!this.validarContraseña(this.txtPasswordNueva)) {
+                Swal.fire(
+                    '¡Error!',
+                    'La contraseña debe contener al menos un número, una mayúscula y una minúscula.',
+                    'error'
+                );
+                return;
+            }
+
             if (this.txtPasswordNueva == this.txtConfirPassword) {
 
                 axios
@@ -265,4 +280,5 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-}</style>
+}
+</style>

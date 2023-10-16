@@ -1,55 +1,44 @@
 <template>
     <div>
         <v-footer dark color="#331b05" class="around mt-10">
-
-            <v-row justify="center" align="center" class="gap py-5">
-                <h3>
-                    Todos los derechos reservados
-                </h3>
-                <v-icon>mdi-copyright</v-icon>
-            </v-row>
+            <h3 class="ma-6">
+                Todos los derechos reservados <v-icon>mdi-copyright</v-icon>
+            </h3>
 
             <v-row class="evenly">
                 <v-col cols="12" sm="6" md="3" class="center">
                     <h3>Información:</h3>
                     <ul>
-                        <li>sc805036@gmail.com</li>
-                        <li>+57 3136998962</li>
-                        <li>SENA Industrial</li>
-                        <li>Neiva - Huila</li>
-                        <li>Cra 5 #14-22</li>
+                        <li><i class="fa-solid fa-envelope"></i> CoffeeLineHuila@outlook.com</li>
+                        <li><i class="fa-solid fa-building"></i> SENA Industrial</li>
+                        <li><i class="fa-solid fa-city"></i> Neiva - Huila</li>
+                        <li><i class="fa-solid fa-location-dot"></i> Cra 5 #14-22</li>
                     </ul>
                 </v-col>
                 <v-col cols="12" sm="6" md="3" class="center">
                     <h3>Redes Sociales:</h3>
                     <ul>
                         <li>
-                            <a href="https://www.instagram.com" target="_blank">
-                                <v-icon>mdi-instagram</v-icon>
+                            <a href="https://www.instagram.com/coffeelinehuila.oficial/" target="_blank">
+                                <i class="fa-brands fa-instagram"></i>
                                 @CoffeeLineHuila.oficial
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.twitter.com" target="_blank">
-                                <v-icon>mdi-twitter</v-icon>
+                            <a href="https://twitter.com/CoffeeLineHuila" target="_blank">
+                                <i class="fa-brands fa-twitter"></i>
                                 @CoffeeLineHuila
                             </a>
                         </li>
                         <li>
-                            <a href="https://wa.me/+573136998962?text=Quiero%20el%20cafe" target="_blank">
-                                <v-icon>mdi-whatsapp</v-icon>
+                            <a href="https://wa.me/+573136998962?text=Quiero%20el%20café" target="_blank">
+                                <i class="fa-brands fa-whatsapp"></i>
                                 +57 3136998962
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.facebook.com" target="_blank">
-                                <v-icon>mdi-facebook</v-icon>
-                                CoffeeLineHuila
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/CarlosSantiagoGonzalezC" target="_blank">
-                                <v-icon>mdi-github</v-icon>
+                            <a href="https://web.facebook.com/profile.php?id=61552156058535" target="_blank">
+                                <i class="fa-brands fa-facebook"></i>
                                 CoffeeLineHuila
                             </a>
                         </li>
@@ -61,8 +50,7 @@
                         <li><a>Utilidades</a></li>
                         <li><a>Licencias</a></li>
                         <li><a>Permisos</a></li>
-                        <li><a>Politicas</a></li>
-                        <li><a>Ayudas</a></li>
+                        <li><a>Políticas</a></li>
                     </ul>
                 </v-col>
                 <v-col cols="12" sm="6" md="3" class="center">
@@ -70,14 +58,14 @@
                     <ul>
                         <li>
                             <a href="https://github.com/CarlosSantiagoGonzalezC" target="_blank">
-                                <v-icon>mdi-github</v-icon>
+                                <i class="fa-brands fa-github"></i>
                                 Carlos Santiago Gonzalez Cuellar
                             </a>
                         </li>
                         <li>
                             <a href="https://github.com/tetraform69" target="_blank">
-                                <v-icon>mdi-github</v-icon>
-                                Oscar
+                                <i class="fa-brands fa-github"></i>
+                                Oscar Yefrey Corredor Medina
                             </a>
                         </li>
                     </ul>
@@ -138,6 +126,10 @@ a:hover {
     gap: 20px;
 }
 
+.gap h3 {
+    max-width: 70%;
+}
+
 .gap {
     gap: 10px;
 }
@@ -151,5 +143,10 @@ ul {
     padding: 0;
     gap: 10px;
     font-weight: 250;
+}
+
+i {
+    min-width: 20px;
+    text-align: center;
 }
 </style>

@@ -1,85 +1,118 @@
 <template>
     <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5" max-width="1500px">
 
-        <h1>MODIFICAR PRODUCTO</h1>
+        <h1>GESTIONAR PRODUCTOS</h1>
         <div id="logoForm">
-            <i class="fa fa-edit"></i>
+            <i class="fa fa-gears"></i>
         </div>
         <v-card class="mt-7 mb-5">
             <v-card-title class="tabla">
-                <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line
-                    hide-details></v-text-field>
+                <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line hide-details
+                    required></v-text-field>
+                <v-btn class="mx-5" color="#925419" :to="{ name: 'agregarProducto' }"><v-icon>mdi-plus-circle</v-icon>
+                    Agregar</v-btn>
             </v-card-title>
-            <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla">
+            <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla" multi-sort
+                :footer-props="{ itemsPerPageText: 'Número de filas', pageText: '{0}-{1} de {2}' }" :items-per-page="5"
+                :loading="loadingTable" loading-text="Cargando... Por favor espera" no-data-text="No hay productos"
+                no-results-text="No hay ningun producto que coincida">
                 <template v-slot:item="row">
                     <tr>
-                        <td>{{ row.item.id }}</td>
                         <td>{{ row.item.proCodigo }}</td>
                         <td>{{ row.item.proNombre }}</td>
                         <td>{{ row.item.proDescripcion }}</td>
                         <td>{{ row.item.proCantDisponible }}</td>
-                        <td>COP {{ row.item.proPrecio }}</td>
+                        <td>$ {{ comaEnMiles(row.item.proPrecio) }} COP</td>
                         <td>
                             <v-img lazy-src="https://picsum.photos/id/11/10/6" height="50" width="50"
                                 :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
                         </td>
                         <td>
-                            <v-btn class="mx-2" fab dark small color="#925419"
-                                @click="dialog = true; obtenerProductoId(row.item.id)"><v-icon
-                                    dark>mdi-pencil</v-icon></v-btn>
+                            <div class="btns">
+                                <v-btn class="mx-2" fab dark small color="#925419"
+                                    @click="dialogUpdate = true; obtenerProductoId(row.item.id)">
+                                    <v-icon dark>mdi-pencil</v-icon>
+                                </v-btn>
+                                <v-btn class="mx-2" fab dark small color="#925419"
+                                    @click="dialogDelete = true; obtenerProductoId(row.item.id)">
+                                    <v-icon dark>mdi-minus-box</v-icon>
+                                </v-btn>
+                            </div>
                         </td>
                     </tr>
-                </template></v-data-table>
+                </template>
+            </v-data-table>
         </v-card>
-        <v-dialog v-model="dialog" persistent max-width="1000px">
+        <v-dialog v-model="dialogUpdate" persistent max-width="1000px">
             <v-card>
                 <v-card-title class="text-center">
                     <v-spacer></v-spacer>
                     <h2>MODIFICAR PRODUCTO</h2>
                     <v-spacer></v-spacer>
                 </v-card-title>
+                <form class="mt-5 ml-8 mr-8" @submit.prevent="modificarProducto()">
+                    <v-row>
+                        <v-col cols="12" md="6">
+                            <v-text-field filled label="Nombre" :rules="[rules.required]" v-model="txtNombre"
+                                prepend-inner-icon="mdi-card-account-details" required></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                            <v-text-field filled label="Código" type="number" :rules="[rules.required]"
+                                prepend-inner-icon="mdi-barcode" v-model="txtCodigo" required></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                            <v-text-field filled label="Cantidad disponible" type="number" :rules="[rules.required]"
+                                prepend-inner-icon="mdi-sort-numeric-descending" v-model="txtCantDisponible"
+                                required></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                            <v-text-field filled label="Precio" type="number" :rules="[rules.required]"
+                                prepend-inner-icon="mdi-cash" v-model="txtPrecio" required></v-text-field>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                            <v-file-input filled label="Imagen" prepend-inner-icon="mdi-image" prepend-icon="" chips counter
+                                v-model="fileImagen"></v-file-input>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                            <v-select prepend-inner-icon="mdi-list-box" :items="items" filled label="Categoría"
+                                v-model="txtCategoria" item-text="catNombre" item-value="id"></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-textarea filled label="Descripción" :rules="[rules.required]" prepend-inner-icon="mdi-text"
+                                rows="1" row-height="20" auto-grow v-model="txtDescripcion" required></v-textarea>
+                        </v-col>
+                    </v-row>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn class="rounded-pill text-white" color="#925419" type="submit">
+                            Modificar
+                        </v-btn>
+                        <v-btn color="#925419" class="rounded-pill" @click="dialogUpdate = false">
+                            Cancelar
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                    </v-card-actions>
+                </form>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogDelete" persistent max-width="450px">
+            <v-card>
+                <v-card-title class="text-center">
+                    <v-spacer></v-spacer>
+                    <h2>DESACTIVAR PRODUCTO</h2>
+                    <v-spacer></v-spacer>
+                </v-card-title>
                 <v-card-text>
-                    <v-container class="mt-5">
-                        <v-row>
-                            <v-col cols="12" md="6">
-                                <v-text-field filled label="Nombre" :rules="[rules.required]" v-model="txtNombre"
-                                    prepend-inner-icon="mdi-card-account-details"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field filled label="Código" type="number" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-barcode" v-model="txtCodigo"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field filled label="Cantidad disponible" type="number" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-sort-numeric-descending"
-                                    v-model="txtCantDisponible"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-text-field filled label="Precio" type="number" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-cash" v-model="txtPrecio"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-textarea filled label="Descripción" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-text" rows="1" row-height="20" auto-grow
-                                    v-model="txtDescripcion"></v-textarea>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
-                                    prepend-icon="" chips counter v-model="fileImagen"></v-file-input>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-select prepend-inner-icon="mdi-list-box" :items="items" filled label="Categoria"
-                                    v-model="txtCategoria" item-text="catNombre" item-value="id"></v-select>
-                            </v-col>
-                        </v-row>
+                    <v-container class="mt-5 text-center">
+                        <p class="body-1">¿Está seguro de eliminar este producto?</p>
                     </v-container>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn class="rounded-pill text-white" color="#925419" @click="modificarProducto()">
-                        Modificar
+                    <v-btn class="rounded-pill text-white" color="#925419" @click="desactivarProducto()">
+                        Desactivar
                     </v-btn>
-                    <v-btn color="#925419" class="rounded-pill" @click="dialog = false">
+                    <v-btn color="#925419" class="rounded-pill" @click="dialogDelete = false">
                         Cancelar
                     </v-btn>
                     <v-spacer></v-spacer>
@@ -105,26 +138,22 @@ export default {
     data: () => ({
         rules: {
             required: value => !!value || 'Campo requerido.',
-            min: v => v.length >= 5 || 'Minimo 5 caracteres',
+            min: v => v.length >= 5 || 'Mínimo 5 caracteres',
         },
         search: '',
         headers: [
-            {
-                text: 'ID',
-                align: 'start',
-                filterable: false,
-                value: 'id',
-            },
-            { text: 'Codigo', value: 'codigo' },
-            { text: 'Nombre', value: 'nombre' },
-            { text: 'Descripción', value: 'descripcion' },
-            { text: 'Cantidad Disponible', value: 'cantDisponible' },
-            { text: 'Precio', value: 'precio' },
-            { text: 'Imagen', value: 'imagen' },
-            { text: 'Modificar', value: 'modificar' },
+            { text: 'Código', value: 'proCodigo' },
+            { text: 'Nombre', value: 'proNombre' },
+            { text: 'Descripción', value: 'proDescripcion' },
+            { text: 'Disponibles', value: 'proCantDisponible' },
+            { text: 'Precio', value: 'proPrecio' },
+            { text: 'Imagen', key: 'img', sortable: false },
+            { text: 'Acciones', key: 'actions', sortable: false },
         ],
         desserts: [],
-        dialog: false,
+        dialogUpdate: false,
+        dialogDelete: false,
+        loadingTable: true,
         productos: null,
         product: [],
         idProducto: "",
@@ -159,14 +188,16 @@ export default {
             }
         },
         async obtenerProductos() {
+            this.loadingTable = true
+            this.desserts = []
             let products = await tiendaService.getProductsSeller(localStorage.idUsuario);
             this.productos = products.data;
             this.productos.forEach(element => {
                 this.desserts.push(element);
             });
+            this.loadingTable = false
             console.log(this.desserts);
         },
-
         async obtenerProductoId(id) {
             this.idProducto = id;
             let producto = await tiendaService.getProductId(this.idProducto);
@@ -178,7 +209,6 @@ export default {
             this.txtDescripcion = this.product.proDescripcion;
             this.txtCategoria = this.product.category_id;
         },
-
         async obtenerCategorias() {
             let categories = await tiendaService.getCategories();
             this.categorias = categories.data;
@@ -186,7 +216,6 @@ export default {
                 this.items.push(element);
             });
         },
-
         async modificarProducto() {
             if (this.base64Image == null) {
                 this.base64Image = this.product.proImagen;
@@ -218,7 +247,8 @@ export default {
                             'Se ha modificado el producto correctamente',
                             'success'
                         ).then(
-                            this.dialog = false
+                            this.dialogUpdate = false,
+                            this.obtenerProductos()
                         )
                     }
                 })
@@ -230,6 +260,45 @@ export default {
                     )
                     console.log(error);
                 });
+        },
+        async desactivarProducto() {
+            axios
+                .delete(this.url + "/product/delete", {
+                    data: { id: this.idProducto }
+                }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
+                .then((response) => {
+                    console.log(response);
+                    if (response.data.result.error_id == 400) {
+                        Swal.fire(
+                            '¡Error al desactivar!',
+                            'Ha ocurrido un error al desactivar el producto',
+                            'error'
+                        )
+                    } else {
+                        Swal.fire(
+                            '¡Producto desactivado!',
+                            'Se ha desactivado el producto correctamente',
+                            'success'
+                        )
+                            .then(
+                                this.obtenerProductos(),
+                                this.dialogDelete = false
+                            )
+                    }
+                })
+                .catch(function (error) {
+                    Swal.fire(
+                        '¡Error al desactivar producto!',
+                        'Verifique que esta haciendo el proceso correctamente',
+                        'error'
+                    )
+                    console.log(error);
+                });
+        },
+        comaEnMiles(number) {
+            let exp = /(\d)(?=(\d{3})+(?!\d))/g //* expresion regular que busca tres digitos
+            let rep = '$1.' //parametro especial para splice porque los numeros no son menores a 100
+            return number.toString().replace(exp, rep)
         },
     },
     mounted() {
@@ -260,5 +329,12 @@ h1 {
 h1,
 h2 {
     text-wrap: balance;
+}
+
+.btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 </style>
