@@ -32,20 +32,6 @@
                         <v-text-field filled label="Numero de contacto" type="number" :rules="[rules.required]"
                             prepend-inner-icon="mdi-cellphone" v-model="txtNumContacto" required></v-text-field>
                     </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
-                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtPassword"
-                            required></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Confirmar contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
-                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtConfirPassword"
-                            required></v-text-field>
-                    </v-col>
                 </v-row>
                 <v-row class="mb-5 gap">
                     <v-btn class="rounded-pill" color="#331b05" type="submit">
