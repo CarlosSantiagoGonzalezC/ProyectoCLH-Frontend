@@ -18,7 +18,7 @@
                 <v-icon>mdi-coffee</v-icon> Productos
             </router-link>
             <router-link :to="{ name: 'Categorias' }" @click.native="showMenu = false">
-                <v-icon>mdi-list-box</v-icon> Categorias
+                <v-icon>mdi-list-box</v-icon> Categorías
             </router-link>
             <router-link :to="{ name: 'Otros' }" @click.native="showMenu = false">
                 <v-icon>mdi-plus-circle-multiple</v-icon> Otros
@@ -27,32 +27,38 @@
                 <v-icon>mdi-help-circle</v-icon> Ayuda
             </a>
             <div class="loginRes">
-                <router-link :to="{ name: 'login' }" @click.native="showMenu = false"><v-icon>mdi-login-variant</v-icon>Ingresar</router-link>
+                <router-link :to="{ name: 'login' }" @click.native="showMenu = false">
+                    <v-icon>mdi-login-variant</v-icon> Ingresar
+                </router-link>
                 <v-expansion-panels>
                     <v-expansion-panel>
-                        <v-expansion-panel-header>
-                            Registrarse
-                        </v-expansion-panel-header>
+                        <v-expansion-panel-header> Registrarse </v-expansion-panel-header>
                         <v-expansion-panel-content>
-                            <router-link :to="{ name: 'RegistroComprador' }" @click.native="showMenu = false">Como usuario</router-link>
-                            <router-link :to="{ name: 'RegistroVendedor' }" @click.native="showMenu = false">Como vendedor</router-link>
+                            <router-link :to="{ name: 'RegistroComprador' }" @click.native="showMenu = false">
+                                Como usuario
+                            </router-link>
+                            <router-link :to="{ name: 'RegistroVendedor' }" @click.native="showMenu = false">
+                                Como vendedor
+                            </router-link>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
                 </v-expansion-panels>
             </div>
         </div>
         <div class="login">
-
             <div class="dropdown">
                 <button class="drop-btn">
                     Registrarse
                 </button>
                 <div class="dropdown-content">
-                    <router-link :to="{ name: 'RegistroComprador' }">Como usuario</router-link>
-                    <router-link :to="{ name: 'RegistroVendedor' }">Como vendedor</router-link>
+                    <router-link :to="{ name: 'RegistroComprador' }">
+                        Como usuario
+                    </router-link>
+                    <router-link :to="{ name: 'RegistroVendedor' }">
+                        Como vendedor
+                    </router-link>
                 </div>
             </div>
-
             <router-link :to="{ name: 'login' }">
                 <button>
                     Ingresar
@@ -102,7 +108,8 @@ export default {
     padding: 0;
 }
 
-.menuBtn, .loginRes {
+.menuBtn,
+.loginRes {
     display: none;
 }
 
@@ -260,7 +267,7 @@ button:hover,
         display: none;
     }
 
-    .loginRes{
+    .loginRes {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -268,11 +275,11 @@ button:hover,
         gap: 5px;
     }
 
-    .v-expansion-panels{
+    .v-expansion-panels {
         width: 95%
     }
 
-    .v-expansion-panels button{
+    .v-expansion-panels button {
         background: none;
         color: black;
     }

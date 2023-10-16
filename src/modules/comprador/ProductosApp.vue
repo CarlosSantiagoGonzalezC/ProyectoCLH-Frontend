@@ -1,60 +1,62 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="pl-16 pr-16">
-        <v-card-text>
-            <h1>PRODUCTOS</h1>
-            <v-row v-if="productos">
-                <v-card class="producto mx-auto my-12" max-width="374" v-for="producto in productos" :key="producto.id"
-                    elevation="7">
-                    <template slot="progress">
-                        <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
-                    </template>
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="pa-5">
 
-                    <v-img height="250" :src="producto.proImagen"></v-img>
-                    <v-card-title>{{ producto.proNombre }}</v-card-title>
+        <h1>PRODUCTOS</h1>
+        <v-row v-if="productos">
+            <v-col v-for="producto in productos" :key="producto.id">
+                <div class="center">
+                    <v-card class="producto" max-width="400" width="100%" elevation="7">
+                        <template slot="progress">
+                            <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
+                        </template>
 
-                    <v-card-text>
-                        <v-row align="center" class="mx-0">
-                            <v-rating :value="4.5" color="warning" dense half-increments readonly size="18"></v-rating>
+                        <v-img class="imgProducto" :src="producto.proImagen"></v-img>
+                        <v-card-title>{{ producto.proNombre }}</v-card-title>
 
-                            <div class="grey--text ms-4">
-                                4.5
+                        <v-card-text>
+                            <v-row align="center" class="mx-0">
+                                <v-rating :value="4.5" color="warning" dense half-increments readonly size="18"></v-rating>
+
+                                <div class="grey--text ms-4">
+                                    4.5
+                                </div>
+                            </v-row>
+
+                            <div class="my-4 text-subtitle-1 text-left">
+                                $ {{ comaEnMiles(producto.proPrecio) }} COP
                             </div>
-                        </v-row>
 
-                        <div class="my-4 text-subtitle-1 text-left">
-                            $ • {{ comaEnMiles(producto.proPrecio) }} COP
-                        </div>
+                            <div>{{ producto.proDescripcion }}
+                            </div>
+                        </v-card-text>
 
-                        <div>{{ producto.proDescripcion }}
-                        </div>
-                    </v-card-text>
+                        <v-divider class="mx-4"></v-divider>
 
-                    <v-divider class="mx-4"></v-divider>
+                        <v-card-title>Cantidad disponible</v-card-title>
+                        <v-card-text class="text-left">
+                            <v-chip>{{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ?
+                                'disponibles' : 'disponible' }}</v-chip>
+                        </v-card-text>
 
-                    <v-card-title>Cantidad disponible</v-card-title>
-                    <v-card-text class="text-left">
-                        <v-chip>{{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ?
-                            'disponibles' : 'disponible' }}</v-chip>
-                    </v-card-text>
+                        <v-card-actions>
+                            <v-btn color="#331b05" v-if="producto.proCantDisponible > 0" class="rounded-pill"
+                                @click="añadirCarrito(producto.id)">
+                                <v-icon>mdi-cart-plus</v-icon>
+                            </v-btn>
+                            <v-btn color="#331b05" class="rounded-pill" @click="obtnerIds(producto.id, producto.user_id)">
+                                <v-icon>mdi-eye</v-icon>
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </div>
+            </v-col>
+        </v-row>
 
-                    <v-card-actions>
-                        <v-btn color="#331b05" v-if="producto.proCantDisponible > 0" class="rounded-pill"
-                            @click="añadirCarrito(producto.id)">
-                            <v-icon>mdi-cart-plus</v-icon>
-                        </v-btn>
-                        <v-btn color="#331b05" class="rounded-pill" @click="obtnerIds(producto.id, producto.user_id)">
-                            <v-icon>mdi-eye</v-icon>
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-row>
-
-            <div class="text-center mt-15" v-else>
-                <v-progress-circular class="text-center" :size="200" :width="20" color="brown"
-                    indeterminate></v-progress-circular>
-                <h2 class="mt-12">Cargando productos...</h2>
-            </div>
-        </v-card-text>
+        <div class="text-center mt-15" v-else>
+            <v-progress-circular class="text-center" :size="200" :width="20" color="brown"
+                indeterminate></v-progress-circular>
+            <h2 class="mt-12">Cargando productos...</h2>
+        </div>
     </v-card>
 </template>
   
@@ -111,7 +113,6 @@ export default {
 <style scoped>
 .producto {
     background: #7b5028;
-    margin: 10px;
     transition: all 0.5s;
 }
 
@@ -121,5 +122,12 @@ export default {
 
 h1 {
     text-align: center;
+}
+
+.center {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
 }
 </style>

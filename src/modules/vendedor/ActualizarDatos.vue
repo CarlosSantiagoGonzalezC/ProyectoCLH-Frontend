@@ -1,7 +1,7 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" max-width="1000px" elevation="24" class="pl-16 pr-16">
+    <v-card color="#da9f68" dark width="90%" max-width="1000px" elevation="24" class="px-5">
         <v-card-text>
-            <form class="form">
+            <form class="form" @submit.prevent="actualizarDatos()">
                 <h1>ACTUALIZAR DATOS</h1>
                 <div id="logoForm" class="my-5">
                     <i class="fa fa-edit"></i>
@@ -30,7 +30,7 @@
                     </v-col>
                 </v-row>
                 <v-row class="mb-5 gap">
-                    <v-btn class="rounded-pill" color="#331b05" @click="actualizarDatos()">
+                    <v-btn class="rounded-pill" color="#331b05" type="submit">
                         Actualizar
                     </v-btn>
                     <v-btn color="#331b05" class="rounded-pill" to="inicio-vendedor">

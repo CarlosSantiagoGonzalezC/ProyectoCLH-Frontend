@@ -1,76 +1,33 @@
 <template>
-    <v-card color="#da9f68" dark width="70%" elevation="24" class="py-16">
-        <v-card-text>
-            <form class="form">
-                <h1>ACTUALIZAR DATOS</h1>
-                <div id="logoForm" class="my-5">
-                    <i class="fa fa-edit"></i>
-                </div>
-                <v-row>
-                    <v-col class="col-6">
-                        <v-text-field filled label="Nombres" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-card-account-details" v-model="txtNombre" required></v-text-field>
-                    </v-col>
-                    <v-col class="col-6">
-                        <v-text-field filled label="Apellidos" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido"
-                            required></v-text-field>
-                    </v-col>
-                    <v-col class="col-6">
-                        <v-text-field filled label="Correo eletronico" type="email" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
-                    </v-col>
-                </v-row>
-                <v-row class="my-5">
-                    <v-btn class="mr-4 rounded-pill" color="#331b05" @click="actualizarDatos()">
-                        Actualizar
-                    </v-btn>
-                    <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
-                        Cancelar
-                    </v-btn>
-                </v-row>
-            </form>
-
-            <hr>
-
-            <form class="form mt-8">
-                <h1>CAMBIAR CONTRASEÑA</h1>
-                <div id="logoForm" class="my-5">
-                    <i class="fa fa-lock"></i>
-                </div>
-                <v-row>
-                    <v-col class="col-6">
-                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Contraseña actual" hint="Minimo 5 caracteres" class="input-group--focused"
-                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtPasswordActual"
-                            required></v-text-field>
-                    </v-col>
-                    <v-col class="col-6">
-                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Contraseña nueva" hint="Minimo 5 caracteres" class="input-group--focused"
-                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtPasswordNueva"
-                            required></v-text-field>
-                    </v-col>
-                    <v-col class="col-6">
-                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Confirmar contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
-                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtConfirPassword"
-                            required></v-text-field>
-                    </v-col>
-                </v-row>
-                <v-row class="my-5">
-                    <v-btn class="mr-4 rounded-pill" color="#331b05" @click="cambiarContraseña()">
-                        Cambiar contraseña
-                    </v-btn>
-                    <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
-                        Cancelar
-                    </v-btn>
-                </v-row>
-            </form>
-        </v-card-text>
+    <v-card color="#da9f68" dark width="90%" max-width="500px" elevation="24" class="px-5">
+        <form class="form" @submit.prevent="actualizarDatos()">
+            <h1>ACTUALIZAR DATOS</h1>
+            <div id="logoForm" class="my-5">
+                <i class="fa fa-edit"></i>
+            </div>
+            <v-row>
+                <v-col cols="12">
+                    <v-text-field filled label="Nombres" :rules="[rules.required]"
+                        prepend-inner-icon="mdi-card-account-details" v-model="txtNombre" required></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field filled label="Apellidos" :rules="[rules.required]"
+                        prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido" required></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field filled label="Correo electrónico" type="email" :rules="[rules.required]"
+                        prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row class="my-5">
+                <v-btn class="mr-4 rounded-pill" color="#331b05" type="submit">
+                    Actualizar
+                </v-btn>
+                <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
+                    Cancelar
+                </v-btn>
+            </v-row>
+        </form>
     </v-card>
 </template>
   
@@ -95,15 +52,12 @@ export default {
         password: 'Password',
         rules: {
             required: value => !!value || 'Campo requerido.',
-            min: v => v.length >= 5 || 'Minimo 5 caracteres',
+            min: v => v.length >= 5 || 'Mínimo 5 caracteres',
         },
         url: process.env.VUE_APP_URL_BASE_TIENDA,
         txtNombre: "",
         txtApellido: "",
         txtCorreo: "",
-        txtPasswordActual: "",
-        txtPasswordNueva: "",
-        txtConfirPassword: "",
         usuario: null,
     }),
     methods: {
@@ -114,9 +68,7 @@ export default {
             this.txtNombre = this.usuario.useNombres;
             this.txtApellido = this.usuario.useApellidos;
             this.txtCorreo = this.usuario.useCorreo;
-            console.log(this.usuario);
         },
-
         async actualizarDatos() {
             axios
                 .patch(this.url + "/user/update", {
@@ -132,12 +84,9 @@ export default {
                         'Se han actualizado los datos correctamente',
                         'success'
                     )
-                    setTimeout(function () {
-                        window.location.reload()
-                    }, 3000);
-
+                        .then(this.$router.push({ name: "Inicio" }))
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     Swal.fire(
                         '¡Error al actualizar datos!',
                         'Verifique que esta haciendo el proceso correctamente',
@@ -221,4 +170,5 @@ export default {
 .form .v-input {
     width: 100%;
     text-align: center;
-}</style>
+}
+</style>
