@@ -25,10 +25,6 @@
                             v-model="txtDireccion" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-                        <v-file-input filled label="Permiso de vendedor" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-file-document" prepend-icon="" v-model="filePermiso"></v-file-input>
-                    </v-col>
-                    <v-col cols="12" md="6">
                         <v-text-field filled label="Numero de contacto" type="number" :rules="[rules.required]"
                             prepend-inner-icon="mdi-cellphone" v-model="txtNumContacto" required></v-text-field>
                     </v-col>
@@ -114,8 +110,6 @@ export default {
         txtApellido: "",
         txtCorreo: "",
         txtDireccion: "",
-        filePermiso: null,
-        base64Archivo: null,
         txtNumContacto: "",
         txtPasswordActual: "",
         txtPasswordNueva: "",
@@ -130,17 +124,6 @@ export default {
         },
     },
     methods: {
-        convertToBase64() {
-            if (this.filePermiso) {
-                const reader = new FileReader();
-
-                reader.onload = (e) => {
-                    this.base64Archivo = e.target.result;
-                };
-
-                reader.readAsDataURL(this.filePermiso);
-            }
-        },
         async obtenerUsuario() {
             let idUsuario = localStorage.idUsuario;
             let user = await tiendaService.getUser(idUsuario);
@@ -156,10 +139,6 @@ export default {
         },
         
         actualizarDatos() {
-            if (this.base64Image == null) {
-                this.base64Image = this.vendedor[0].selPermiso;
-            }
-
             axios
                 .patch(this.url + "/user/update", {
                     id: localStorage.idUsuario,
@@ -174,7 +153,6 @@ export default {
                             id: localStorage.idVendedor,
                             selDireccion: this.txtDireccion,
                             selNumContacto: this.txtNumContacto,
-                            selPermiso: this.base64Archivo
                         }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                         .then((respuesta) => {
                             console.log(respuesta);
