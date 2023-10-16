@@ -13,12 +13,12 @@
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
-                            prepend-icon="" chips counter v-model="fileImagen"></v-file-input>
+                            prepend-icon="" chips counter v-model="fileImagen" required></v-file-input>
                     </v-col>
                     <v-col cols="12">
                         <v-textarea filled label="Historia o información" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-information" rows="1" row-height="20" auto-grow
-                            v-model="txtHistoria"></v-textarea>
+                            prepend-inner-icon="mdi-information" rows="1" row-height="20" auto-grow v-model="txtHistoria"
+                            required></v-textarea>
                     </v-col>
                     <v-col class="col-12">
                         <v-divider></v-divider>

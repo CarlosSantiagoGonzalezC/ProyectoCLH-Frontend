@@ -22,15 +22,15 @@
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
+                            :rules="[rules.required, rules.min, rules.passReq]" :type="show3 ? 'text' : 'password'"
+                            name="input-10-2" label="Contraseña" hint="Mínimo 5 caracteres" class="input-group--focused"
                             @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtPassword"
                             required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
                             :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Confirmar contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
+                            label="Confirmar contraseña" hint="Mínimo 5 caracteres" class="input-group--focused"
                             @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtConfirPassword"
                             required></v-text-field>
                     </v-col>
@@ -67,7 +67,8 @@ export default {
         password: 'Password',
         rules: {
             required: value => !!value || 'Campo requerido.',
-            min: v => v.length >= 5 || 'Minimo 5 caracteres',
+            min: v => v.length >= 5 || 'Mínimo 5 caracteres',
+            passReq: value => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/.test(value) || 'Requiere al menos un número, una mayúscula y una minúscula',
         },
         url: process.env.VUE_APP_URL_BASE_TIENDA,
         txtNombre: "",
@@ -77,7 +78,20 @@ export default {
         txtConfirPassword: "",
     }),
     methods: {
+        validarContraseña(contraseña) {
+            const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
+            return regex.test(contraseña);
+        },
         async registrarComprador() {
+            if (!this.validarContraseña(this.txtPassword)) {
+                Swal.fire(
+                    '¡Error!',
+                    'La contraseña debe contener al menos un número, una mayúscula y una minúscula.',
+                    'error'
+                );
+                return;
+            }
+
             if (this.txtPassword == this.txtConfirPassword) {
 
                 axios
@@ -156,5 +170,4 @@ export default {
 
 .v-card {
     max-width: 800px;
-}
-</style>
+}</style>

@@ -335,7 +335,7 @@ button:hover {
         display: none;
     }
 
-    .busquedaRes{
+    .busquedaRes {
         display: block;
     }
 

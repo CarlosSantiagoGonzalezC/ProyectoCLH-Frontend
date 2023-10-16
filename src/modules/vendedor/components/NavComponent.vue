@@ -18,7 +18,13 @@
                 <v-icon>mdi-plus-circle</v-icon> Agregar
             </router-link>
             <router-link :to="{ name: 'modificarProducto' }" @click.native="showMenu = false">
-                <v-icon>mdi-pencil-circle</v-icon> Mis Productos
+                <v-icon>mdi-cog-box</v-icon> Gestionar
+            </router-link>
+            <router-link :to="{ name: 'PedidosApp' }" @click.native="showMenu = false">
+                <v-icon>mdi-truck-delivery</v-icon> Pedidos
+            </router-link>
+            <router-link :to="{ name: 'ConfirmarVenta' }" @click.native="showMenu = false">
+                <v-icon>mdi-store-check-outline</v-icon> Ventas
             </router-link>
             <a @click="descargarPDF">
                 <v-icon>mdi-help-circle</v-icon> Ayuda

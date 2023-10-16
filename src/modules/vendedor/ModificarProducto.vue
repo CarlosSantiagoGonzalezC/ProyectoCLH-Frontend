@@ -1,17 +1,19 @@
 <template>
     <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5" max-width="1500px">
-
-        <h1>MIS PRODUCTOS</h1>
+        <h1>GESTIONAR PRODUCTOS</h1>
+        <div id="logoForm">
+            <i class="fa fa-gears"></i>
+        </div>
         <v-card class="mt-7 mb-5">
             <v-card-title class="tabla">
                 <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line hide-details
                     required></v-text-field>
-                <v-btn class="mx-5" color="#925419" :to="{name: 'agregarProducto'}">Agregar</v-btn>
+                <v-btn class="mx-5" color="#925419" :to="{ name: 'agregarProducto' }"><v-icon>mdi-plus-circle</v-icon>
+                    Agregar</v-btn>
             </v-card-title>
             <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla" multi-sort
                 :footer-props="{ itemsPerPageText: 'Número de filas', pageText: '{0}-{1} de {2}' }" :items-per-page="5"
-                :loading="loadingTable" loading-text="Cargando... Por favor espera"
-                no-data-text="No hay productos"
+                :loading="loadingTable" loading-text="Cargando... Por favor espera" no-data-text="No hay productos"
                 no-results-text="No hay ningun producto que coincida">
                 <template v-slot:item="row">
                     <tr>
@@ -42,12 +44,12 @@
         </v-card>
         <v-dialog v-model="dialogUpdate" persistent max-width="1000px">
             <v-card>
-                <v-card-title class="text-center">
+                <v-card-title>
                     <v-spacer></v-spacer>
                     <h2>MODIFICAR PRODUCTO</h2>
                     <v-spacer></v-spacer>
                 </v-card-title>
-                <form class="mt-5" @submit.prevent="modificarProducto()">
+                <form class="form mt-5" @submit.prevent="modificarProducto()">
                     <v-row>
                         <v-col cols="12" md="6">
                             <v-text-field filled label="Nombre" :rules="[rules.required]" v-model="txtNombre"
@@ -79,14 +81,14 @@
                                 rows="1" row-height="20" auto-grow v-model="txtDescripcion" required></v-textarea>
                         </v-col>
                     </v-row>
-                    <v-row>
+                    <div class="btns">
                         <v-btn class="rounded-pill text-white" color="#925419" type="submit">
                             Modificar
                         </v-btn>
                         <v-btn color="#925419" class="rounded-pill" @click="dialogUpdate = false">
                             Cancelar
                         </v-btn>
-                    </v-row>
+                    </div>
                 </form>
             </v-card>
         </v-dialog>
@@ -331,5 +333,13 @@ h2 {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    padding-bottom: 10px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
 }
 </style>

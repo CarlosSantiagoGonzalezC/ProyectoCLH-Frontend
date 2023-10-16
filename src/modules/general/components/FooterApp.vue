@@ -1,11 +1,10 @@
 <template>
     <div>
         <v-footer dark color="#331b05" class="around mt-10">
-            <v-row justify="center" align="center" class="gap py-5">
+            <v-row justify="center" align="center" class="py-5">
                 <h3>
-                    Todos los derechos reservados
+                    Todos los derechos reservados <v-icon>mdi-copyright</v-icon>
                 </h3>
-                <v-icon>mdi-copyright</v-icon>
             </v-row>
 
             <v-row class="evenly">
@@ -68,7 +67,7 @@
                         <li>
                             <a href="https://github.com/tetraform69" target="_blank">
                                 <i class="fa-brands fa-github"></i>
-                                Oscar
+                                Oscar Yefrey Corredor Medina
                             </a>
                         </li>
                     </ul>
@@ -148,7 +147,7 @@ ul {
     font-weight: 250;
 }
 
-i{
+i {
     min-width: 20px;
     text-align: center;
 }

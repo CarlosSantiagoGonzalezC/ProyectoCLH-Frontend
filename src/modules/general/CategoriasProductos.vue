@@ -2,7 +2,7 @@
     <v-card color="#da9f68" dark width="90%" elevation="24" class="pl-16 pr-16">
         <v-card-text>
             <v-chip-group v-model="categoria">
-                <v-chip class="ma-4" color="primary" pill v-for="categoria in categorias" :key="categoria.id"
+                <v-chip class="ma-4" color="#7b5028" pill v-for="categoria in categorias" :key="categoria.id"
                     @click="obtenerProductosSegunCategoria(categoria.id)">
                     {{ categoria.catNombre }}
                 </v-chip>
