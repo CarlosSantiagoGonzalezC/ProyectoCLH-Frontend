@@ -1,7 +1,6 @@
 <template>
     <v-card color="#da9f68" dark width="90%" elevation="24" class="pl-16 pr-16">
         <v-card-text>
-            <h1>CATEGORIAS</h1>
             <v-chip-group v-model="categoria">
                 <v-chip class="ma-4" color="primary" pill v-for="categoria in categorias" :key="categoria.id"
                     @click="obtenerProductosSegunCategoria(categoria.id)">
@@ -28,14 +27,6 @@
                         <v-card-title>{{ producto.proNombre }}</v-card-title>
 
                         <v-card-text>
-                            <v-row class="mx-0">
-                                <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-
-                                <div class="grey--text ms-4">
-                                    4.5
-                                </div>
-                            </v-row>
-
                             <div class="my-4 text-subtitle-1 text-left">
                                 $ {{ comaEnMiles(producto.proPrecio) }} COP
                             </div>
@@ -66,16 +57,8 @@
                         <v-card-title>{{ produ.proNombre }}</v-card-title>
 
                         <v-card-text>
-                            <v-row class="mx-0">
-                                <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-
-                                <div class="grey--text ms-4">
-                                    4.5
-                                </div>
-                            </v-row>
-
                             <div class="my-4 text-subtitle-1 text-left">
-                                $ • {{ produ.proPrecio }} COP
+                                $ {{ comaEnMiles(produ.proPrecio) }} COP
                             </div>
 
                             <div>{{ produ.proDescripcion }}

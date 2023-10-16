@@ -29,10 +29,6 @@
                     <v-icon class="mr-5">mdi-truck</v-icon>
                     <p class="ma-0">Envío a nivel nacional</p>
                 </div>
-                <div class="estrellas">
-                    <v-rating color="yellow darken-3" background-color="grey darken-1" empty-icon="$ratingFull"
-                        half-increments hover size="23" :value="4.5"></v-rating>
-                </div>
                 <div class="butons" v-if="producto.proCantDisponible > 0">
                     <v-btn color="#80562f" class="comprar" @click="comprar(producto)">Comprar ahora</v-btn>
                     <v-btn color="#80562f" class="agregar" @click="añadirCarrito(producto)">Agregar al carrito</v-btn>
