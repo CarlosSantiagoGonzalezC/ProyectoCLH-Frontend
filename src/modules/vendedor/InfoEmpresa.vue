@@ -91,7 +91,7 @@
                                     required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-text-field filled label="Teléfono" type="number" :rules="[rules.required]"
+                                <v-text-field filled label="Telefono" type="number" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-cellphone" v-model="txtTelefono" required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
