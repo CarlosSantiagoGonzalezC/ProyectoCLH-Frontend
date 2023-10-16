@@ -1,6 +1,6 @@
 <template>
     <v-card width="90%">
-        <v-text class="producto">
+        <div class="producto">
             <img :src="object.proImagen" alt="object.proNombre">
             <div class="info-producto">
                 <h3>{{ object.proNombre }}</h3>
@@ -11,11 +11,11 @@
                         <input type="number" v-model="cantidad" @focusout="saveCantidad">
                         <button class="plus" @click="plus"><v-icon>mdi-plus</v-icon></button>
                     </div>
-                    <p>${{ precio }} COP</p>
+                    <p>${{ comaEnMiles(precio) }} COP</p>
                 </div>
             </div>
             <v-btn icon @click="eliminar()"><v-icon>mdi-close</v-icon></v-btn>
-        </v-text>
+        </div>
     </v-card>
 </template>
 
@@ -40,21 +40,30 @@ export default {
             this.$store.dispatch('productoEliminado', this.object)
         },
         saveCantidad() {
-            let payload = {
-                id: this.object.id,
-                cantidad: this.cantidad
+            if (this.object.proCantDisponible < this.cantidad || this.cantidad < 1) {
+                this.cantidad = 1
+            } else {
+                let payload = {
+                    id: this.object.id,
+                    cantidad: this.cantidad
+                }
+                this.$store.dispatch('productoSetCantidad', payload)
             }
-            this.$store.dispatch('productoSetCantidad', payload)
         },
         minus() {
-            if(this.cantidad > 1){
+            if (this.cantidad > 1) {
                 --this.cantidad
             }
         },
         plus() {
-            if(this.object.proCantDisponible > this.cantidad){
+            if (this.object.proCantDisponible > this.cantidad) {
                 ++this.cantidad
             }
+        },
+        comaEnMiles(number) {
+            let exp = /(\d)(?=(\d{3})+(?!\d))/g //* expresion regular que busca tres digitos
+            let rep = '$1.' //parametro especial para splice porque los numeros no son menores a 100
+            return number.toString().replace(exp, rep)
         },
     },
     watch: {
