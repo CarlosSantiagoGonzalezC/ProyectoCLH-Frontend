@@ -15,6 +15,9 @@
                     v-model="txtPassword"></v-text-field>
                 <vue-recaptcha @verify="onCaptchaVerified" sitekey="6LfGXWYlAAAAAHqCvlXfzzcM33f8CWYzi00xCzFj"
                     class="mb-3"></vue-recaptcha>
+                <a class="mb-3" href="recuperar-password">
+                    <h4>¿Olvidaste tu contraseña?</h4>
+                </a>
                 <div class="btns">
                     <v-btn class="rounded-pill" color="#331b05" @click="inicarSesion()">
                         Iniciar sesión
@@ -141,7 +144,7 @@ export default {
     text-align: center;
 }
 
-.btns{
+.btns {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -149,7 +152,7 @@ export default {
     gap: 5px;
 }
 
-.v-card{
+.v-card {
     max-width: 500px;
 }
 </style>

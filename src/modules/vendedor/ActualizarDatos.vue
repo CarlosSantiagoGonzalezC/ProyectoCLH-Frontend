@@ -9,19 +9,20 @@
                 <v-row>
                     <v-col cols="12" md="6">
                         <v-text-field filled label="Nombres" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-card-account-details" v-model="txtNombre"></v-text-field>
+                            prepend-inner-icon="mdi-card-account-details" v-model="txtNombre" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled label="Apellidos" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido"></v-text-field>
+                            prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido"
+                            required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled label="Correo eletronico" type="email" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-at" v-model="txtCorreo"></v-text-field>
+                            prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled label="Dirección" :rules="[rules.required]" prepend-inner-icon="mdi-map-marker"
-                            v-model="txtDireccion"></v-text-field>
+                            v-model="txtDireccion" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-file-input filled label="Permiso de vendedor" :rules="[rules.required]"
@@ -29,21 +30,7 @@
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled label="Numero de contacto" type="number" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-cellphone" v-model="txtNumContacto"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
-                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"
-                            v-model="txtPassword"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Confirmar contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
-                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"
-                            v-model="txtConfirPassword"></v-text-field>
+                            prepend-inner-icon="mdi-cellphone" v-model="txtNumContacto" required></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row class="mb-5 gap">
@@ -51,6 +38,46 @@
                         Actualizar
                     </v-btn>
                     <v-btn color="#331b05" class="rounded-pill" to="inicio-vendedor">
+                        Cancelar
+                    </v-btn>
+                </v-row>
+            </form>
+
+            <hr>
+
+            <form class="form mt-8">
+                <h1>CAMBIAR CONTRASEÑA</h1>
+                <div id="logoForm" class="my-5">
+                    <i class="fa fa-lock"></i>
+                </div>
+                <v-row>
+                    <v-col class="col-6">
+                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
+                            label="Contraseña actual" hint="Minimo 5 caracteres" class="input-group--focused"
+                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtPasswordActual"
+                            required></v-text-field>
+                    </v-col>
+                    <v-col class="col-6">
+                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
+                            label="Contraseña nueva" hint="Minimo 5 caracteres" class="input-group--focused"
+                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtPasswordNueva"
+                            required></v-text-field>
+                    </v-col>
+                    <v-col class="col-6">
+                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
+                            label="Confirmar contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
+                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtConfirPassword"
+                            required></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row class="my-5">
+                    <v-btn class="mr-4 rounded-pill" color="#331b05" @click="cambiarContraseña()">
+                        Cambiar contraseña
+                    </v-btn>
+                    <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
                         Cancelar
                     </v-btn>
                 </v-row>
@@ -90,7 +117,8 @@ export default {
         filePermiso: null,
         base64Archivo: null,
         txtNumContacto: "",
-        txtPassword: "",
+        txtPasswordActual: "",
+        txtPasswordNueva: "",
         txtConfirPassword: "",
         usuario: null,
         vendedor: null,
@@ -126,55 +154,91 @@ export default {
                 this.txtNumContacto = this.vendedor[0].selNumContacto,
                 console.log(this.vendedor);
         },
+        
         actualizarDatos() {
-            if (this.txtPassword == this.txtConfirPassword) {
-                if (this.base64Image == null) {
-                    this.base64Image = this.vendedor[0].selPermiso;
-                }
+            if (this.base64Image == null) {
+                this.base64Image = this.vendedor[0].selPermiso;
+            }
+
+            axios
+                .patch(this.url + "/user/update", {
+                    id: localStorage.idUsuario,
+                    useNombres: this.txtNombre,
+                    useApellidos: this.txtApellido,
+                    useCorreo: this.txtCorreo
+                }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
+                .then(async (response) => {
+                    console.log(response);
+                    return axios
+                        .patch(this.url + "/seller/update", {
+                            id: localStorage.idVendedor,
+                            selDireccion: this.txtDireccion,
+                            selNumContacto: this.txtNumContacto,
+                            selPermiso: this.base64Archivo
+                        }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
+                        .then((respuesta) => {
+                            console.log(respuesta);
+                            Swal.fire(
+                                '¡Datos actualizados!',
+                                'Se han actualizado los datos correctamente',
+                                'success'
+                            ).then(
+                                window.location.reload()
+                            )
+                        })
+                        .catch((error) => {
+                            Swal.fire(
+                                '¡Error al actualizar datos!',
+                                'Verifique que esta haciendo el proceso correctamente',
+                                'error'
+                            )
+                            console.log(error);
+                        });
+
+                })
+                .catch((error) => {
+                    Swal.fire(
+                        '¡Error al actualizar datos!',
+                        'Verifique que esta haciendo el proceso correctamente',
+                        'error'
+                    )
+                    console.log(error);
+                });
+        },
+
+        async cambiarContraseña() {
+            if (this.txtPasswordNueva == this.txtConfirPassword) {
 
                 axios
-                    .patch(this.url + "/user/update", {
+                    .patch(this.url + "/user/editPassword", {
                         id: localStorage.idUsuario,
-                        useNombres: this.txtNombre,
-                        useApellidos: this.txtApellido,
-                        useCorreo: this.txtCorreo,
-                        usePassword: this.txtPassword,
-                        useRol: "Vendedor"
+                        passwordActual: this.txtPasswordActual,
+                        passwordNueva: this.txtPasswordNueva
                     }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
-                    .then(async (response) => {
+                    .then(function (response) {
                         console.log(response);
-                        return axios
-                            .patch(this.url + "/seller/update", {
-                                id: localStorage.idVendedor,
-                                selDireccion: this.txtDireccion,
-                                selNumContacto: this.txtNumContacto,
-                                selPermiso: this.base64Archivo,
-                                user_id: response.data.result.id
-                            }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
-                            .then((respuesta) => {
-                                console.log(respuesta);
-                                Swal.fire(
-                                    '¡Datos actualizados!',
-                                    'Se han actualizado los datos correctamente',
-                                    'success'
-                                ).then(
-                                    window.location.reload()
-                                )
-                            })
-                            .catch((error) => {
-                                Swal.fire(
-                                    '¡Error al actualizar datos!',
-                                    'Verifique que esta haciendo el proceso correctamente',
-                                    'error'
-                                )
-                                console.log(error);
-                            });
+                        if (response.data.result.error_id == "200") {
+                            Swal.fire(
+                                '¡Contraseña incorrecta!',
+                                'La contraseña actual no es correcta',
+                                'error'
+                            )
+                        } else {
+                            Swal.fire(
+                                '¡Contraseña actualizada!',
+                                'Se ha actualizado la contraseña correctamente',
+                                'success'
+                            )
+                            setTimeout(function () {
+                                window.location.reload()
+                            }, 3000);
+                        }
 
                     })
-                    .catch((error) => {
+                    .catch(function (error) {
                         Swal.fire(
-                            '¡Error al actualizar datos!',
-                            'Verifique que esta haciendo el proceso correctamente',
+                            '¡Error al actualizar contraseña!',
+                            'Verifique que su contraseña actual sea correcta',
                             'error'
                         )
                         console.log(error);
@@ -218,10 +282,9 @@ export default {
     text-align: center;
 }
 
-.gap{
+.gap {
     gap: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-</style>
+}</style>
