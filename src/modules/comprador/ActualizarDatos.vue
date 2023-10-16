@@ -75,11 +75,9 @@ export default {
                     id: localStorage.idUsuario,
                     useNombres: this.txtNombre,
                     useApellidos: this.txtApellido,
-                    useCorreo: this.txtCorreo,
-                    usePassword: this.txtPassword,
-                    useRol: "Comprador"
+                    useCorreo: this.txtCorreo
                 }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
-                .then((response) => {
+                .then(function (response) {
                     console.log(response);
                     Swal.fire(
                         '¡Datos actualizados!',
@@ -96,6 +94,52 @@ export default {
                     )
                     console.log(error);
                 });
+        },
+
+        async cambiarContraseña() {
+            if (this.txtPasswordNueva == this.txtConfirPassword) {
+
+                axios
+                    .patch(this.url + "/user/editPassword", {
+                        id: localStorage.idUsuario,
+                        passwordActual: this.txtPasswordActual,
+                        passwordNueva: this.txtPasswordNueva
+                    }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
+                    .then(function (response) {
+                        console.log(response);
+                        if (response.data.result.error_id == "200") {
+                            Swal.fire(
+                                '¡Contraseña incorrecta!',
+                                'La contraseña actual no es correcta',
+                                'error'
+                            )
+                        } else {
+                            Swal.fire(
+                                '¡Contraseña actualizada!',
+                                'Se ha actualizado la contraseña correctamente',
+                                'success'
+                            )
+                            setTimeout(function () {
+                                window.location.reload()
+                            }, 3000);
+                        }
+
+                    })
+                    .catch(function (error) {
+                        Swal.fire(
+                            '¡Error al actualizar contraseña!',
+                            'Verifique que su contraseña actual sea correcta',
+                            'error'
+                        )
+                        console.log(error);
+                    });
+            } else {
+                Swal.fire(
+                    '¡Las contraseñas no coinciden!',
+                    'La confirmacion de contraseña no es correcta',
+                    'error'
+                )
+            }
         },
 
     },

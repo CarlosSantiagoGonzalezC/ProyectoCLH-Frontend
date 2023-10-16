@@ -61,13 +61,13 @@
                     <ul>
                         <li>
                             <a href="https://github.com/CarlosSantiagoGonzalezC" target="_blank">
-                                <v-icon>mdi-github</v-icon>
+                                <i class="fa-brands fa-github"></i>
                                 Carlos Santiago Gonzalez Cuellar
                             </a>
                         </li>
                         <li>
                             <a href="https://github.com/tetraform69" target="_blank">
-                                <v-icon>mdi-github</v-icon>
+                                <i class="fa-brands fa-github"></i>
                                 Oscar
                             </a>
                         </li>

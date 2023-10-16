@@ -14,6 +14,9 @@
                     prepend-inner-icon="mdi-lock" v-model="txtPassword" required></v-text-field>
                 <vue-recaptcha @verify="onCaptchaVerified" sitekey="6LfGXWYlAAAAAHqCvlXfzzcM33f8CWYzi00xCzFj"
                     class="mb-3"></vue-recaptcha>
+                <a class="mb-3" href="recuperar-password">
+                    <h4>¿Olvidaste tu contraseña?</h4>
+                </a>
                 <div class="btns">
                     <v-btn :loading="cargando" class="rounded-pill" color="#331b05" type="submit">
                         Iniciar sesión

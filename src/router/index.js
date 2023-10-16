@@ -43,6 +43,11 @@ const routes = [
                 component: () => import(`@/modules/${rol()}/OtrosProductos.vue`)
             },
             {
+                path: 'recuperar-password',
+                name: 'RecuperarPassword',
+                component: () => import(`@/modules/${rol()}/RecuperarPassword.vue`)
+            },
+            {
                 path: 'registro/',
                 component: () => import('@/modules/general/SimpleApp.vue'),
                 beforeEnter: (to, from, next) => {
