@@ -1,20 +1,33 @@
 <template>
     <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5" max-width="1500px">
 
+<<<<<<< HEAD
         <h1>GESTIONAR PRODUCTOS</h1>
         <div id="logoForm">
             <i class="fa fa-gears"></i>
         </div>
+=======
+        <h1>MIS PRODUCTOS</h1>
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
         <v-card class="mt-7 mb-5">
             <v-card-title class="tabla">
                 <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line hide-details
                     required></v-text-field>
+<<<<<<< HEAD
                 <v-btn class="mx-5" color="#925419" :to="{ name: 'agregarProducto' }"><v-icon>mdi-plus-circle</v-icon>
                     Agregar</v-btn>
             </v-card-title>
             <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla" multi-sort
                 :footer-props="{ itemsPerPageText: 'Número de filas', pageText: '{0}-{1} de {2}' }" :items-per-page="5"
                 :loading="loadingTable" loading-text="Cargando... Por favor espera" no-data-text="No hay productos"
+=======
+                <v-btn class="mx-5" color="#925419" :to="{name: 'agregarProducto'}">Agregar</v-btn>
+            </v-card-title>
+            <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla" multi-sort
+                :footer-props="{ itemsPerPageText: 'Número de filas', pageText: '{0}-{1} de {2}' }" :items-per-page="5"
+                :loading="loadingTable" loading-text="Cargando... Por favor espera"
+                no-data-text="No hay productos"
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                 no-results-text="No hay ningun producto que coincida">
                 <template v-slot:item="row">
                     <tr>
@@ -50,7 +63,11 @@
                     <h2>MODIFICAR PRODUCTO</h2>
                     <v-spacer></v-spacer>
                 </v-card-title>
+<<<<<<< HEAD
                 <form class="mt-5 ml-8 mr-8" @submit.prevent="modificarProducto()">
+=======
+                <form class="mt-5" @submit.prevent="modificarProducto()">
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                     <v-row>
                         <v-col cols="12" md="6">
                             <v-text-field filled label="Nombre" :rules="[rules.required]" v-model="txtNombre"
@@ -82,16 +99,24 @@
                                 rows="1" row-height="20" auto-grow v-model="txtDescripcion" required></v-textarea>
                         </v-col>
                     </v-row>
+<<<<<<< HEAD
                     <v-card-actions>
                         <v-spacer></v-spacer>
+=======
+                    <v-row>
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                         <v-btn class="rounded-pill text-white" color="#925419" type="submit">
                             Modificar
                         </v-btn>
                         <v-btn color="#925419" class="rounded-pill" @click="dialogUpdate = false">
                             Cancelar
                         </v-btn>
+<<<<<<< HEAD
                         <v-spacer></v-spacer>
                     </v-card-actions>
+=======
+                    </v-row>
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                 </form>
             </v-card>
         </v-dialog>

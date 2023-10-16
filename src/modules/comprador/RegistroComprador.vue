@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-16">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5">
         <v-card-text>
             <form class="form" @submit.prevent="registrarComprador()">
                 <h1>REGISTRO USUARIO</h1>
@@ -17,13 +17,22 @@
                             required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
+<<<<<<< HEAD
                         <v-text-field filled label="Correo eletronico" type="email" :rules="[rules.required]"
+=======
+                        <v-text-field filled label="Correo electrónico" type="email" :rules="[rules.required]"
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                             prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+<<<<<<< HEAD
                             :rules="[rules.required, rules.min, rules.passReq]" :type="show3 ? 'text' : 'password'"
                             name="input-10-2" label="Contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
+=======
+                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
+                            label="Contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                             @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtPassword"
                             required></v-text-field>
                     </v-col>

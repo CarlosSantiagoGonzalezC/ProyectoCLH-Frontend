@@ -1,9 +1,18 @@
 <template>
     <div>
         <v-footer dark color="#331b05" class="around mt-10">
+<<<<<<< HEAD
             <h3 class="ma-6">
                 Todos los derechos reservados <v-icon>mdi-copyright</v-icon>
             </h3>
+=======
+            <v-row justify="center" align="center" class="gap py-5">
+                <h3>
+                    Todos los derechos reservados
+                </h3>
+                <v-icon>mdi-copyright</v-icon>
+            </v-row>
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
 
             <v-row class="evenly">
                 <v-col cols="12" sm="6" md="3" class="center">
@@ -26,7 +35,11 @@
                         </li>
                         <li>
                             <a href="https://twitter.com/CoffeeLineHuila" target="_blank">
+<<<<<<< HEAD
                                 <i class="fa-brands fa-twitter"></i>
+=======
+                                <i class="fa-brands fa-x-twitter"></i>
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                                 @CoffeeLineHuila
                             </a>
                         </li>
@@ -65,7 +78,11 @@
                         <li>
                             <a href="https://github.com/tetraform69" target="_blank">
                                 <i class="fa-brands fa-github"></i>
+<<<<<<< HEAD
                                 Oscar Yefrey Corredor Medina
+=======
+                                Oscar
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                             </a>
                         </li>
                     </ul>
@@ -145,7 +162,11 @@ ul {
     font-weight: 250;
 }
 
+<<<<<<< HEAD
 i {
+=======
+i{
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
     min-width: 20px;
     text-align: center;
 }

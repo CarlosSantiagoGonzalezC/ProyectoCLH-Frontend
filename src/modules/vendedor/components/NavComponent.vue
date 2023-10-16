@@ -18,6 +18,7 @@
                 <v-icon>mdi-plus-circle</v-icon> Agregar
             </router-link>
             <router-link :to="{ name: 'modificarProducto' }" @click.native="showMenu = false">
+<<<<<<< HEAD
                 <v-icon>mdi-cog-box</v-icon> Gestionar
             </router-link>
             <router-link :to="{ name: 'PedidosApp' }" @click.native="showMenu = false">
@@ -25,6 +26,9 @@
             </router-link>
             <router-link :to="{ name: 'ConfirmarVenta' }" @click.native="showMenu = false">
                 <v-icon>mdi-store-check-outline</v-icon> Ventas
+=======
+                <v-icon>mdi-pencil-circle</v-icon> Mis Productos
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
             </router-link>
             <a @click="descargarPDF">
                 <v-icon>mdi-help-circle</v-icon> Ayuda
@@ -99,7 +103,6 @@ export default {
             if (!this.nombre) {
                 this.existeFinca = false
             }
-            console.log(this.nombre)
         },
         irFincaEmpresa() {
             if (this.existeFinca) {

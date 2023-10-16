@@ -1,7 +1,7 @@
 <template>
     <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5">
         <h1>MI FINCA/EMPRESA</h1>
-        <div v-if="finca.comNombre != ''" class="mt-12 contenido">
+        <div v-if="finca.comNombre !== ''" class="mt-12 contenido">
             <h1>{{ finca.comNombre }}</h1>
             <v-row id="descrip" class="ma-4" align-content="center">
                 <v-col cols="12" md="6">
@@ -23,8 +23,8 @@
                         <ul>
                             <li>Municipio: {{ finca.comMunicipio }}</li>
                             <li>Dirección: {{ finca.comDireccion }}</li>
-                            <li>Telefono: {{ finca.comTelefono }}</li>
-                            <li>Correo electronico: {{ finca.comCorreo }}</li>
+                            <li>Teléfono: {{ finca.comTelefono }}</li>
+                            <li>Correo electrónico: {{ finca.comCorreo }}</li>
                         </ul>
                     </div>
                 </v-col>
@@ -33,9 +33,9 @@
                         <h2>Información vendedor:</h2>
                         <ul>
                             <li>Nombre: {{ usuario.useNombres + " " + usuario.useApellidos }}</li>
-                            <li>Telefono: {{ vendedor.selNumContacto }}</li>
-                            <li>Direccion: {{ vendedor.selDireccion }}</li>
-                            <li>Correo electronico: {{ usuario.useCorreo }}</li>
+                            <li>Teléfono: {{ vendedor.selNumContacto }}</li>
+                            <li>Dirección: {{ vendedor.selDireccion }}</li>
+                            <li>Correo electrónico: {{ usuario.useCorreo }}</li>
                         </ul>
                     </div>
                 </v-col>
@@ -86,16 +86,28 @@
                                     prepend-inner-icon="mdi-map-marker" v-model="txtMunicipio" required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
+<<<<<<< HEAD
                                 <v-text-field filled label="Direccion" :rules="[rules.required]"
+=======
+                                <v-text-field filled label="Dirección" :rules="[rules.required]"
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                                     prepend-inner-icon="mdi-map-marker-outline" v-model="txtDireccion"
                                     required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
+<<<<<<< HEAD
                                 <v-text-field filled label="Telefono" type="number" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-cellphone" v-model="txtTelefono" required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-text-field filled label="Correo electronico" type="email" :rules="[rules.required]"
+=======
+                                <v-text-field filled label="Teléfono" type="number" :rules="[rules.required]"
+                                    prepend-inner-icon="mdi-cellphone" v-model="txtTelefono" required></v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-text-field filled label="Correo electrónico" type="email" :rules="[rules.required]"
+>>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                                     prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
                             </v-col>
                         </v-row>

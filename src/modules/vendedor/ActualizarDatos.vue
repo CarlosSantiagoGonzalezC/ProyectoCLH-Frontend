@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" max-width="1000px" elevation="24" class="pl-16 pr-16">
+    <v-card color="#da9f68" dark width="90%" max-width="1000px" elevation="24" class="px-5">
         <v-card-text>
             <form class="form" @submit.prevent="actualizarDatos()">
                 <h1>ACTUALIZAR DATOS</h1>
