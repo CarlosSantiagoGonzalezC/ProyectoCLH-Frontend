@@ -29,18 +29,8 @@ const routes = [
             },
             {
                 path: 'productos',
-                name: 'Productos',
-                component: () => import(`@/modules/${rol()}/ProductosApp.vue`)
-            },
-            {
-                path: 'categorias',
                 name: 'Categorias',
                 component: () => import(`@/modules/${rol()}/CategoriasProductos.vue`)
-            },
-            {
-                path: 'otros',
-                name: 'Otros',
-                component: () => import(`@/modules/${rol()}/OtrosProductos.vue`)
             },
             {
                 path: 'recuperar-password',

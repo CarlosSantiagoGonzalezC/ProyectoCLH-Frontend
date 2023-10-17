@@ -15,11 +15,7 @@
                         <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
                             prepend-icon="" chips counter v-model="fileImagen" required></v-file-input>
                     </v-col>
-<<<<<<< HEAD
-                    <v-col cols="12" md="12">
-=======
                     <v-col cols="12">
->>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                         <v-textarea filled label="Historia o información" :rules="[rules.required]"
                             prepend-inner-icon="mdi-information" rows="1" row-height="20" auto-grow v-model="txtHistoria"
                             required></v-textarea>

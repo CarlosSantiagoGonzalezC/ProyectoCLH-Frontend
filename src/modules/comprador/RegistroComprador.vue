@@ -17,29 +17,20 @@
                             required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-<<<<<<< HEAD
-                        <v-text-field filled label="Correo eletronico" type="email" :rules="[rules.required]"
-=======
                         <v-text-field filled label="Correo electrónico" type="email" :rules="[rules.required]"
->>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                             prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-<<<<<<< HEAD
                             :rules="[rules.required, rules.min, rules.passReq]" :type="show3 ? 'text' : 'password'"
-                            name="input-10-2" label="Contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
-=======
-                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
->>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
+                            name="input-10-2" label="Contraseña" hint="Mínimo 5 caracteres" class="input-group--focused"
                             @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtPassword"
                             required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
                             :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Confirmar contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
+                            label="Confirmar contraseña" hint="Mínimo 5 caracteres" class="input-group--focused"
                             @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtConfirPassword"
                             required></v-text-field>
                     </v-col>
@@ -76,7 +67,7 @@ export default {
         password: 'Password',
         rules: {
             required: value => !!value || 'Campo requerido.',
-            min: v => v.length >= 5 || 'Minimo 5 caracteres',
+            min: v => v.length >= 5 || 'Mínimo 5 caracteres',
             passReq: value => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/.test(value) || 'Requiere al menos un número, una mayúscula y una minúscula',
         },
         url: process.env.VUE_APP_URL_BASE_TIENDA,

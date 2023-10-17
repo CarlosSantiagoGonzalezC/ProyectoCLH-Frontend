@@ -86,28 +86,16 @@
                                     prepend-inner-icon="mdi-map-marker" v-model="txtMunicipio" required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
-<<<<<<< HEAD
-                                <v-text-field filled label="Direccion" :rules="[rules.required]"
-=======
                                 <v-text-field filled label="Dirección" :rules="[rules.required]"
->>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                                     prepend-inner-icon="mdi-map-marker-outline" v-model="txtDireccion"
                                     required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
-<<<<<<< HEAD
                                 <v-text-field filled label="Telefono" type="number" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-cellphone" v-model="txtTelefono" required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-text-field filled label="Correo electronico" type="email" :rules="[rules.required]"
-=======
-                                <v-text-field filled label="Teléfono" type="number" :rules="[rules.required]"
-                                    prepend-inner-icon="mdi-cellphone" v-model="txtTelefono" required></v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6">
                                 <v-text-field filled label="Correo electrónico" type="email" :rules="[rules.required]"
->>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
                                     prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
                             </v-col>
                         </v-row>

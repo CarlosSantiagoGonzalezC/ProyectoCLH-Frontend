@@ -1,40 +1,35 @@
 <template>
-<<<<<<< HEAD
-    <v-card color="#da9f68" dark width="70%" elevation="24" class="py-16">
-        <v-card-text>
-            <form class="form" @submit.prevent="actualizarDatos()">
-                <h1>ACTUALIZAR DATOS</h1>
-                <div id="logoForm" class="my-5">
-                    <i class="fa fa-edit"></i>
-                </div>
-                <v-row>
-                    <v-col class="col-6">
-                        <v-text-field filled label="Nombres" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-card-account-details" v-model="txtNombre" required></v-text-field>
-                    </v-col>
-                    <v-col class="col-6">
-                        <v-text-field filled label="Apellidos" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido"
-                            required></v-text-field>
-                    </v-col>
-                    <v-col class="col-6">
-                        <v-text-field filled label="Correo eletronico" type="email" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
-                    </v-col>
-                </v-row>
-                <v-row class="my-5">
-                    <v-btn class="mr-4 rounded-pill" color="#331b05" type="submit">
-                        Actualizar
-                    </v-btn>
-                    <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
-                        Cancelar
-                    </v-btn>
-                </v-row>
-            </form>
+    <v-card color="#da9f68" dark width="90%" max-width="500px" elevation="24" class="px-5">
+        <form class="form" @submit.prevent="actualizarDatos()">
+            <h1>ACTUALIZAR DATOS</h1>
+            <div id="logoForm" class="my-5">
+                <i class="fa fa-edit"></i>
+            </div>
+            <v-row>
+                <v-col cols="12">
+                    <v-text-field filled label="Nombres" :rules="[rules.required]"
+                        prepend-inner-icon="mdi-card-account-details" v-model="txtNombre" required></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field filled label="Apellidos" :rules="[rules.required]"
+                        prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido" required></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                    <v-text-field filled label="Correo electrónico" type="email" :rules="[rules.required]"
+                        prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row class="my-5">
+                <v-btn class="mr-4 rounded-pill" color="#331b05" type="submit">
+                    Actualizar
+                </v-btn>
+                <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
+                    Cancelar
+                </v-btn>
+            </v-row>
+        </form>
 
-            <hr>
-
-            <form class="form mt-8" @submit.prevent="cambiarContraseña()">
+        <form class="form mt-8" @submit.prevent="cambiarContraseña()">
                 <h1>CAMBIAR CONTRASEÑA</h1>
                 <div id="logoForm" class="my-5">
                     <i class="fa fa-lock"></i>
@@ -71,38 +66,6 @@
                     </v-btn>
                 </v-row>
             </form>
-        </v-card-text>
-=======
-    <v-card color="#da9f68" dark width="90%" max-width="500px" elevation="24" class="px-5">
-        <form class="form" @submit.prevent="actualizarDatos()">
-            <h1>ACTUALIZAR DATOS</h1>
-            <div id="logoForm" class="my-5">
-                <i class="fa fa-edit"></i>
-            </div>
-            <v-row>
-                <v-col cols="12">
-                    <v-text-field filled label="Nombres" :rules="[rules.required]"
-                        prepend-inner-icon="mdi-card-account-details" v-model="txtNombre" required></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                    <v-text-field filled label="Apellidos" :rules="[rules.required]"
-                        prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido" required></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                    <v-text-field filled label="Correo electrónico" type="email" :rules="[rules.required]"
-                        prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
-                </v-col>
-            </v-row>
-            <v-row class="my-5">
-                <v-btn class="mr-4 rounded-pill" color="#331b05" type="submit">
-                    Actualizar
-                </v-btn>
-                <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
-                    Cancelar
-                </v-btn>
-            </v-row>
-        </form>
->>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
     </v-card>
 </template>
   
@@ -127,12 +90,8 @@ export default {
         password: 'Password',
         rules: {
             required: value => !!value || 'Campo requerido.',
-<<<<<<< HEAD
             min: v => v.length >= 5 || 'Minimo 5 caracteres',
             passReq: value => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/.test(value) || 'Requiere al menos un número, una mayúscula y una minúscula',
-=======
-            min: v => v.length >= 5 || 'Mínimo 5 caracteres',
->>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
         },
         url: process.env.VUE_APP_URL_BASE_TIENDA,
         txtNombre: "",

@@ -1,7 +1,6 @@
 <template>
     <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5">
         <v-card-text>
-            <h1>CATEGORIAS</h1>
             <v-chip-group v-model="categoria">
                 <v-chip class="ma-4" color="#7b5028" pill v-for="categoria in categorias" :key="categoria.id"
                     @click="obtenerProductosSegunCategoria(categoria.id)">
@@ -19,7 +18,7 @@
                 <template v-else-if="categoria == null">
                     <v-col v-for="producto in productos" :key="producto.id">
                         <div class="center">
-                            <v-card class="producto" max-width="300" elevation="7">
+                            <v-card class="producto" max-width="400" width="100%" elevation="7">
                                 <template slot="progress">
                                     <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                                 </template>
@@ -29,15 +28,6 @@
                                 <v-card-title>{{ producto.proNombre }}</v-card-title>
 
                                 <v-card-text>
-                                    <v-row align="center" class="mx-0">
-                                        <v-rating :value="4.5" color="amber" dense half-increments readonly
-                                            size="14"></v-rating>
-
-                                        <div class="grey--text ms-4">
-                                            4.5
-                                        </div>
-                                    </v-row>
-
                                     <div class="my-4 text-subtitle-1 text-left">
                                         $ {{ comaEnMiles(producto.proPrecio) }} COP
                                     </div>
@@ -81,15 +71,6 @@
                                 <v-card-title>{{ produ.proNombre }}</v-card-title>
 
                                 <v-card-text>
-                                    <v-row align="center" class="mx-0">
-                                        <v-rating :value="4.5" color="amber" dense half-increments readonly
-                                            size="14"></v-rating>
-
-                                        <div class="grey--text ms-4">
-                                            4.5
-                                        </div>
-                                    </v-row>
-
                                     <div class="my-4 text-subtitle-1 text-left">
                                         $ {{ comaEnMiles(produ.proPrecio) }} COP
                                     </div>
@@ -234,7 +215,7 @@ h1 {
 }
 
 @media (max-width: 500px) {
-    .nohay h1{
+    .nohay h1 {
         width: 100%;
         font-weight: 300;
     }

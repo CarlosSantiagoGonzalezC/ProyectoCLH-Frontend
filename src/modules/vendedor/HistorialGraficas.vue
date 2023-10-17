@@ -1,25 +1,13 @@
 <template>
-<<<<<<< HEAD
-    <v-card color="#da9f68" dark width="80%" elevation="24" class="px-16">
-        <v-card-text>
-            <h1>HISTORIAL/GRAFICAS</h1>
-            <div class="mt-12 contenido">
-                <Bar v-if="data.datasets[0].data.length > 0" :data="data" :options="options" />
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="pa-5">
+        <h2>HISTORIAL/GRAFICAS</h2>
+        <div class="mt-12 contenido">
+            <Bar v-if="data.datasets[0].data.length > 0" :data="data" :options="options" />
                 <div class="text-center mt-15" v-else>
                     <v-progress-circular class="text-center" :size="200" :width="20" color="#7b5028"
                         indeterminate></v-progress-circular>
                     <h2 class="mt-12">Cargando datos...</h2>
                 </div>
-=======
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="pa-5">
-        <h2>HISTORIAL/GRAFICAS</h2>
-        <div class="mt-12 contenido">
-            <Bar v-if="data.datasets[0].data.length > 0" :data="data" :options="options"/>
-            <div class="text-center mt-15" v-else>
-                <v-progress-circular class="text-center" :size="200" :width="20" color="brown"
-                    indeterminate></v-progress-circular>
-                <h2 class="mt-12">Cargando datos...</h2>
->>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
             </div>
         </div>
     </v-card>
@@ -52,11 +40,7 @@ export default {
             datasets: [{
                 label: 'Cantidad disponible',
                 data: [],
-<<<<<<< HEAD
-                backgroundColor: '#7b5028'
-=======
-            backgroundColor: '#80562f'
->>>>>>> 004ba87f1d1c2a516a7d3c8f5ce3e630849cd6ed
+                backgroundColor: '#80562f',
             }]
         },
         options: {

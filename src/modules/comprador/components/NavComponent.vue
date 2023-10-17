@@ -28,14 +28,11 @@
             <router-link :to="{ name: 'Inicio' }" @click.native="showMenu = false">
                 <v-icon>mdi-home</v-icon> Inicio
             </router-link>
-            <router-link :to="{ name: 'Productos' }" @click.native="showMenu = false">
+            <router-link :to="{ name: 'Categorias' }" @click.native="showMenu = false">
                 <v-icon>mdi-coffee</v-icon> Productos
             </router-link>
-            <router-link :to="{ name: 'Categorias' }" @click.native="showMenu = false">
-                <v-icon>mdi-list-box</v-icon> Categorías
-            </router-link>
-            <router-link :to="{ name: 'Otros' }" @click.native="showMenu = false">
-                <v-icon>mdi-plus-circle-multiple</v-icon> Otros
+            <router-link :to="{ name: 'compra' }" @click.native="showMenu = false">
+                <v-icon>mdi-shopping</v-icon> Comprar
             </router-link>
             <a @click="descargarPDF">
                 <v-icon>mdi-help-circle</v-icon> Ayuda
@@ -108,7 +105,7 @@ export default {
             localStorage.idProducto = this.busqueda;
             localStorage.idUser = this.idUsuario;
             if (this.busqueda) {
-                this.$router.push({ name: 'producto' }).catch(() => { });
+                this.$router.push({ name: 'producto' }).catch(() => { location.reload() });
                 // location.href = 'producto';
             }
         },
