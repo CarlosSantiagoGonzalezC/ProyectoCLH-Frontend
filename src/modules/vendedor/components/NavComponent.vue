@@ -88,6 +88,7 @@ export default {
         async obtenerVendedor() {
             let seller = await tiendaService.getSellerUser(localStorage.idUsuario);
             this.vendedor = seller.data[0];
+            localStorage.idVendedor = this.vendedor.id
         },
         async validarRutaFinca() {
             await this.obtenerVendedor()

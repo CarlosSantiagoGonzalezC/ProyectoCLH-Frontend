@@ -35,7 +35,7 @@ export default {
     },
 
     getOthersProducts() {
-        return apiTienda.get(relative_path_category + "?id=6");
+        return apiTienda.get(relative_path_category + "?id=5");
     },
 
     getSellerUser(id) {

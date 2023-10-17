@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" max-width="500px" elevation="24" class="px-5">
+    <v-card color="#da9f68" dark width="90%" max-width="800px" elevation="24" class="px-5">
         <form class="form" @submit.prevent="actualizarDatos()">
             <h1>ACTUALIZAR DATOS</h1>
             <div id="logoForm" class="my-5">
@@ -28,6 +28,8 @@
                 </v-btn>
             </v-row>
         </form>
+
+        <hr>
 
         <form class="form mt-8" @submit.prevent="cambiarContraseña()">
                 <h1>CAMBIAR CONTRASEÑA</h1>

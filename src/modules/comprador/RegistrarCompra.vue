@@ -36,13 +36,20 @@
         <v-dialog v-model="dialogUbicacion" persistent max-width="1000px">
             <v-card>
                 <form @submit.prevent="comprar()" class="center">
-                    <h1 class="mb-10">Ubicación del Pedido</h1>
+                    <h1 class="mb-10">Datos del Pedido</h1>
                     <v-text-field filled label="Dirección" type="text" :rules="[rules.required]"
                         prepend-inner-icon="mdi-map-marker" class="ml-16 mr-16" v-model="direccion" required></v-text-field>
                     <v-text-field filled label="Ciudad" type="text" :rules="[rules.required]" prepend-inner-icon="mdi-city"
                         class="ml-16 mr-16" v-model="ciudad" required></v-text-field>
                     <v-text-field filled label="Departamento" type="text" :rules="[rules.required]"
-                        prepend-inner-icon="mdi-map-marker" class="ml-16 mr-16" v-model="departamento" required></v-text-field>
+                        prepend-inner-icon="mdi-map-marker" class="ml-16 mr-16" v-model="departamento"
+                        required></v-text-field>
+                    <div class="total">
+                        <h4>Cuenta de NEQUI para cancelar compra: 3136998962</h4>
+                    </div>
+                    <v-file-input filled label="Comprobante de pago" :rules="[rules.required]"
+                        prepend-inner-icon="mdi-tag-check" class="ml-16 mr-16" prepend-icon="" v-model="fileComprobante"
+                        chips counter required></v-file-input>
                     <div class="total">
                         <h3>Total: ${{ comaEnMiles(total) }} COP</h3>
                     </div>
@@ -62,6 +69,7 @@
 
 <script>
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default {
     name: 'RegistrarCompra',
@@ -74,6 +82,8 @@ export default {
             direccion: "",
             ciudad: "",
             departamento: "",
+            fileComprobante: null,
+            base64Image: null,
             total: 0,
             carrito: [],
             dialogUbicacion: false,
@@ -94,13 +104,32 @@ export default {
             ],
             desserts: [],
             loadingTable: false,
+            url: process.env.VUE_APP_URL_BASE_TIENDA,
         }
     },
 
     computed: {
     },
 
+    watch: {
+        fileComprobante: {
+            handler: "convertToBase64",
+            immediate: true,
+        },
+    },
+
     methods: {
+        convertToBase64() {
+            if (this.fileComprobante) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    this.base64Image = e.target.result;
+                };
+
+                reader.readAsDataURL(this.fileComprobante);
+            }
+        },
         comprar() {
             this.prepararCarrito()
 
@@ -113,6 +142,7 @@ export default {
                 ordDepartamento: this.departamento,
                 ordTotal: this.total,
                 carrito: this.carrito,
+                comprobantePago: this.base64Image,
             }
 
             let config = {
@@ -124,7 +154,13 @@ export default {
             axios.post(url, data, config)
                 .then(res => {
                     console.log(res);
+                    this.desserts = []
                     this.$store.dispatch('eliminarCarrito')
+                    Swal.fire(
+                        '¡Compra registrada!',
+                        'Se ha registrado la compra, ahora debera esperar a que el vendedor la apruebe',
+                        'success'
+                    )
                 }).catch(err => {
                     console.log(err);
                 })
@@ -154,6 +190,59 @@ export default {
             this.$store.dispatch('productoEliminado', object)
             this.prepararCarrito()
         },
+        // registrarCompra() {
+        //     this.prepararCarrito()
+        //     axios
+        //         .post(this.url + "/purchase/create", {
+        //             user_id: localStorage.idUsuario,
+        //             product_id: this.carrito[0].id,
+        //             comprobantePago: this.base64Image,
+        //             estado: "Por confirmar",
+        //             total: this.carrito[0].total,
+        //             cantidad: this.carrito[0].cantidad
+        //         }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
+        //         .then(async (response) => {
+        //             console.log(response);
+        //             return axios
+        //                 .post(this.url + "/order/create", {
+        //                     user_id: localStorage.idUsuario,
+        //                     purchase_id: response.data.result.id,
+        //                     ordDireccion: this.direccion,
+        //                     ordCiudad: this.ciudad,
+        //                     ordDepartamento: this.departamento,
+        //                     ordEstado: "Por entregar",
+        //                     ordTotal: this.carrito[0].total,
+        //                 }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
+        //                 .then(function (respuesta) {
+        //                     console.log(respuesta);
+        //                     /*setTimeout(function () {
+        //                         location.href = "/login";
+        //                     }, 3000);*/
+        //                     Swal.fire(
+        //                         '¡Compra registrada!',
+        //                         'Se ha registrado la compra, ahora debera esperar a que el vendedor la apruebe',
+        //                         'success'
+        //                     )
+        //                     this.$store.dispatch('eliminarCarrito')
+        //                 })
+        //                 .catch(function (error) {
+        //                     Swal.fire(
+        //                         '¡Error al comprar!',
+        //                         'Verifique que esta haciendo el proceso correctamente',
+        //                         'error'
+        //                     )
+        //                     console.log(error);
+        //                 });
+        //         })
+        //         .catch(function (error) {
+        //             Swal.fire(
+        //                 '¡Error al comprar!',
+        //                 'Verifique que esta haciendo el proceso correctamente',
+        //                 'error'
+        //             )
+        //             console.log(error);
+        //         });
+        // },
     },
 
     mounted() {
@@ -189,6 +278,7 @@ h1 {
     align-self: center;
     gap: 10px;
     width: 85%;
+    margin-bottom: 20px;
 }
 
 .total {

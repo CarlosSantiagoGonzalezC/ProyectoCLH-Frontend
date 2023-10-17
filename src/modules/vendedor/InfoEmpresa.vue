@@ -23,7 +23,7 @@
                         <ul>
                             <li>Municipio: {{ finca.comMunicipio }}</li>
                             <li>Dirección: {{ finca.comDireccion }}</li>
-                            <li>Teléfono: {{ finca.comTelefono }}</li>
+                            <li>Número NEQUI: {{ finca.comTelefono }}</li>
                             <li>Correo electrónico: {{ finca.comCorreo }}</li>
                         </ul>
                     </div>
@@ -70,8 +70,8 @@
                                     required></v-text-field>
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
-                                    prepend-icon="" chips counter v-model="fileImagen" required></v-file-input>
+                                <v-file-input filled label="Imagen" prepend-inner-icon="mdi-image"
+                                    prepend-icon="" chips counter v-model="fileImagen"></v-file-input>
                             </v-col>
                             <v-col cols="12">
                                 <v-textarea filled label="Historia o información" :rules="[rules.required]"
@@ -98,19 +98,17 @@
                                 <v-text-field filled label="Correo electrónico" type="email" :rules="[rules.required]"
                                     prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
                             </v-col>
+                            <v-col class="gap">
+                                <v-btn class="rounded-pill text-white mb-5" color="#925419" type="submit">
+                                    Modificar
+                                </v-btn>
+                                <v-btn color="#925419" class="rounded-pill mb-5" @click="dialog = false">
+                                    Cancelar
+                                </v-btn>
+                            </v-col>
                         </v-row>
                     </form>
                 </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn class="rounded-pill text-white mb-5" color="#925419" type="submit">
-                        Modificar
-                    </v-btn>
-                    <v-btn color="#925419" class="rounded-pill mb-5" @click="dialog = false">
-                        Cancelar
-                    </v-btn>
-                    <v-spacer></v-spacer>
-                </v-card-actions>
             </v-card>
         </v-dialog>
     </v-card>
@@ -289,5 +287,12 @@ h1 {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+.gap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
 </style>

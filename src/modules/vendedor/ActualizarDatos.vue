@@ -158,7 +158,7 @@ export default {
                         .patch(this.url + "/seller/update", {
                             id: localStorage.idVendedor,
                             selDireccion: this.txtDireccion,
-                            selNumContacto: this.txtNumContacto,
+                            selNumContacto: this.txtNumContacto
                         }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                         .then((respuesta) => {
                             console.log(respuesta);
@@ -167,7 +167,7 @@ export default {
                                 'Se han actualizado los datos correctamente',
                                 'success'
                             ).then(
-                                window.location.reload()
+                                //window.location.reload()
                             )
                         })
                         .catch((error) => {
