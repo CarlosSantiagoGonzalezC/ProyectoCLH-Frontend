@@ -1,6 +1,10 @@
 <template>
     <v-card color="#da9f68" dark width="90%" elevation="24" class="pa-5">
-        <div class="center">
+        <h1>COMPRAR</h1>
+        <div id="logoForm">
+            <i class="fa fa-bag-shopping"></i>
+        </div>
+        <div class="center mt-8">
             <v-card-title class="tabla">
                 <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line hide-details
                     required></v-text-field>
@@ -252,6 +256,15 @@ export default {
 </script>
 
 <style scoped>
+#logoForm {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    color: #331b05;
+}
+
 .v-card {
     min-height: 60vh;
 }
@@ -268,7 +281,6 @@ h1 {
 .center {
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: 100%;
     justify-content: center;
 }

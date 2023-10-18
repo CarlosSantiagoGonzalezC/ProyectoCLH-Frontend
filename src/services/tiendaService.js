@@ -6,6 +6,7 @@ const relative_path_company = '/company';
 const relative_path_seller = '/seller';
 const relative_path_comment = '/comment';
 const relative_path_user = '/user';
+const relative_path_purchase = '/purchase';
 
 let token = localStorage.token;
 let autorizacion = {
@@ -64,6 +65,10 @@ export default {
 
     getUserId(id) {
         return apiTienda.get(relative_path_user + "?id=" + id);
+    },
+
+    getPurchasesUser(id) {
+        return apiTienda.get(relative_path_purchase + "?id=" + id, autorizacion);
     },
 
 }
