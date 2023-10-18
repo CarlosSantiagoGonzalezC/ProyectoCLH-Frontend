@@ -46,7 +46,7 @@
                                 </v-card-text>
 
                                 <v-card-actions>
-                                    <v-btn color="#331b05" class="rounded-pill" @click="añadirCarrito(producto.id)">
+                                    <v-btn color="#331b05" v-if="producto.proCantDisponible > 0" class="rounded-pill" @click="añadirCarrito(producto.id)">
                                         <v-icon>mdi-cart-plus</v-icon>
                                     </v-btn>
                                     <v-btn color="#331b05" class="rounded-pill"
@@ -89,7 +89,7 @@
                                 </v-card-text>
 
                                 <v-card-actions>
-                                    <v-btn color="#331b05" class="rounded-pill" @click="añadirCarrito(produ.id)">
+                                    <v-btn color="#331b05" v-if="produ.proCantDisponible > 0" class="rounded-pill" @click="añadirCarrito(produ.id)">
                                         <v-icon>mdi-cart-plus</v-icon>
                                     </v-btn>
                                     <v-btn color="#331b05" class="rounded-pill" @click="obtnerIds(produ.id, produ.user_id)">
