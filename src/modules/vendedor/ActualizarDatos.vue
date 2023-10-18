@@ -33,7 +33,7 @@
                     <v-btn class="rounded-pill" color="#331b05" type="submit">
                         Actualizar
                     </v-btn>
-                    <v-btn color="#331b05" class="rounded-pill" to="inicio-vendedor">
+                    <v-btn color="#331b05" class="rounded-pill" to="inicio">
                         Cancelar
                     </v-btn>
                 </v-row>

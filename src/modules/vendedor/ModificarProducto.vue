@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5" max-width="1500px">
+    <v-card color="#da9f68" width="90%" elevation="24" class="px-5" max-width="1500px">
         <h1>GESTIONAR PRODUCTOS</h1>
         <div id="logoForm">
             <i class="fa fa-gears"></i>
@@ -19,7 +19,7 @@
                     <tr>
                         <td>{{ row.item.proCodigo }}</td>
                         <td>{{ row.item.proNombre }}</td>
-                        <td>{{ row.item.proDescripcion }}</td>
+                        <td class="w-500">{{ row.item.proDescripcion }}</td>
                         <td>{{ row.item.proCantDisponible }}</td>
                         <td>$ {{ comaEnMiles(row.item.proPrecio) }} COP</td>
                         <td>
@@ -193,7 +193,6 @@ export default {
                 this.desserts.push(element);
             });
             this.loadingTable = false
-            console.log(this.desserts);
         },
         async obtenerProductoId(id) {
             this.idProducto = id;
@@ -231,7 +230,6 @@ export default {
                     user_id: localStorage.idUsuario
                 }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                 .then((response) => {
-                    console.log(response);
                     if (response.data.result.error_id == 400) {
                         Swal.fire(
                             '¡Datos incorrectos!',
@@ -264,7 +262,6 @@ export default {
                     data: { id: this.idProducto }
                 }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
                 .then((response) => {
-                    console.log(response);
                     if (response.data.result.error_id == 400) {
                         Swal.fire(
                             '¡Error al desactivar!',
@@ -316,7 +313,7 @@ export default {
 }
 
 .tabla {
-    background: #7b5028;
+    background: #ece8e5;
 }
 
 h1 {
@@ -336,10 +333,15 @@ h2 {
     padding-bottom: 10px;
 }
 
-.form{
+.form {
     display: flex;
     flex-direction: column;
     width: 90%;
     margin: auto;
+}
+
+.w-500 {
+    max-width: 400px;
+    text-wrap: balance;
 }
 </style>

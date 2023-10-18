@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" max-width="800px" elevation="24" class="px-5">
+    <v-card color="#da9f68" dark width="90%" max-width="700px" elevation="24" class="px-5">
         <form class="form" @submit.prevent="actualizarDatos()">
             <h1>ACTUALIZAR DATOS</h1>
             <div id="logoForm" class="my-5">
@@ -20,7 +20,7 @@
                 </v-col>
             </v-row>
             <v-row class="my-5">
-                <v-btn class="mr-4 rounded-pill" color="#331b05" type="submit">
+                <v-btn class="mr-4 rounded-pill" color="#331b05" type="submit" :loading="loading">
                     Actualizar
                 </v-btn>
                 <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
@@ -28,46 +28,53 @@
                 </v-btn>
             </v-row>
         </form>
-
-        <hr>
-
-        <form class="form mt-8" @submit.prevent="cambiarContraseña()">
-                <h1>CAMBIAR CONTRASEÑA</h1>
-                <div id="logoForm" class="my-5">
-                    <i class="fa fa-lock"></i>
-                </div>
-                <v-row>
-                    <v-col class="col-6">
-                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Contraseña actual" hint="Minimo 5 caracteres" class="input-group--focused"
-                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtPasswordActual"
-                            required></v-text-field>
-                    </v-col>
-                    <v-col class="col-6">
-                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min, rules.passReq]" :type="show3 ? 'text' : 'password'"
-                            name="input-10-2" label="Contraseña nueva" hint="Minimo 5 caracteres"
-                            class="input-group--focused" @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"
-                            v-model="txtPasswordNueva" required></v-text-field>
-                    </v-col>
-                    <v-col class="col-6">
-                        <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                            label="Confirmar contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
-                            @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtConfirPassword"
-                            required></v-text-field>
-                    </v-col>
-                </v-row>
-                <v-row class="my-5">
-                    <v-btn class="mr-4 rounded-pill" color="#331b05" type="submit">
-                        Cambiar contraseña
-                    </v-btn>
-                    <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
-                        Cancelar
-                    </v-btn>
-                </v-row>
-            </form>
+        <v-dialog v-model="dialog" persistent max-width="700px">
+            <v-card>
+                <form class="form mt-8" @submit.prevent="cambiarContraseña()">
+                    <h1>CAMBIAR CONTRASEÑA</h1>
+                    <div id="logoForm" class="my-5">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <v-row class="pa-0 ma-0">
+                        <v-col class="col-12">
+                            <div class="center">
+                                <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
+                                    label="Contraseña actual" hint="Minimo 5 caracteres" class="input-group--focused"
+                                    @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtPasswordActual"
+                                    required></v-text-field>
+                            </div>
+                        </v-col>
+                        <v-col class="col-12">
+                            <div class="center">
+                                <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :rules="[rules.required, rules.min, rules.passReq]" :type="show3 ? 'text' : 'password'"
+                                    name="input-10-2" label="Contraseña nueva" hint="Minimo 5 caracteres"
+                                    class="input-group--focused" @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"
+                                    v-model="txtPasswordNueva" required></v-text-field>
+                            </div>
+                        </v-col>
+                        <v-col class="col-12">
+                            <div class="center">
+                                <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
+                                    label="Confirmar contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
+                                    @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtConfirPassword"
+                                    required></v-text-field>
+                            </div>
+                        </v-col>
+                    </v-row>
+                    <v-row class="my-5 gap">
+                        <v-btn class="rounded-pill" type="submit" :loading="loading">
+                            Cambiar contraseña
+                        </v-btn>
+                        <v-btn class="rounded-pill" @click="dialog = false">
+                            Cancelar
+                        </v-btn>
+                    </v-row>
+                </form>
+            </v-card>
+        </v-dialog>
     </v-card>
 </template>
   
@@ -100,6 +107,8 @@ export default {
         txtApellido: "",
         txtCorreo: "",
         usuario: null,
+        loading: false,
+        dialog: false,
     }),
     methods: {
         async obtenerUsuario() {
@@ -111,6 +120,7 @@ export default {
             this.txtCorreo = this.usuario.useCorreo;
         },
         async actualizarDatos() {
+            this.loading = true
             axios
                 .patch(this.url + "/user/update", {
                     id: localStorage.idUsuario,
@@ -133,6 +143,7 @@ export default {
                         'Verifique que esta haciendo el proceso correctamente',
                         'error'
                     )
+                    this.loading = false
                     console.log(error);
                 });
         },
@@ -211,10 +222,10 @@ export default {
     align-items: center;
     justify-content: center;
     font-size: 100px;
-    color: #331b05;
+    color: #202020;
 }
 
-.form {
+.form, .center {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -223,7 +234,11 @@ export default {
 
 .form h1,
 .form .v-input {
-    width: 100%;
+    width: 80%;
     text-align: center;
+}
+
+.gap{
+    gap: 20px;
 }
 </style>

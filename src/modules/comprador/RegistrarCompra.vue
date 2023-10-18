@@ -1,19 +1,21 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="pa-5">
+    <v-card color="#da9f68" width="90%" elevation="24" class="pa-5">
         <div class="center">
-            <v-card-title class="tabla">
-                <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line hide-details
-                    required></v-text-field>
-            </v-card-title>
             <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla mb-5" multi-sort
                 :footer-props="{ itemsPerPageText: 'Número de filas', pageText: '{0}-{1} de {2}' }" :items-per-page="5"
                 :loading="loadingTable" loading-text="Cargando... Por favor espera" no-data-text="No hay productos"
                 no-results-text="No hay ningun producto que coincida">
+                <template v-slot:top>
+                    <v-card-title class="tabla">
+                        <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line hide-details
+                            required></v-text-field>
+                    </v-card-title>
+                </template>
                 <template v-slot:item="row">
                     <tr>
                         <td>{{ row.item.proCodigo }}</td>
                         <td>{{ row.item.proNombre }}</td>
-                        <td>{{ row.item.proDescripcion }}</td>
+                        <td class="w-500">{{ row.item.proDescripcion }}</td>
                         <td>{{ row.item.proCantDisponible }}</td>
                         <td>{{ row.item.cantidad }}</td>
                         <td>$ {{ comaEnMiles(row.item.proPrecio * row.item.cantidad) }} COP</td>
@@ -22,18 +24,18 @@
                                 :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
                         </td>
                         <td>
-                            <v-btn color="#331b05" @click="eliminar(row.item)">
+                            <v-btn color="#925419" @click="eliminar(row.item)">
                                 <v-icon dark>mdi-close-box</v-icon>
                             </v-btn>
                         </td>
                     </tr>
                 </template>
             </v-data-table>
-            <v-btn color="#331b05" @click="dialogUbicacion = true, prepararCarrito()" max-width="200px">
+            <v-btn color="#925419" @click="dialogUbicacion = true, prepararCarrito()" max-width="200px">
                 comprar
             </v-btn>
         </div>
-        <v-dialog v-model="dialogUbicacion" persistent max-width="1000px">
+        <v-dialog v-model="dialogUbicacion" persistent max-width="700px">
             <v-card>
                 <form @submit.prevent="comprar()" class="center">
                     <h1 class="mb-10">Datos del Pedido</h1>
@@ -54,7 +56,7 @@
                         <h3>Total: ${{ comaEnMiles(total) }} COP</h3>
                     </div>
                     <div class="btns">
-                        <v-btn type="submit">
+                        <v-btn type="submit" :loading="btnLoading">
                             Comprar
                         </v-btn>
                         <v-btn @click="dialogUbicacion = false">
@@ -104,6 +106,7 @@ export default {
             ],
             desserts: [],
             loadingTable: false,
+            btnLoading: false,
             url: process.env.VUE_APP_URL_BASE_TIENDA,
         }
     },
@@ -131,6 +134,7 @@ export default {
             }
         },
         comprar() {
+            this.btnLoading = true
             this.prepararCarrito()
 
             let url = `${process.env.VUE_APP_URL_BASE_TIENDA}/purchase/create`
@@ -153,7 +157,7 @@ export default {
 
             axios.post(url, data, config)
                 .then(res => {
-                    console.log(res);
+                    res
                     this.desserts = []
                     this.$store.dispatch('eliminarCarrito')
                     Swal.fire(
@@ -161,8 +165,10 @@ export default {
                         'Se ha registrado la compra, ahora debera esperar a que el vendedor la apruebe',
                         'success'
                     )
+                    this.btnLoading = false
                 }).catch(err => {
                     console.log(err);
+                    this.btnLoading = false
                 })
         },
         prepararCarrito() {
@@ -262,7 +268,7 @@ h1 {
 }
 
 .tabla {
-    background: #7b5028;
+    background: #ece8e5;
 }
 
 .center {
@@ -284,5 +290,10 @@ h1 {
 .total {
     align-self: center;
     width: 85%;
+}
+
+.w-500 {
+    max-width: 400px;
+    text-wrap: balance;
 }
 </style>
