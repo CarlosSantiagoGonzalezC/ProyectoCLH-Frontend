@@ -172,7 +172,14 @@ export default {
                         '¡Compra registrada!',
                         'Se ha registrado la compra, ahora debera esperar a que el vendedor la apruebe',
                         'success'
-                    )
+                    ).then(() => {
+                        // this.dialogUbicacion = false
+                        // this.direccion = ""
+                        // this.ciudad = ""
+                        // this.departamento = ""
+                        // this.fileComprobante = null
+                        location.reload()
+                    })
                     this.btnLoading = false
                 }).catch(err => {
                     console.log(err);
