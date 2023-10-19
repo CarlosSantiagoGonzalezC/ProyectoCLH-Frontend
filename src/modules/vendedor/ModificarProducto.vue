@@ -69,7 +69,7 @@
                                 prepend-inner-icon="mdi-cash" v-model="txtPrecio" required></v-text-field>
                         </v-col>
                         <v-col cols="12" md="6">
-                            <v-file-input filled label="Imagen" prepend-inner-icon="mdi-image" prepend-icon="" chips counter
+                            <v-file-input filled label="Imagen" accept="image/*" show-size prepend-inner-icon="mdi-image" prepend-icon="" chips counter
                                 v-model="fileImagen"></v-file-input>
                         </v-col>
                         <v-col cols="12" md="6">
@@ -328,7 +328,7 @@ h2 {
 .btns {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     gap: 10px;
     padding-bottom: 10px;
 }

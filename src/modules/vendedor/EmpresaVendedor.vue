@@ -12,7 +12,7 @@
                             prepend-inner-icon="mdi-card-account-details" v-model="txtNombre" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-                        <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
+                        <v-file-input filled label="Imagen" accept="image/*" show-size :rules="[rules.required]" prepend-inner-icon="mdi-image"
                             prepend-icon="" chips counter v-model="fileImagen" required></v-file-input>
                     </v-col>
                     <v-col cols="12">

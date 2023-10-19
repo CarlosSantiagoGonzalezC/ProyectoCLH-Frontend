@@ -25,9 +25,9 @@
                             v-model="txtDireccion" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-                        <v-file-input filled label="Permiso de vendedor" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-file-document" prepend-icon="" v-model="filePermiso"
-                            required></v-file-input>
+                        <v-file-input filled label="RUNAPA o RENAC" accept=".pdf" show-size
+                            :rules="[rules.required]" prepend-inner-icon="mdi-file-document" prepend-icon=""
+                            v-model="filePermiso" required></v-file-input>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled label="Número de contacto" type="number" :rules="[rules.required]"

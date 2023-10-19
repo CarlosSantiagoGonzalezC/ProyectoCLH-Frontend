@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5" max-width="1500px">
+    <v-card color="#da9f68" width="90%" elevation="24" class="px-5" max-width="1500px">
 
         <h1>MIS COMPRAS</h1>
         <div id="logoForm">
@@ -129,7 +129,7 @@ export default {
 }
 
 .tabla {
-    background: #7b5028;
+    background: #ece8e5;
 }
 
 .cursor{

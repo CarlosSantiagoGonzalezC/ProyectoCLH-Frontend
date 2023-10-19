@@ -7,30 +7,40 @@
             </div>
             <v-row>
                 <v-col cols="12">
-                    <v-text-field filled label="Nombres" :rules="[rules.required]"
-                        prepend-inner-icon="mdi-card-account-details" v-model="txtNombre" required></v-text-field>
+                    <div class="center">
+                        <v-text-field filled label="Nombres" :rules="[rules.required]"
+                            prepend-inner-icon="mdi-card-account-details" v-model="txtNombre" required></v-text-field>
+                    </div>
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field filled label="Apellidos" :rules="[rules.required]"
-                        prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido" required></v-text-field>
+                    <div class="center">
+                        <v-text-field filled label="Apellidos" :rules="[rules.required]"
+                            prepend-inner-icon="mdi-card-account-details-outline" v-model="txtApellido"
+                            required></v-text-field>
+                    </div>
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field filled label="Correo electrónico" type="email" :rules="[rules.required]"
-                        prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
+                    <div class="center">
+                        <v-text-field filled label="Correo electrónico" type="email" :rules="[rules.required]"
+                            prepend-inner-icon="mdi-at" v-model="txtCorreo" required></v-text-field>
+                    </div>
                 </v-col>
             </v-row>
-            <v-row class="my-5">
-                <v-btn class="mr-4 rounded-pill" color="#331b05" type="submit" :loading="loading">
+            <v-row class="my-5 gap">
+                <v-btn class="rounded-pill" color="#331b05" type="submit" :loading="loading">
                     Actualizar
                 </v-btn>
-                <v-btn color="#331b05" class="rounded-pill" to="inicio-comprador">
+                <v-btn color="#331b05" class="rounded-pill" @click="dialog = true">
+                    Cambiar Contraseña
+                </v-btn>
+                <v-btn color="#331b05" class="rounded-pill" to="Inicio">
                     Cancelar
                 </v-btn>
             </v-row>
         </form>
         <v-dialog v-model="dialog" persistent max-width="700px">
             <v-card>
-                <form class="form mt-8" @submit.prevent="cambiarContraseña()">
+                <form class="form" @submit.prevent="cambiarContraseña()">
                     <h1>CAMBIAR CONTRASEÑA</h1>
                     <div id="logoForm" class="my-5">
                         <i class="fa fa-lock"></i>
@@ -39,10 +49,10 @@
                         <v-col class="col-12">
                             <div class="center">
                                 <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                                    :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                                    label="Contraseña actual" hint="Minimo 5 caracteres" class="input-group--focused"
-                                    @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtPasswordActual"
-                                    required></v-text-field>
+                                    :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'"
+                                    name="input-10-2" label="Contraseña actual" hint="Minimo 5 caracteres"
+                                    class="input-group--focused" @click:append="show3 = !show3"
+                                    prepend-inner-icon="mdi-lock" v-model="txtPasswordActual" required></v-text-field>
                             </div>
                         </v-col>
                         <v-col class="col-12">
@@ -50,25 +60,25 @@
                                 <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
                                     :rules="[rules.required, rules.min, rules.passReq]" :type="show3 ? 'text' : 'password'"
                                     name="input-10-2" label="Contraseña nueva" hint="Minimo 5 caracteres"
-                                    class="input-group--focused" @click:append="show3 = !show3" prepend-inner-icon="mdi-lock"
-                                    v-model="txtPasswordNueva" required></v-text-field>
+                                    class="input-group--focused" @click:append="show3 = !show3"
+                                    prepend-inner-icon="mdi-lock" v-model="txtPasswordNueva" required></v-text-field>
                             </div>
                         </v-col>
                         <v-col class="col-12">
                             <div class="center">
                                 <v-text-field filled :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                                    :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'" name="input-10-2"
-                                    label="Confirmar contraseña" hint="Minimo 5 caracteres" class="input-group--focused"
-                                    @click:append="show3 = !show3" prepend-inner-icon="mdi-lock" v-model="txtConfirPassword"
-                                    required></v-text-field>
+                                    :rules="[rules.required, rules.min]" :type="show3 ? 'text' : 'password'"
+                                    name="input-10-2" label="Confirmar contraseña" hint="Minimo 5 caracteres"
+                                    class="input-group--focused" @click:append="show3 = !show3"
+                                    prepend-inner-icon="mdi-lock" v-model="txtConfirPassword" required></v-text-field>
                             </div>
                         </v-col>
                     </v-row>
                     <v-row class="my-5 gap">
-                        <v-btn class="rounded-pill" type="submit" :loading="loading">
+                        <v-btn class="rounded-pill" color="rgb(189 189 189)" type="submit" :loading="loading">
                             Cambiar contraseña
                         </v-btn>
-                        <v-btn class="rounded-pill" @click="dialog = false">
+                        <v-btn class="rounded-pill" color="rgb(189 189 189)" @click="dialog = false">
                             Cancelar
                         </v-btn>
                     </v-row>
@@ -128,8 +138,8 @@ export default {
                     useApellidos: this.txtApellido,
                     useCorreo: this.txtCorreo
                 }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
-                .then(function (response) {
-                    console.log(response);
+                .then((response) => {
+                    response
                     Swal.fire(
                         '¡Datos actualizados!',
                         'Se han actualizado los datos correctamente',
@@ -154,12 +164,14 @@ export default {
         },
 
         async cambiarContraseña() {
+            this.loading = true
             if (!this.validarContraseña(this.txtPasswordNueva)) {
                 Swal.fire(
                     '¡Error!',
                     'La contraseña debe contener al menos un número, una mayúscula y una minúscula.',
                     'error'
                 );
+                this.loading = false
                 return;
             }
 
@@ -171,8 +183,8 @@ export default {
                         passwordActual: this.txtPasswordActual,
                         passwordNueva: this.txtPasswordNueva
                     }, axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`)
-                    .then(function (response) {
-                        console.log(response);
+                    .then((response) => {
+                        response
                         if (response.data.result.error_id == "200") {
                             Swal.fire(
                                 '¡Contraseña incorrecta!',
@@ -185,18 +197,18 @@ export default {
                                 'Se ha actualizado la contraseña correctamente',
                                 'success'
                             )
-                            setTimeout(function () {
-                                window.location.reload()
-                            }, 3000);
+                                .then(location.reload())
                         }
+                        this.loading = false
 
                     })
-                    .catch(function (error) {
+                    .catch((error) => {
                         Swal.fire(
                             '¡Error al actualizar contraseña!',
                             'Verifique que su contraseña actual sea correcta',
                             'error'
                         )
+                        this.loading = false
                         console.log(error);
                     });
             } else {
@@ -205,6 +217,7 @@ export default {
                     'La confirmacion de contraseña no es correcta',
                     'error'
                 )
+                this.loading = false
             }
         },
 
@@ -225,7 +238,8 @@ export default {
     color: #202020;
 }
 
-.form, .center {
+.form,
+.center {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -238,7 +252,7 @@ export default {
     text-align: center;
 }
 
-.gap{
+.gap {
     gap: 20px;
 }
 </style>

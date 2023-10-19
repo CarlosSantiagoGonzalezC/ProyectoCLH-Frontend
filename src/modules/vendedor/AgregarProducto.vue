@@ -24,7 +24,7 @@
                         prepend-inner-icon="mdi-cash" v-model="txtPrecio" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
-                    <v-file-input filled label="Imagen" :rules="[rules.required]" prepend-inner-icon="mdi-image"
+                    <v-file-input filled label="Imagen" :rules="[rules.required]" accept="image/*" show-size prepend-inner-icon="mdi-image"
                         prepend-icon="" v-model="fileImagen" chips counter required></v-file-input>
                 </v-col>
                 <v-col cols="12" md="6">

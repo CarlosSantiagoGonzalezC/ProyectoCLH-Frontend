@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="pl-16 pr-16">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5">
         <v-card-text>
             <v-chip-group v-model="categoria">
                 <v-chip class="ma-4" color="#7b5028" pill v-for="categoria in categorias" :key="categoria.id"
@@ -16,64 +16,70 @@
                     </div>
                 </template>
                 <template v-else-if="categoria == null">
-                    <v-card :loading="loading" class="producto mx-auto my-12" max-width="374" v-for="producto in productos"
-                        :key="producto.id" elevation="7">
-                        <template slot="progress">
-                            <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
-                        </template>
+                    <v-col v-for="producto in productos" :key="producto.id">
+                        <div class="center">
+                            <v-card class="producto" max-width="400" width="100%" elevation="7">
+                                <template slot="progress">
+                                    <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
+                                </template>
 
-                        <v-img height="250" :src="producto.proImagen"></v-img>
+                                <v-img height="250" :src="producto.proImagen"></v-img>
 
-                        <v-card-title>{{ producto.proNombre }}</v-card-title>
+                                <v-card-title>{{ producto.proNombre }}</v-card-title>
 
-                        <v-card-text>
-                            <div class="my-4 text-subtitle-1 text-left">
-                                $ {{ comaEnMiles(producto.proPrecio) }} COP
-                            </div>
+                                <v-card-text>
+                                    <div class="my-4 text-subtitle-1 text-left">
+                                        $ {{ comaEnMiles(producto.proPrecio) }} COP
+                                    </div>
 
-                            <div>{{ producto.proDescripcion }}
-                            </div>
-                        </v-card-text>
+                                    <div>{{ producto.proDescripcion }}
+                                    </div>
+                                </v-card-text>
 
-                        <v-divider class="mx-4"></v-divider>
+                                <v-divider class="mx-4"></v-divider>
 
-                        <v-card-title>Cantidad disponible</v-card-title>
+                                <v-card-title>Cantidad disponible</v-card-title>
 
-                        <v-card-text class="text-left">
-                            <v-chip>{{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ?
-                                'disponibles' : 'disponible' }}</v-chip>
-                        </v-card-text>
-                    </v-card>
+                                <v-card-text class="text-left">
+                                    <v-chip>{{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ?
+                                        'disponibles' : 'disponible' }}</v-chip>
+                                </v-card-text>
+                            </v-card>
+                        </div>
+                    </v-col>
                 </template>
                 <template v-else-if="productosCategoria.length != 0">
-                    <v-card :loading="loading" class="producto mx-auto my-12" max-width="374"
-                        v-for="produ in productosCategoria" :key="produ.id" elevation="7">
-                        <template slot="progress">
-                            <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
-                        </template>
+                    <v-col v-for="producto in productosCategoria" :key="producto.id">
+                        <div class="center">
+                            <v-card class="producto" max-width="400" width="100%" elevation="7">
+                                <template slot="progress">
+                                    <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
+                                </template>
 
-                        <v-img height="250" :src="produ.proImagen"></v-img>
+                                <v-img height="250" :src="producto.proImagen"></v-img>
 
-                        <v-card-title>{{ produ.proNombre }}</v-card-title>
+                                <v-card-title>{{ producto.proNombre }}</v-card-title>
 
-                        <v-card-text>
-                            <div class="my-4 text-subtitle-1 text-left">
-                                $ {{ comaEnMiles(produ.proPrecio) }} COP
-                            </div>
+                                <v-card-text>
+                                    <div class="my-4 text-subtitle-1 text-left">
+                                        $ {{ comaEnMiles(producto.proPrecio) }} COP
+                                    </div>
 
-                            <div>{{ produ.proDescripcion }}
-                            </div>
-                        </v-card-text>
+                                    <div>{{ producto.proDescripcion }}
+                                    </div>
+                                </v-card-text>
 
-                        <v-divider class="mx-4"></v-divider>
+                                <v-divider class="mx-4"></v-divider>
 
-                        <v-card-title>Cantidad disponible</v-card-title>
+                                <v-card-title>Cantidad disponible</v-card-title>
 
-                        <v-card-text class="text-left">
-                            <v-chip>{{ produ.proCantDisponible }} {{ produ.proCantDisponible > 1 ?
-                                'disponibles' : 'disponible' }}</v-chip>
-                        </v-card-text>
-                    </v-card>
+                                <v-card-text class="text-left">
+                                    <v-chip>{{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ?
+                                        'disponibles' : 'disponible' }}</v-chip>
+                                </v-card-text>
+                            </v-card>
+                        </div>
+                    </v-col>
                 </template>
                 <template v-else>
                     <div class="nohay">
@@ -164,5 +170,12 @@ h1 {
 
 .w-100 {
     width: 100%;
+}
+
+.center {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
 }
 </style>

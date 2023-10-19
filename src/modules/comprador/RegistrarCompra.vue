@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="pa-5">
+    <v-card color="#da9f68" width="90%" elevation="24" class="pa-5">
         <h1>COMPRAR</h1>
         <div id="logoForm">
             <i class="fa fa-bag-shopping"></i>

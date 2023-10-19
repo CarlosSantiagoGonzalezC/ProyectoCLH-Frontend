@@ -39,9 +39,6 @@
                 </button>
                 <div class="dropdown-content" :class="show ? 'show' : 'hidden'">
                     <img src="@/assets/usuario.png" class="user-foto">
-                    <div>
-                        <img src="@/assets/divisas.png" alt="divisas" class="divisas">
-                    </div>
                     <div class="options">
                         <router-link :to="{ name: 'actualizarVendedor' }" class="btn-options" @click.native="show = false">
                             <v-icon>mdi-cogs</v-icon>
