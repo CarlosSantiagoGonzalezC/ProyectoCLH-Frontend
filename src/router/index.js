@@ -86,6 +86,11 @@ const routes = [
                         name: 'compra',
                         component: () => import('@/modules/comprador/RegistrarCompra.vue')
                     },
+                    {
+                        path: 'compras',
+                        name: 'ComprasApp',
+                        component: () => import('@/modules/comprador/ComprasApp.vue')
+                    },
                 ]
             },
             {

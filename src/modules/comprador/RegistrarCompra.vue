@@ -1,16 +1,24 @@
 <template>
-    <v-card color="#da9f68" width="90%" elevation="24" class="pa-5">
-        <div class="center">
+    <v-card color="#da9f68" dark width="90%" elevation="24" class="pa-5">
+        <h1>COMPRAR</h1>
+        <div id="logoForm">
+            <i class="fa fa-bag-shopping"></i>
+        </div>
+        <div class="center mt-8">
+            <v-card-title class="tabla">
+                <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line hide-details
+                    required></v-text-field>
+            </v-card-title>
             <v-data-table :headers="headers" :items="desserts" :search="search" class="tabla mb-5" multi-sort
                 :footer-props="{ itemsPerPageText: 'Número de filas', pageText: '{0}-{1} de {2}' }" :items-per-page="5"
                 :loading="loadingTable" loading-text="Cargando... Por favor espera" no-data-text="No hay productos"
                 no-results-text="No hay ningun producto que coincida">
-                <template v-slot:top>
+                <!-- <template v-slot:top>
                     <v-card-title class="tabla">
                         <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar" single-line hide-details
                             required></v-text-field>
                     </v-card-title>
-                </template>
+                </template> -->
                 <template v-slot:item="row">
                     <tr>
                         <td>{{ row.item.proCodigo }}</td>
@@ -258,6 +266,15 @@ export default {
 </script>
 
 <style scoped>
+#logoForm {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    color: #331b05;
+}
+
 .v-card {
     min-height: 60vh;
 }
@@ -274,7 +291,6 @@ h1 {
 .center {
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: 100%;
     justify-content: center;
 }

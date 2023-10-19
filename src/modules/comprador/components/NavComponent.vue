@@ -68,6 +68,10 @@
                                 <v-icon>mdi-cogs</v-icon>
                                 Ajustes
                             </button>
+                            <button @click="irCompras()">
+                                <v-icon>mdi-store-check-outline</v-icon>
+                                Compras
+                            </button>
                             <button @click="salir()">
                                 <v-icon>mdi-logout</v-icon>
                                 Salir
@@ -119,6 +123,9 @@ export default {
         },
         irAjustes() {
             this.$router.push({ name: 'actualizarUser' }).catch(() => { });
+        },
+        irCompras() {
+            this.$router.push({ name: 'ComprasApp' }).catch(() => { });
         },
         descargarPDF() {
             // Ruta relativa al archivo PDF en la carpeta 'public'
