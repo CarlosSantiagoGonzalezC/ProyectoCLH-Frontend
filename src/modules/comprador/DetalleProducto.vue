@@ -178,7 +178,7 @@ export default {
         comprar(producto) {
             this.$set(producto, 'cantidad', 1)
             let p = JSON.stringify(producto)
-            if (!localStorage.listaProductos.includes(p)) {
+            if (!localStorage.listaProductos || !localStorage.listaProductos.includes(p)) {
                 store.dispatch('productoAñadido', producto);
             }
             this.$router.push({ name: 'compra' });

@@ -25,9 +25,9 @@
                             v-model="txtDireccion" required></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-                        <v-file-input filled label="Permiso de vendedor" :rules="[rules.required]"
-                            prepend-inner-icon="mdi-file-document" prepend-icon="" v-model="filePermiso"
-                            required></v-file-input>
+                        <v-file-input filled label="RUNAPA o RENAC" accept=".pdf" show-size
+                            :rules="[rules.required]" prepend-inner-icon="mdi-file-document" prepend-icon=""
+                            v-model="filePermiso" required></v-file-input>
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-text-field filled label="Número de contacto" type="number" :rules="[rules.required]"
@@ -49,7 +49,7 @@
                     </v-col>
                 </v-row>
                 <div class="btns">
-                    <v-btn class="rounded-pill" color="#331b05" type="submit">
+                    <v-btn class="rounded-pill" color="#331b05" type="submit" :loading="loading">
                         Registrarse
                     </v-btn>
                     <v-btn color="#331b05" class="rounded-pill" to="inicio">
@@ -94,6 +94,7 @@ export default {
         txtNumContacto: "",
         txtPassword: "",
         txtConfirPassword: "",
+        loading: false,
     }),
     watch: {
         filePermiso: {
@@ -118,12 +119,14 @@ export default {
             return regex.test(contraseña);
         },
         registrarVendedor() {
+            this.loading = true
             if (!this.validarContraseña(this.txtPassword)) {
                 Swal.fire(
                     '¡Error!',
                     'La contraseña debe contener al menos un número, una mayúscula y una minúscula.',
                     'error'
                 );
+                this.loading = false
                 return;
             }
 
@@ -145,32 +148,31 @@ export default {
                                 selPermiso: this.base64Archivo,
                                 user_id: response.data.result.id
                             })
-                            .then(function (respuesta) {
+                            .then((respuesta) => {
                                 console.log(respuesta);
-                                setTimeout(function () {
-                                    location.href = "/login";
-                                }, 3000);
                                 Swal.fire(
                                     '¡Usuario registrado!',
                                     'Se ha registrado el usuario correctamente',
                                     'success'
-                                )
+                                ).then(this.$router.push({ name: "login" }).catch(() => { }))
                             })
-                            .catch(function (error) {
+                            .catch((error) => {
                                 Swal.fire(
                                     '¡Error al registrarse!',
                                     'Verifique que esta haciendo el proceso correctamente',
                                     'error'
                                 )
                                 console.log(error);
+                                this.loading = false
                             });
                     })
-                    .catch(function (error) {
+                    .catch((error) => {
                         Swal.fire(
                             '¡Error al registrarse!',
                             'Verifique que esta haciendo el proceso correctamente',
                             'error'
                         )
+                        this.loading = false
                         console.log(error);
                     });
             } else {
@@ -179,6 +181,7 @@ export default {
                     'La confirmacion de contraseña no es correcta',
                     'error'
                 )
+                this.loading = false
             }
 
         },

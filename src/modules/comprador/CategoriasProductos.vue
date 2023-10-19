@@ -46,7 +46,7 @@
                                 </v-card-text>
 
                                 <v-card-actions>
-                                    <v-btn color="#331b05" class="rounded-pill" @click="añadirCarrito(producto.id)">
+                                    <v-btn color="#331b05" v-if="producto.proCantDisponible > 0" class="rounded-pill" @click="añadirCarrito(producto.id)">
                                         <v-icon>mdi-cart-plus</v-icon>
                                     </v-btn>
                                     <v-btn color="#331b05" class="rounded-pill"
@@ -59,23 +59,23 @@
                     </v-col>
                 </template>
                 <template v-else-if="productosCategoria.length != 0">
-                    <v-col v-for="produ in productosCategoria" :key="produ.id">
+                    <v-col v-for="producto in productosCategoria" :key="producto.id">
                         <div class="center">
-                            <v-card class="producto" max-width="300" elevation="7">
+                            <v-card class="producto" max-width="400" width="100%" elevation="7">
                                 <template slot="progress">
                                     <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                                 </template>
 
-                                <v-img height="250" :src="produ.proImagen"></v-img>
+                                <v-img height="250" :src="producto.proImagen"></v-img>
 
-                                <v-card-title>{{ produ.proNombre }}</v-card-title>
+                                <v-card-title>{{ producto.proNombre }}</v-card-title>
 
                                 <v-card-text>
                                     <div class="my-4 text-subtitle-1 text-left">
-                                        $ {{ comaEnMiles(produ.proPrecio) }} COP
+                                        $ {{ comaEnMiles(producto.proPrecio) }} COP
                                     </div>
 
-                                    <div>{{ produ.proDescripcion }}
+                                    <div>{{ producto.proDescripcion }}
                                     </div>
                                 </v-card-text>
 
@@ -84,15 +84,16 @@
                                 <v-card-title>Cantidad disponible</v-card-title>
 
                                 <v-card-text class="text-left">
-                                    <v-chip>{{ produ.proCantDisponible }} {{ produ.proCantDisponible > 1 ?
+                                    <v-chip>{{ producto.proCantDisponible }} {{ producto.proCantDisponible > 1 ?
                                         'disponibles' : 'disponible' }}</v-chip>
                                 </v-card-text>
 
                                 <v-card-actions>
-                                    <v-btn color="#331b05" class="rounded-pill" @click="añadirCarrito(produ.id)">
+                                    <v-btn color="#331b05" v-if="producto.proCantDisponible > 0" class="rounded-pill" @click="añadirCarrito(producto.id)">
                                         <v-icon>mdi-cart-plus</v-icon>
                                     </v-btn>
-                                    <v-btn color="#331b05" class="rounded-pill" @click="obtnerIds(produ.id, produ.user_id)">
+                                    <v-btn color="#331b05" class="rounded-pill"
+                                        @click="obtnerIds(producto.id, producto.user_id)">
                                         <v-icon>mdi-eye</v-icon>
                                     </v-btn>
                                 </v-card-actions>

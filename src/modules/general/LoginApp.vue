@@ -62,7 +62,7 @@ export default {
     methods: {
         onCaptchaVerified(response) {
             // Manejar la respuesta del captcha aquí
-            console.log("Captcha verificado:", response);
+            // console.log("Captcha verificado:", response);
             this.recaptcha = response;
         },
         async iniciarSesion() {
@@ -104,6 +104,7 @@ export default {
                             'Verifique que sus credenciales sean validas',
                             'error'
                         )
+                        this.cargando = false
                     });
             }
 

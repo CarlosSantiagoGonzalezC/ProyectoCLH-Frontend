@@ -1,5 +1,5 @@
 <template>
-    <v-card color="#da9f68" dark width="90%" elevation="24" class="px-5" max-width="1500px">
+    <v-card color="#da9f68" width="90%" elevation="24" class="px-5" max-width="1500px">
 
         <h1>PEDIDOS</h1>
         <div id="logoForm">
@@ -16,41 +16,48 @@
                 no-results-text="No hay ningun pedido que coincida">
                 <template v-slot:item="row">
                     <tr>
-                        <td>{{ row.item.proCodigo }}</td>
-                        <td>{{ row.item.proNombre }}</td>
-                        <td>{{ row.item.proDescripcion }}</td>
-                        <td>{{ row.item.proCantDisponible }}</td>
-                        <td>$ {{ comaEnMiles(row.item.proPrecio) }} COP</td>
+                        <td>{{ row.item.order.ordDepartamento }}</td>
+                        <td>{{ row.item.order.ordCiudad }}</td>
+                        <td>{{ row.item.order.ordDireccion }}</td>
+                        <td>{{ row.item.user.useNombres }} {{ row.item.user.useApellidos }}</td>
                         <td>
-                            <v-img lazy-src="https://picsum.photos/id/11/10/6" height="50" width="50"
-                                :src="row.item.proImagen" class="ma-2 rounded-pill"></v-img>
-                        </td>
-                        <td>
-                            <div class="btns">
-                                <v-btn class="mx-2" fab dark small color="#925419"
-                                    @click="dialogUpdate = true; obtenerProductoId(row.item.id)">
-                                    <v-icon dark>mdi-pencil</v-icon>
-                                </v-btn>
-                                <v-btn class="mx-2" fab dark small color="#925419"
-                                    @click="dialogDelete = true; obtenerProductoId(row.item.id)">
-                                    <v-icon dark>mdi-minus-box</v-icon>
-                                </v-btn>
-                            </div>
+                            <v-btn class="mx-2" fab dark small color="#925419"
+                                @click="dialog = true, dessertsP = row.item.purchases">
+                                <v-icon dark>mdi-information</v-icon>
+                            </v-btn>
                         </td>
                     </tr>
                 </template>
             </v-data-table>
         </v-card>
-
-
+        <v-dialog v-model="dialog" max-width="700px">
+            <v-card>
+                <v-card-title class="tabla">
+                    <v-text-field v-model="searchP" append-icon="mdi-magnify" label="Buscar" single-line hide-details
+                        required></v-text-field>
+                </v-card-title>
+                <v-data-table :headers="headersP" :items="dessertsP" :search="searchP" class="tabla" multi-sort
+                    :footer-props="{ itemsPerPageText: 'Número de filas', pageText: '{0}-{1} de {2}' }" :items-per-page="5"
+                    :loading="loadingTable" loading-text="Cargando... Por favor espera" no-data-text="No hay prooductos"
+                    no-results-text="No hay ningun producto que coincida">
+                    <template v-slot:item="row">
+                        <tr>
+                            <td>{{ row.item.product.proCodigo }}</td>
+                            <td>{{ row.item.product.proNombre }}</td>
+                            <td>{{ row.item.cantidad }}</td>
+                        </tr>
+                    </template>
+                </v-data-table>
+            </v-card>
+        </v-dialog>
     </v-card>
 </template>
   
 <script>
 import '@fortawesome/fontawesome-free/css/all.css';
+import axios from 'axios';
 //import store from '../store/store';
 /*import tiendaService from '@/services/tiendaService';
-import axios from 'axios';
 import Swal from 'sweetalert2';*/
 
 export default {
@@ -61,30 +68,68 @@ export default {
 
     data: () => ({
         search: '',
+        searchP: '',
         headers: [
-            /*{ text: 'Código', value: 'proCodigo' },
-            { text: 'Nombre', value: 'proNombre' },
-            { text: 'Descripción', value: 'proDescripcion' },
-            { text: 'Disponibles', value: 'proCantDisponible' },
-            { text: 'Precio', value: 'proPrecio' },
-            { text: 'Imagen', key: 'img', sortable: false },
-            { text: 'Acciones', key: 'actions', sortable: false },*/
+            { text: 'Departamento', value: 'order.ordDepartamento' },
+            { text: 'Ciudad', value: 'order.ordCiudad' },
+            { text: 'Dirección', value: 'order.ordDireccion' },
+            { text: 'Solicitada por', value: 'user.useNombres' },
+            { text: 'Información', key: 'actions', sortable: false },
+        ],
+        headersP: [
+            { text: 'Codigo', value: 'product.proCodigo' },
+            { text: 'Nombre', value: 'product.proNombre' },
+            { text: 'Cantidad', value: 'cantidad' },
         ],
         desserts: [],
-        loadingTable: true,
-        /*productos: null,
-        product: [],
-        idProducto: "",*/
+        dessertsP: [],
         items: [],
+        loadingTable: true,
+        dialog: false,
         url: process.env.VUE_APP_URL_BASE_TIENDA,
     }),
-    /*watch: {
-        fileImagen: {
-            handler: "convertToBase64",
-            immediate: true,
-        },
-    },*/
     methods: {
+        getPedidos() {
+            this.loadingTable = true
+
+            let id = localStorage.idUsuario
+
+            let url = `${process.env.VUE_APP_URL_BASE_TIENDA}/order/vendedor/${id}`
+
+            let config = {
+                headers: {
+                    Authorization: `Bearer ${localStorage.token}`
+                }
+            }
+
+            axios.get(url, config)
+                .then(res => {
+                    console.log(res);
+                    this.loadingTable = false
+                    this.desserts = res.data
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.loadingTable = false
+                })
+        },
+        // fechaFormat(date) {
+        //     const fecha = new Date(date);
+
+        //     const options = {
+        //         year: 'numeric',
+        //         month: 'long',
+        //         day: 'numeric',
+        //         hour: '2-digit',
+        //         minute: '2-digit',
+        //         second: '2-digit',
+        //         timeZoneName: 'short'
+        //     };
+
+        //     const fechaLegible = fecha.toLocaleDateString('es-ES', options);
+
+        //     return fechaLegible
+        // }
         /*async obtenerProductos() {
             this.loadingTable = true
             this.desserts = []
@@ -114,6 +159,7 @@ export default {
         },*/
     },
     mounted() {
+        this.getPedidos()
         /*this.obtenerProductos();
         this.obtenerCategorias()*/
     },
@@ -131,7 +177,7 @@ export default {
 }
 
 .tabla {
-    background: #7b5028;
+    background: #ece8e5;
 }
 
 h1 {

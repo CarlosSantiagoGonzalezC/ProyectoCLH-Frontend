@@ -36,7 +36,7 @@
                     </v-col>
                 </v-row>
                 <div class="btns">
-                    <v-btn class="rounded-pill" color="#331b05" type="submit">
+                    <v-btn class="rounded-pill" color="#331b05" type="submit" :loading="loading">
                         Registrarse
                     </v-btn>
                     <v-btn color="#331b05" class="rounded-pill" to="inicio">
@@ -76,6 +76,7 @@ export default {
         txtCorreo: "",
         txtPassword: "",
         txtConfirPassword: "",
+        loading: false,
     }),
     methods: {
         validarContraseña(contraseña) {
@@ -83,12 +84,14 @@ export default {
             return regex.test(contraseña);
         },
         async registrarComprador() {
+            this.loading = true
             if (!this.validarContraseña(this.txtPassword)) {
                 Swal.fire(
                     '¡Error!',
                     'La contraseña debe contener al menos un número, una mayúscula y una minúscula.',
                     'error'
                 );
+                this.loading = false
                 return;
             }
 
@@ -102,25 +105,23 @@ export default {
                         usePassword: this.txtPassword,
                         useRol: "Comprador"
                     })
-                    .then(function (response) {
+                    .then((response) => {
                         console.log(response);
-                        setTimeout(function () {
-                            location.href = "/login";
-                        }, 3000);
                         Swal.fire(
                             '¡Usuario registrado!',
                             'Se ha registrado el usuario correctamente',
                             'success'
-                        )
-
+                        ).then(this.$router.push({ name: "login" }).catch(() => { }))
+                        this.loading = false
                     })
-                    .catch(function (error) {
+                    .catch((error) => {
                         Swal.fire(
                             '¡Error al registrarse!',
                             'Verifique que esta haciendo el proceso correctamente',
                             'error'
                         )
                         console.log(error);
+                        this.loading = false
                     });
             } else {
                 Swal.fire(
@@ -128,6 +129,7 @@ export default {
                     'La confirmacion de contraseña no es correcta',
                     'error'
                 )
+                this.loading = false
             }
 
         },
